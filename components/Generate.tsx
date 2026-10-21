@@ -59,6 +59,21 @@ export function Generate() {
   const { copy, label } = useCopy();
   const started = useRef(0);
   const autoStarted = useRef(false);
+  const logRef = useRef<HTMLElement>(null);
+  const lastKey = useRef<StageKey | null>(null);
+  const pausedUntil = useRef(0);
+
+  // Keep the newest progress line in view inside the agent box, unless the reader is scrolling it.
+  useEffect(() => {
+    const box = logRef.current;
+    if (!box || !lastKey.current || Date.now() < pausedUntil.current) return;
+    const el = box.querySelector<HTMLElement>(`[data-stage="${lastKey.current}"] .stage-line:last-child`) ?? box.querySelector<HTMLElement>(`[data-stage="${lastKey.current}"]`);
+    if (!el) return;
+    const top = el.offsetTop;
+    const bottom = top + el.offsetHeight;
+    if (bottom > box.scrollTop + box.clientHeight) box.scrollTo({ top: bottom - box.clientHeight + 16, behavior: "smooth" });
+    else if (top < box.scrollTop) box.scrollTo({ top: top - 16, behavior: "smooth" });
+  }, [stages]);
 
   useEffect(() => {
     if (!running) return;
@@ -67,6 +82,7 @@ export function Generate() {
   }, [running]);
 
   function update(key: StageKey, patch: Partial<{ state: StageState; line: string }>) {
+    if (patch.line) lastKey.current = key;
     setStages((s) => {
       const cur = s[key];
       const lines = patch.line ? [...cur.lines, patch.line].slice(-6) : cur.lines;
@@ -138,7 +154,8 @@ export function Generate() {
             }
             if (e.type === "saved") {
               const stats = e.stats as Record<string, number>;
-              update("check", { state: "done", line: `${stats.cited} of ${stats.sources} sources cited · ${stats.probes} probes` });
+              const probes = stats.probes ?? 0;
+              update("check", { state: "done", line: `${stats.cited} of ${stats.sources} sources cited · ${probes} endpoint probe${probes === 1 ? "" : "s"}` });
               setResult({ slug: String(e.slug), summary: e.summary as GuideSummary, stats });
             }
             if (e.type === "error") fail(String(e.code), String(e.message));
@@ -232,14 +249,21 @@ export function Generate() {
 
       {existing ? null : (
         <div className="gen-cols">
-          <section className="agent-log" aria-label="Agent progress" aria-live="polite">
+          <section
+            ref={logRef}
+            className="agent-log"
+            aria-label="Agent progress"
+            aria-live="polite"
+            onWheel={() => (pausedUntil.current = Date.now() + 6000)}
+            onTouchMove={() => (pausedUntil.current = Date.now() + 6000)}
+          >
             <span className="label-strong" style={{ paddingBottom: 8 }}>
               Agent
             </span>
             {STAGES.map((s) => {
               const st = stages[s.key];
               return (
-                <div key={s.key} className={`stage stage-${st.state}`}>
+                <div key={s.key} data-stage={s.key} className={`stage stage-${st.state}`}>
                   <span style={{ display: "inline-flex", paddingTop: 2 }}>
                     {st.state === "done" ? (
                       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" role="img" aria-label="Done">

@@ -38,6 +38,12 @@ export function composioLine(c: ReturnType<typeof composioFor>): string {
   }`;
 }
 
+// Short form for the UI; composioLine is the version written for the model.
+export function composioLabel(c: ReturnType<typeof composioFor>): string {
+  if (!c.toolkits.length) return "Not in Composio's catalog";
+  return c.toolkits.some((t) => t.managed) ? "Composio has a managed app" : "On Composio, bring your own app";
+}
+
 export function endpointsFor(name: string, domain: string | null): { authURL: string | null; tokenURL: string | null } | null {
   const key = norm(name);
   for (const [k, v] of Object.entries(ENDPOINTS)) {

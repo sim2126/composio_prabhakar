@@ -1,4 +1,4 @@
-import { composioFor, composioLine, endpointsFor } from "@/lib/agent/context";
+import { composioFor, composioLabel, composioLine, endpointsFor } from "@/lib/agent/context";
 import { resolveApp } from "@/lib/agent/resolve";
 import { runTrack, type AppContext, type TrackName } from "@/lib/agent/research";
 import { getGuide, matchApp } from "@/lib/data";
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       return;
     }
     const composio = composioFor(resolved.name, resolved.unit);
-    send({ type: "identified", name: resolved.name, domain: resolved.vendorDomain, slug: resolved.slug, ambiguous: resolved.ambiguous, composio: composioLine(composio) });
+    send({ type: "identified", name: resolved.name, domain: resolved.vendorDomain, slug: resolved.slug, ambiguous: resolved.ambiguous, composio: composioLabel(composio) });
 
     if (!refresh) {
       const existing = await getGuide(resolved.slug);

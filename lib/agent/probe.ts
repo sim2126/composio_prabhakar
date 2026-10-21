@@ -33,24 +33,24 @@ export async function probeProvider(
   let tokenURL = known?.tokenURL && !known.tokenURL.includes("{{") ? known.tokenURL : null;
   const authHost = known?.authURL && !known.authURL.includes("{{") ? safeHost(known.authURL) : null;
 
-  // 1. OpenID / OAuth discovery documents.
-  for (const host of Array.from(new Set([authHost, vendorDomain ? `auth.${vendorDomain}` : null, vendorDomain || null]))) {
-    if (!allowed(host, vendorDomain, trusted)) continue;
-    for (const path of ["/.well-known/openid-configuration", "/.well-known/oauth-authorization-server"]) {
-      try {
-        const r = await safeFetch(`https://${host}${path}`);
-        if (r.status !== 200 || !r.contentType.includes("json")) continue;
-        const j = JSON.parse(r.body);
-        const pkce = Array.isArray(j.code_challenge_methods_supported) ? j.code_challenge_methods_supported.join("/") : "not listed";
-        probes.push({ target: `${host}${path}`, request: "GET discovery document", result: `200: token endpoint ${j.token_endpoint ?? "missing"}, PKCE ${pkce}${j.registration_endpoint ? ", dynamic client registration offered" : ""}`, at });
-        emit(`Discovery document found on ${host}`);
-        if (!tokenURL && typeof j.token_endpoint === "string" && allowed(safeHost(j.token_endpoint), vendorDomain, trusted)) tokenURL = j.token_endpoint;
-        break;
-      } catch {
-        /* not reachable: try the next one */
-      }
-    }
-  }
+  // 1. OpenID / OAuth discovery documents, plus the official MCP server's metadata (step 3),
+  // fetched together so slow hosts cost one timeout rather than one each.
+  const hosts = Array.from(new Set([authHost, vendorDomain ? `auth.${vendorDomain}` : null, vendorDomain || null])).filter((h): h is string => allowed(h, vendorDomain, trusted));
+  const paths = ["/.well-known/openid-configuration", "/.well-known/oauth-authorization-server"];
+  const mcpHost = vendorDomain ? `mcp.${vendorDomain}` : null;
+  const [docs, mcp] = await Promise.all([
+    Promise.all(hosts.map((host) => Promise.all(paths.map((path) => jsonDoc(`https://${host}${path}`))))),
+    mcpHost ? jsonDoc(`https://${mcpHost}/.well-known/oauth-authorization-server`) : null,
+  ]);
+  hosts.forEach((host, i) => {
+    const k = docs[i].findIndex(Boolean);
+    const j = docs[i][k];
+    if (!j) return;
+    const pkce = Array.isArray(j.code_challenge_methods_supported) ? j.code_challenge_methods_supported.join("/") : "not listed";
+    probes.push({ target: `${host}${paths[k]}`, request: "GET discovery document", result: `200: token endpoint ${j.token_endpoint ?? "missing"}, PKCE ${pkce}${j.registration_endpoint ? ", dynamic client registration offered" : ""}`, at });
+    emit(`Discovery document found on ${host}`);
+    if (!tokenURL && typeof j.token_endpoint === "string" && allowed(safeHost(j.token_endpoint), vendorDomain, trusted)) tokenURL = j.token_endpoint;
+  });
 
   // 2. Token endpoint with an unknown client: proves the endpoint is live and shows its error format.
   if (tokenURL && allowed(safeHost(tokenURL), vendorDomain, trusted)) {
@@ -69,20 +69,22 @@ export async function probeProvider(
   }
 
   // 3. Official MCP server metadata: whether agents can register a client without a portal app.
-  if (vendorDomain) {
-    const host = `mcp.${vendorDomain}`;
-    try {
-      const r = await safeFetch(`https://${host}/.well-known/oauth-authorization-server`);
-      if (r.status === 200 && r.contentType.includes("json")) {
-        const j = JSON.parse(r.body);
-        const reg = j.registration_endpoint ? "dynamic client registration" : null;
-        const cimd = j.client_id_metadata_document_supported ? "client ID metadata documents" : null;
-        probes.push({ target: `${host}/.well-known/oauth-authorization-server`, request: "GET MCP server auth metadata", result: `200: ${[reg, cimd].filter(Boolean).join(" and ") || "pre-registered clients only"}`, at });
-        emit(`Official MCP server found at ${host}`);
-      }
-    } catch {
-      /* no MCP server: nothing to record */
-    }
+  if (mcp && mcpHost) {
+    const reg = mcp.registration_endpoint ? "dynamic client registration" : null;
+    const cimd = mcp.client_id_metadata_document_supported ? "client ID metadata documents" : null;
+    probes.push({ target: `${mcpHost}/.well-known/oauth-authorization-server`, request: "GET MCP server auth metadata", result: `200: ${[reg, cimd].filter(Boolean).join(" and ") || "pre-registered clients only"}`, at });
+    emit(`Official MCP server found at ${mcpHost}`);
   }
   return probes;
+}
+
+// A JSON document at a public URL, or null if it is missing, slow or not JSON.
+async function jsonDoc(url: string): Promise<Record<string, unknown> | null> {
+  try {
+    const r = await safeFetch(url);
+    if (r.status !== 200 || !r.contentType.includes("json")) return null;
+    return JSON.parse(r.body) as Record<string, unknown>;
+  } catch {
+    return null;
+  }
 }
