@@ -335,11 +335,12 @@
    "title": "Install in your own workspace and switch connections to the new auth config",
    "owner": "you",
    "time": "15 min",
-   "detail": "Run the OAuth flow through Composio, approve the scopes, and confirm that the tools work. Then point your agent's connection flow at the new auth config instead of the managed app. Composio's connect link expires about 10 minutes after it is created, so create it when the person is ready to approve.",
+   "detail": "Run the OAuth flow through Composio, approve the scopes, and confirm that the tools work. Then point your agent's connection flow at the new auth config instead of the managed app. Composio's connect link expires about 10 minutes after it is created, so create it when the person is ready to approve. Tested: one approval in Slack, then the connection was active and read-only tool calls worked.",
    "values": [],
    "evidence": [
     "S1",
-    "V10"
+    "V10",
+    "V12"
    ],
    "paths": null
   },
@@ -791,6 +792,14 @@
    "title": "Composio Slack toolkit auth fields: OAuth2 with user scopes (48 by default), default redirect …/api/v1/auth-apps/add",
    "domain": "backend.composio.dev",
    "class": "probed",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V12",
+   "url": "https://docs.composio.dev/reference/api-reference/tools/postToolsExecuteByToolSlug",
+   "title": "Approved once in Slack; the connection went active and read-only tool calls succeeded (1029 ms)",
+   "domain": "docs.composio.dev",
+   "class": "tested",
    "retrievedAt": "2026-10-21"
   }
  ],

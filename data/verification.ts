@@ -68,7 +68,7 @@ export const CHECKS: Check[] = [
     topic: "Slack setup attempt",
     kind: "tested",
     finding:
-      "An agent created the Slack app from a manifest by API in 0.6 s (redirect URLs and scopes included, no console step) and a custom Composio auth config with its client ID and secret in 1.1 s. Two corrections came out of it: Composio's Slack toolkit uses user-token scopes, not bot scopes, and its connect links expire after 10 minutes. The end-user approval is the one human step.",
+      "End to end on Composio: an agent created the Slack app from a manifest by API in 0.6 s (redirect URLs and scopes included, no console step) and a custom Composio auth config with its client ID and secret in 1.1 s. A person approved the connect link once; the connection went active and read-only tool calls (workspace info, channel list) succeeded in about a second each. Two corrections came out of it: Composio's Slack toolkit uses user-token scopes, not bot scopes, and its connect links expire after 10 minutes.",
     source: `${REPO_URL}/blob/main/data/tests/slack-setup.json`,
   },
   {

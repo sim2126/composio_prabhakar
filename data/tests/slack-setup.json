@@ -32,6 +32,30 @@
    "ms": 608122,
    "result": "EXPIRED: Connection expired before authorization was started (link not opened within its window)",
    "at": "2026-10-21T08:17:55.052Z"
+  },
+  {
+   "name": "composio create connect link",
+   "ms": 933,
+   "result": "ok: account ca_4eddKdrWaFk_, expires 2026-10-21T09:28:45.820Z",
+   "at": "2026-10-21T09:18:37.710Z"
+  },
+  {
+   "name": "composio connected account",
+   "ms": 303800,
+   "result": "ACTIVE",
+   "at": "2026-10-21T09:23:45.788Z"
+  },
+  {
+   "name": "composio execute SLACK_FETCH_TEAM_INFO",
+   "ms": 1204,
+   "result": "ok: team found: true",
+   "at": "2026-10-21T09:23:46.997Z"
+  },
+  {
+   "name": "composio execute SLACK_LIST_ALL_CHANNELS",
+   "ms": 1029,
+   "result": "ok: 3 channels listed",
+   "at": "2026-10-21T09:23:48.029Z"
   }
  ]
 }
