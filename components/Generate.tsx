@@ -5,6 +5,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import type { GuideSummary } from "@/lib/data";
 import { LevelPill } from "./bits";
+import { useCopy } from "./useCopy";
+
+// Apps in the 100-app list with no guide yet, so a first-time visitor sees the agent run.
+const EXAMPLES = ["Zoom", "Shopify", "Spotify", "Figma"];
 
 type StageKey = "identify" | "setup" | "review" | "terms" | "reports" | "probe" | "write" | "check";
 type StageState = "pending" | "running" | "done" | "failed";
@@ -52,6 +56,7 @@ export function Generate() {
   const [error, setError] = useState<{ code: string; message: string } | null>(null);
   const [existing, setExisting] = useState<{ slug: string; name: string; kind: string } | null>(null);
   const [elapsed, setElapsed] = useState(0);
+  const { copy, label } = useCopy();
   const started = useRef(0);
   const autoStarted = useRef(false);
 
@@ -175,13 +180,24 @@ export function Generate() {
           <label htmlFor="app" className="sr">
             App name or URL
           </label>
-          <input id="app" className="input" style={{ height: 44 }} value={input} onChange={(e) => setInput(e.target.value)} placeholder="App name or URL, e.g. pipedrive.com" maxLength={100} autoComplete="off" />
+          <input id="app" className="input" style={{ height: 44 }} value={input} onChange={(e) => setInput(e.target.value)} placeholder="App name or website, e.g. zoom.us" maxLength={100} autoComplete="off" />
           <button type="submit" className="btn btn-primary" style={{ height: 44 }} disabled={running || !input.trim()}>
             {running ? "Generating…" : result ? "Run again" : "Generate"}
           </button>
           <span className="mono small">{statusLine}</span>
         </form>
         <p className="small">An agent researches the provider&apos;s docs and developer reports, probes its endpoints, and writes a cited guide. Usually 2–4 minutes.</p>
+        {!running && !result && !existing && !app && !error ? (
+          <span className="row-wrap small" style={{ alignItems: "center" }}>
+            Not in the library yet:
+            {EXAMPLES.map((name) => (
+              <button key={name} type="button" className="btn btn-sm" onClick={() => setInput(name)}>
+                {name}
+              </button>
+            ))}
+            or any app&apos;s website.
+          </span>
+        ) : null}
       </section>
 
       {existing ? (
@@ -214,114 +230,116 @@ export function Generate() {
         </div>
       ) : null}
 
-      <div className="gen-cols">
-        <section className="agent-log" aria-label="Agent progress" aria-live="polite">
-          <span className="label-strong" style={{ paddingBottom: 8 }}>
-            Agent
-          </span>
-          {STAGES.map((s) => {
-            const st = stages[s.key];
-            return (
-              <div key={s.key} className={`stage stage-${st.state}`}>
-                <span style={{ display: "inline-flex", paddingTop: 2 }}>
-                  {st.state === "done" ? (
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" role="img" aria-label="Done">
-                      <circle cx="8" cy="8" r="7" stroke="#166534" strokeWidth="1.3" />
-                      <path d="M5 8.2l2 2L11 6" stroke="#166534" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  ) : st.state === "running" ? (
-                    <svg className="spin" width="16" height="16" viewBox="0 0 16 16" fill="none" role="img" aria-label="Running">
-                      <circle cx="8" cy="8" r="7" stroke="#e3e5e8" strokeWidth="1.6" />
-                      <path d="M8 1a7 7 0 0 1 7 7" stroke="#1d4ed8" strokeWidth="1.6" strokeLinecap="round" />
-                    </svg>
-                  ) : st.state === "failed" ? (
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" role="img" aria-label="Failed">
-                      <circle cx="8" cy="8" r="7" stroke="#9a3412" strokeWidth="1.3" />
-                      <path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="#9a3412" strokeWidth="1.4" strokeLinecap="round" />
-                    </svg>
-                  ) : (
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" role="img" aria-label="Waiting">
-                      <circle cx="8" cy="8" r="7" stroke="#c9cdd3" strokeWidth="1.3" strokeDasharray="2 2.2" />
-                    </svg>
-                  )}
-                </span>
-                <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0 }}>
-                  <span className="stage-title" style={{ fontWeight: st.state === "pending" ? 400 : 500 }}>
-                    {s.title}
+      {existing ? null : (
+        <div className="gen-cols">
+          <section className="agent-log" aria-label="Agent progress" aria-live="polite">
+            <span className="label-strong" style={{ paddingBottom: 8 }}>
+              Agent
+            </span>
+            {STAGES.map((s) => {
+              const st = stages[s.key];
+              return (
+                <div key={s.key} className={`stage stage-${st.state}`}>
+                  <span style={{ display: "inline-flex", paddingTop: 2 }}>
+                    {st.state === "done" ? (
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" role="img" aria-label="Done">
+                        <circle cx="8" cy="8" r="7" stroke="#166534" strokeWidth="1.3" />
+                        <path d="M5 8.2l2 2L11 6" stroke="#166534" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    ) : st.state === "running" ? (
+                      <svg className="spin" width="16" height="16" viewBox="0 0 16 16" fill="none" role="img" aria-label="Running">
+                        <circle cx="8" cy="8" r="7" stroke="#e3e5e8" strokeWidth="1.6" />
+                        <path d="M8 1a7 7 0 0 1 7 7" stroke="#1d4ed8" strokeWidth="1.6" strokeLinecap="round" />
+                      </svg>
+                    ) : st.state === "failed" ? (
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" role="img" aria-label="Failed">
+                        <circle cx="8" cy="8" r="7" stroke="#9a3412" strokeWidth="1.3" />
+                        <path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="#9a3412" strokeWidth="1.4" strokeLinecap="round" />
+                      </svg>
+                    ) : (
+                      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" role="img" aria-label="Waiting">
+                        <circle cx="8" cy="8" r="7" stroke="#c9cdd3" strokeWidth="1.3" strokeDasharray="2 2.2" />
+                      </svg>
+                    )}
                   </span>
-                  {st.lines.map((l, i) => (
-                    <span key={i} className="stage-line">
-                      {l}
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0 }}>
+                    <span className="stage-title" style={{ fontWeight: st.state === "pending" ? 400 : 500 }}>
+                      {s.title}
                     </span>
-                  ))}
+                    {st.lines.map((l, i) => (
+                      <span key={i} className="stage-line">
+                        {l}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </section>
+
+          <section className="preview" aria-label="Guide preview">
+            {app ? (
+              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                <span style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.015em" }}>{app.name}</span>
+                <span className="small">
+                  {app.domain} · {app.composio}
+                </span>
+                {app.ambiguous ? <span style={{ fontSize: 13, color: "var(--amber)" }}>Assumed {app.name}. {app.ambiguous}</span> : null}
+                <span className="tag" style={{ alignSelf: "flex-start", borderStyle: "dashed", background: "#fff", marginTop: 4 }}>
+                  AGENT-GENERATED · NOT HUMAN-REVIEWED
+                </span>
+              </div>
+            ) : (
+              <div style={{ display: "flex", alignItems: "center", gap: 14 }} aria-hidden="true">
+                <span className="skel" style={{ width: 40, height: 40, borderRadius: 8 }} />
+                <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                  <span className="skel" style={{ width: 180, height: 18 }} />
+                  <span className="skel" style={{ width: 260, height: 12 }} />
                 </div>
               </div>
-            );
-          })}
-        </section>
+            )}
 
-        <section className="preview" aria-label="Guide preview">
-          {app ? (
-            <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-              <span style={{ fontSize: 24, fontWeight: 600, letterSpacing: "-0.015em" }}>{app.name}</span>
-              <span className="small">
-                {app.domain} · {app.composio}
-              </span>
-              {app.ambiguous ? <span style={{ fontSize: 13, color: "var(--amber)" }}>Assumed {app.name}. {app.ambiguous}</span> : null}
-              <span className="tag" style={{ alignSelf: "flex-start", borderStyle: "dashed", background: "#fff", marginTop: 4 }}>
-                AGENT-GENERATED · NOT HUMAN-REVIEWED
-              </span>
-            </div>
-          ) : (
-            <div style={{ display: "flex", alignItems: "center", gap: 14 }} aria-hidden="true">
-              <span className="skel" style={{ width: 40, height: 40, borderRadius: 8 }} />
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                <span className="skel" style={{ width: 180, height: 18 }} />
-                <span className="skel" style={{ width: 260, height: 12 }} />
+            <div className="verdict" style={{ borderBottom: "1px solid var(--line)" }}>
+              <div className="verdict-grid tight" style={{ borderBottom: 0 }}>
+                {[
+                  ["Difficulty", result ? <LevelPill key="l" level={result.summary.level} large /> : null],
+                  ["Your effort", result ? <span className="big">{result.summary.effort}</span> : null],
+                  ["Approval wait", result ? <span style={{ fontSize: 15, fontWeight: 500 }}>{result.summary.wait}</span> : null],
+                  ["Guide", result ? <span style={{ fontSize: 15, fontWeight: 500 }}>{result.stats.cited} sources cited</span> : null],
+                ].map(([label, value], i) => (
+                  <div className="vcell" key={i}>
+                    <span className="label">{label}</span>
+                    {value ?? (
+                      <>
+                        <span className="skel" style={{ width: "70%", height: 20 }} />
+                        <span className="skel" style={{ width: "90%", height: 10 }} />
+                      </>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
-          )}
 
-          <div className="verdict" style={{ borderBottom: "1px solid var(--line)" }}>
-            <div className="verdict-grid tight" style={{ borderBottom: 0 }}>
-              {[
-                ["Difficulty", result ? <LevelPill key="l" level={result.summary.level} large /> : null],
-                ["Your effort", result ? <span className="big">{result.summary.effort}</span> : null],
-                ["Approval wait", result ? <span style={{ fontSize: 15, fontWeight: 500 }}>{result.summary.wait}</span> : null],
-                ["Guide", result ? <span style={{ fontSize: 15, fontWeight: 500 }}>{result.stats.cited} sources cited</span> : null],
-              ].map(([label, value], i) => (
-                <div className="vcell" key={i}>
-                  <span className="label">{label}</span>
-                  {value ?? (
-                    <>
-                      <span className="skel" style={{ width: "70%", height: 20 }} />
-                      <span className="skel" style={{ width: "90%", height: 10 }} />
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {result ? (
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "14px 16px", border: "1px solid var(--line)", borderRadius: 8 }}>
-              <span className="small">
-                {result.summary.note ? `${result.summary.note} · ` : ""}Saved to the library. Anyone with the link can open it.
-              </span>
-              <span className="row-wrap">
-                <button type="button" className="btn" onClick={() => navigator.clipboard?.writeText(`${window.location.origin}/guides/${result.slug}`).catch(() => undefined)}>
-                  Copy link
-                </button>
-                <button type="button" className="btn btn-primary btn-sm" style={{ height: 34 }} onClick={() => router.push(`/guides/${result.slug}`)}>
-                  Open guide
-                </button>
-              </span>
-            </div>
-          ) : (
-            <p className="small">The full guide opens here when the agent finishes: plan, steps with owners, blockers, and every source it read.</p>
-          )}
-        </section>
-      </div>
+            {result ? (
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "14px 16px", border: "1px solid var(--line)", borderRadius: 8 }}>
+                <span className="small">
+                  {result.summary.note ? `${result.summary.note} · ` : ""}Saved to the library. Anyone with the link can open it.
+                </span>
+                <span className="row-wrap">
+                  <button type="button" className="btn" onClick={() => void copy("link", `${window.location.origin}/guides/${result.slug}`)}>
+                    {label("link", "Copy link", "Link copied")}
+                  </button>
+                  <button type="button" className="btn btn-primary btn-sm" style={{ height: 34 }} onClick={() => router.push(`/guides/${result.slug}`)}>
+                    Open guide
+                  </button>
+                </span>
+              </div>
+            ) : (
+              <p className="small">The full guide opens here when the agent finishes: plan, steps with owners, blockers, and every source it read.</p>
+            )}
+          </section>
+        </div>
+      )}
     </>
   );
 }
