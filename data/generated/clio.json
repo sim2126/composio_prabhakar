@@ -1,0 +1,742 @@
+{
+ "outcome": "oauth_app",
+ "outcomeNote": null,
+ "name": "Clio",
+ "vendorDomain": "clio.com",
+ "covers": [
+  "Clio Manage",
+  "Clio Platform (Clio Grow)"
+ ],
+ "summary": "Clio's legal practice management APIs use OAuth 2.0 only; register a free developer app per product and region, and optionally pass a security review to list publicly.",
+ "capabilities": [
+  {
+   "id": "read_matters_contacts",
+   "label": "Read matters, contacts and firm records",
+   "scopes": [],
+   "alternative": "Tick only the Read checkboxes for the resources the agent needs (Manage uses per-resource Read/Write permissions)"
+  },
+  {
+   "id": "write_records",
+   "label": "Create or update matters, contacts, tasks and calendar entries",
+   "scopes": [],
+   "alternative": "Grant Write only on the specific resources the agent changes"
+  },
+  {
+   "id": "time_billing",
+   "label": "Log time entries and read billing data",
+   "scopes": [],
+   "alternative": "Read-only on billing if the agent only reports"
+  },
+  {
+   "id": "grow_leads",
+   "label": "Read and manage Clio Grow leads and intake",
+   "scopes": [],
+   "alternative": "Read access (GET) only in the Clio Platform app"
+  }
+ ],
+ "defaultCapabilities": [
+  "read_matters_contacts",
+  "write_records"
+ ],
+ "paths": [
+  {
+   "id": "unlisted_app",
+   "label": "Unlisted app for your firm or customer firms",
+   "audiences": [
+    "team",
+    "customers"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "none",
+   "drivenBy": "Clio publishes no review trigger before external users connect. Work is creating a developer account (Clio reviews the account application after the 7-day trial), registering a Manage app and, if needed, a separate Clio Platform app, and wiring a custom Composio auth config since Composio has no Clio toolkit. Each region (US, Canada, UK) needs its own developer account.",
+   "effort": "1–4 hours",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "Clio markets a free developer account; no fee is published for unlisted apps.",
+   "costEvidence": [
+    "S8",
+    "S12"
+   ],
+   "customerAdmin": "unknown",
+   "next": "Create a Clio developer account, then add an app in the Clio Manage developer portal with your Composio redirect URI.",
+   "untilApproved": [
+    {
+     "text": "Use the 7-day Clio Manage trial to build while Clio reviews your free developer account application.",
+     "evidence": [
+      "S12"
+     ]
+    },
+    {
+     "text": "For a single-firm Clio Grow app, set the Firm identifier to restrict the app to that account.",
+     "evidence": [
+      "S3"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Create apps",
+     "Build OAuth flow",
+     "",
+     "Share connect link"
+    ],
+    "provider": [
+     "Account review",
+     "",
+     "",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "app_directory",
+   "label": "Public listing in the Clio App Directory",
+   "audiences": [
+    "customers",
+    "public"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "formal",
+   "drivenBy": "Security and compliance review via questionnaire, then a demo, then a Clio-built listing. You need public Terms of Service, Privacy Policy, Security Policy and vulnerability-management document, HTTPS, encrypted secrets, BCDR and incident response procedures, and data residency and deletion support. SOC2, ISO27001 or a privacy certification help but are not required. Clio's 2022 support article says the demo is a live booked call; the newer handbook says pre-recorded video. Follow the handbook.",
+   "effort": "1–3 weeks",
+   "waitOfficial": "~2 business days for the security questionnaire (2022 article); no published time for demo, listing or launch",
+   "waitReported": null,
+   "waitEvidence": [
+    "S11"
+   ],
+   "cost": "$0",
+   "costNote": "Clio publishes no listing or security assessment fee.",
+   "costEvidence": [
+    "S8"
+   ],
+   "customerAdmin": "unknown",
+   "next": "For Manage, email api.partnerships@clio.com for the security questionnaire; for Grow, click \"apply for public listing\" on the app's details page.",
+   "untilApproved": [
+    {
+     "text": "Unlisted apps can still be authorized by users; Clio publishes no install or user cap before listing.",
+     "evidence": [
+      "S10",
+      "S15"
+     ]
+    },
+    {
+     "text": "Rate limits apply per access token (default 50 requests/min at peak) and do not differ for unlisted apps.",
+     "evidence": [
+      "S15"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Request questionnaire",
+     "Answer questionnaire",
+     "Send demo",
+     "Sign off listing"
+    ],
+    "provider": [
+     "",
+     "Security review",
+     "~2 BD",
+     "Publish listing"
+    ]
+   }
+  }
+ ],
+ "prereqs": [
+  {
+   "text": "Get a Clio developer account. Clio markets it as free. A 7-day Manage trial comes first, then you apply for the free developer account and Clio reviews the application.",
+   "why": "Clio creates apps only in the developer portal, and the account application needs Clio's approval.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Decide which Clio regions (US, Canada, UK) you will serve, and plan one developer account per region.",
+   "why": "Clio requires an independent developer account for each regional server.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Decide whether you need Clio Grow leads as well as Clio Manage data.",
+   "why": "Manage and Platform (Grow) use separate portals and separate OAuth client apps, and users authorize each one separately.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Publish a Terms of Service, Security Policy, Privacy Policy and vulnerability-management document. Write business continuity/disaster recovery and incident response procedures, and a data residency and customer-data-removal policy.",
+   "why": "Clio's security review checks for these documents. Missing documents are listed as red flags that can lead Clio to decline a listing.",
+   "owner": "agent_drafts",
+   "paths": [
+    "app_directory"
+   ]
+  },
+  {
+   "text": "Optionally gather SOC2, ISO27001 or PCI DSS attestations or a third-party privacy certification such as TrustArc, and align with MVSP.",
+   "why": "Clio says these help streamline approval. They are not stated as mandatory.",
+   "owner": "you",
+   "paths": [
+    "app_directory"
+   ]
+  }
+ ],
+ "steps": [
+  {
+   "id": "s1",
+   "phase": "today",
+   "title": "Create the Clio Manage app",
+   "owner": "you",
+   "time": "15 min",
+   "detail": "Sign in to the Clio Manage developer portal and click Add. Enter the application name, Website URL, Deauthorization callback URL and Redirect URIs. Accept the Developer Terms of Service, then tick only the Read/Write permissions your capabilities need. Save and copy the App Key and App Secret. Logo and description are optional. Clio doesn't publish scope names, only per-resource Read/Write checkboxes.",
+   "values": [
+    {
+     "label": "Console",
+     "text": "https://developers.clio.com"
+    },
+    {
+     "label": "Redirect URI",
+     "text": "The callback URL shown in your Composio auth config (exact match required)"
+    },
+    {
+     "label": "Permissions",
+     "text": "Read for matters, contacts, firm records and billing. Write only if you need records, tasks, calendar entries or time entries."
+    }
+   ],
+   "evidence": [
+    "S4",
+    "S16",
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s2",
+   "phase": "today",
+   "title": "Create the Clio Platform app for Grow leads",
+   "owner": "you",
+   "time": "15 min",
+   "detail": "Only needed for Grow leads and intake. Create a separate app in the Clio Platform portal. Enter a name and exact-match redirect URIs, accept the Developer Terms of Service, and select read and write scopes. PKCE is optional. If you enable it, the token exchange must send the original code verifier. The Firm identifier field restricts a private app to one Clio Grow account.",
+   "values": [
+    {
+     "label": "Console",
+     "text": "https://developers.api.clio.com"
+    },
+    {
+     "label": "Firm identifier",
+     "text": "Set it only for a private app tied to one Grow account"
+    }
+   ],
+   "evidence": [
+    "S3",
+    "S16"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s3",
+   "phase": "today",
+   "title": "Create the Composio auth config",
+   "owner": "agent",
+   "time": "10 min",
+   "detail": "Composio has no Clio toolkit, so create a custom OAuth2 auth config using the Authorization Code grant. Enter the App Key as the client ID and the App Secret as the client secret. Copy the auth config's callback URL into the Clio app's Redirect URIs. The endpoint URLs come from a third-party guide, so confirm them against Clio's authorization docs. Create a second auth config for the Platform app if you use Grow.",
+   "values": [
+    {
+     "label": "Authorize URL",
+     "text": "https://app.clio.com/oauth/authorize"
+    },
+    {
+     "label": "Token URL",
+     "text": "https://app.clio.com/oauth/token"
+    },
+    {
+     "label": "API base",
+     "text": "https://app.clio.com/api/v4"
+    },
+    {
+     "label": "Refresh",
+     "text": "grant_type=refresh_token"
+    }
+   ],
+   "evidence": [
+    "S1",
+    "S7",
+    "S19",
+    "S20"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s4",
+   "phase": "today",
+   "title": "Connect a test account and call the API",
+   "owner": "agent",
+   "time": "20 min",
+   "detail": "Run the OAuth flow with your own Clio account and approve the app on Clio's confirmation screen. Make a GET call, then check the X-RateLimit headers and refresh-token handling.",
+   "values": [],
+   "evidence": [
+    "S1",
+    "S15"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s5",
+   "phase": "week",
+   "title": "Implement the deauthorization callback and data deletion",
+   "owner": "agent_drafts",
+   "time": "1-2 days",
+   "detail": "Delete Clio data when a data subject or Clio requests it, when the data is no longer needed, when the app is deauthorized, or when the person stops being a user. Delete all stored data when the agreement terminates. Encrypt data in transit and at rest.",
+   "values": [
+    {
+     "label": "Encryption examples",
+     "text": "AES-128, RSA 2048"
+    }
+   ],
+   "evidence": [
+    "S17",
+    "S4"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s6",
+   "phase": "week",
+   "title": "Share the app with customer firms",
+   "owner": "you",
+   "time": "",
+   "detail": "Private apps are typically built for a single firm and are not listed in the App Directory. Clio publishes no review trigger for unlisted apps. Users at each firm authorize the app on Clio's confirmation screen.",
+   "values": [],
+   "evidence": [
+    "S9",
+    "S10",
+    "S1"
+   ],
+   "paths": [
+    "unlisted_app"
+   ]
+  },
+  {
+   "id": "s7",
+   "phase": "week",
+   "title": "Request the security questionnaire",
+   "owner": "you",
+   "time": "30 min",
+   "detail": "For a Manage app, email Clio and ask for the security questionnaire. For a Grow app, open the app's details page in the Platform portal, click 'apply for public listing', and pick a team member to receive the questionnaire by email.",
+   "values": [
+    {
+     "label": "Manage email",
+     "text": "api.partnerships@clio.com"
+    }
+   ],
+   "evidence": [
+    "S10"
+   ],
+   "paths": [
+    "app_directory"
+   ]
+  },
+  {
+   "id": "s8",
+   "phase": "wait",
+   "title": "Wait for the security and compliance review",
+   "owner": "provider",
+   "time": "Aim of 2 business days (2022 article)",
+   "detail": "Clio's Application Security and Compliance team approves the app or asks for clarification or improvements. The current handbook gives no review time.",
+   "values": [],
+   "evidence": [
+    "S10",
+    "S11"
+   ],
+   "paths": [
+    "app_directory"
+   ]
+  },
+  {
+   "id": "s9",
+   "phase": "week",
+   "title": "Send the demo",
+   "owner": "you",
+   "time": "",
+   "detail": "After security approval, email a pre-recorded demo covering your company, your customers, the problem you solve and how the integration works. An older article says Clio sends a link to book a live demo instead, so follow whatever Clio asks for.",
+   "values": [
+    {
+     "label": "Email",
+     "text": "api.partnerships@clio.com"
+    }
+   ],
+   "evidence": [
+    "S10",
+    "S11"
+   ],
+   "paths": [
+    "app_directory"
+   ]
+  },
+  {
+   "id": "s10",
+   "phase": "wait",
+   "title": "Complete the listing form and wait for the draft",
+   "owner": "provider",
+   "time": "",
+   "detail": "After the demo, Clio sends an App Directory listing form and builds a draft listing for you to review. Clio doesn't publish a timeline for this step.",
+   "values": [],
+   "evidence": [
+    "S10"
+   ],
+   "paths": [
+    "app_directory"
+   ]
+  },
+  {
+   "id": "s11",
+   "phase": "launch",
+   "title": "Sign off the draft listing",
+   "owner": "you",
+   "time": "",
+   "detail": "Review Clio's draft listing and approve it. Clio then makes the listing public.",
+   "values": [],
+   "evidence": [
+    "S10"
+   ],
+   "paths": [
+    "app_directory"
+   ]
+  },
+  {
+   "id": "s12",
+   "phase": "launch",
+   "title": "Switch production connections to the new auth config",
+   "owner": "agent",
+   "time": "15 min",
+   "detail": "Point your agent's Clio connections at the production auth config (one per product and region). Have users reconnect if they authorized against a test app.",
+   "values": [],
+   "evidence": [
+    "S16",
+    "S9"
+   ],
+   "paths": null
+  }
+ ],
+ "gotchas": [
+  {
+   "text": "Manage and Grow need two separate client apps, two auth configs and two consents per user.",
+   "evidence": [
+    "S16"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Each region (US, Canada, UK) needs its own developer account, so you need separate apps and credentials per region.",
+   "evidence": [
+    "S9"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Rate limits apply per access token: 50 requests per minute at peak, higher off-peak. A 429 response includes Retry-After.",
+   "evidence": [
+    "S15"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The redirect_uri in the request must exactly match a redirect URL saved in the app settings.",
+   "evidence": [
+    "S1",
+    "S3"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Clio doesn't publish token lifetimes, refresh-token rotation, scope names, or redirect URI rules for https, localhost or wildcards.",
+   "evidence": [],
+   "paths": null
+  },
+  {
+   "text": "The authorize and token URLs come from a third-party guide about 797 days old. Verify them against Clio's official authorization docs.",
+   "evidence": [
+    "S19",
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Clio's two official sources disagree on the demo. The undated handbook asks for a pre-recorded demo, while a 2022 support article describes booking a live one.",
+   "evidence": [
+    "S10",
+    "S11"
+   ],
+   "paths": [
+    "app_directory"
+   ]
+  },
+  {
+   "text": "The Developer Terms have no AI clause. They require requesting and storing only the minimum data needed, which may conflict with broad ingestion into an index or vector store. They also treat all API data as Clio's Confidential Information.",
+   "evidence": [
+    "S17"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The terms ban using API data in advertisements and contacting users with API contact data without their express consent. Clio can amend the terms by posting notice.",
+   "evidence": [
+    "S17"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Add to Clio and the Certified App Program are optional. Silver certification requires at least 100 active customer accounts, Add to Clio, a Lighthouse score of at least 50, security assessments, API versioning and 99.5% uptime.",
+   "evidence": [
+    "S13",
+    "S5"
+   ],
+   "paths": [
+    "app_directory"
+   ]
+  }
+ ],
+ "blockers": [
+  {
+   "see": "Clio declines the listing or blocks API access",
+   "cause": "No HTTPS, missing security or privacy policy documents, secrets stored in unencrypted public locations, or inability to meet data residency or customer-data-removal requirements",
+   "fix": "Serve everything over HTTPS, publish the policies, store the App Secret encrypted, and implement data residency and deletion before requesting the questionnaire.",
+   "paths": [
+    "app_directory"
+   ]
+  },
+  {
+   "see": "Redirect URI mismatch during authorization",
+   "cause": "The redirect_uri does not match a redirect URL in the Clio app settings",
+   "fix": "Paste the exact Composio callback URL into the Clio app's Redirect URIs and save.",
+   "paths": null
+  },
+  {
+   "see": "HTTP 429 Too Many Requests",
+   "cause": "The per-token rate limit was exceeded (50 per minute at peak)",
+   "fix": "Wait for the Retry-After interval and throttle requests using the X-RateLimit headers.",
+   "paths": null
+  },
+  {
+   "see": "A Clio token stops working",
+   "cause": "The user or firm revoked the grant",
+   "fix": "Ask the user to reconnect through Composio, and delete their stored data as the terms require.",
+   "paths": null
+  }
+ ],
+ "aiPolicy": {
+  "status": "restrictions",
+  "summary": "Clio's Developer Terms (last modified 2023-05-26) have no AI, LLM or training clause. General rules still bind: request and store only the minimum data needed, treat all API data as Clio confidential information, encrypt in transit and at rest, no copying or storing beyond what the terms allow, delete data on request, when no longer needed, when deauthorized or at termination, and no use in advertising. Broad ingestion into a vector store may conflict with the minimum-data rules.",
+  "evidence": [
+   "S17"
+  ]
+ },
+ "customerAdminNote": null,
+ "unknowns": [
+  "Clio doesn't publish its scope or permission names, or any sensitive or admin-only classification.",
+  "Clio doesn't publish access or refresh token lifetimes, or whether refresh tokens rotate.",
+  "Clio doesn't publish redirect URI rules (HTTPS, localhost, wildcards, maximum count).",
+  "Clio doesn't say whether a firm administrator must approve or install an app before users authorize it.",
+  "Clio doesn't publish how long developer account review takes after the trial.",
+  "Clio doesn't publish review times for the demo, listing or launch steps, and its current handbook gives no security review time.",
+  "Clio doesn't offer an API, CLI or manifest for creating OAuth apps; only the web console is documented.",
+  "Clio doesn't publish re-consent behaviour when permissions change.",
+  "Clio's terms say nothing explicit about AI agents, model vendors or intermediaries such as Composio."
+ ],
+ "slug": "clio",
+ "kind": "generated",
+ "checkedAt": "2026-10-20",
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://docs.developers.clio.com/api-docs/clio-manage/authorization/",
+   "title": "Authorization - Clio Developer Documentation Hub",
+   "domain": "docs.developers.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S2",
+   "url": "https://docs.developers.clio.com/api-docs/clio-platform/",
+   "title": "Clio Platform",
+   "domain": "docs.developers.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S3",
+   "url": "https://docs.developers.clio.com/api-docs/clio-platform/applications/",
+   "title": "OAuth Applications",
+   "domain": "docs.developers.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S4",
+   "url": "https://developers.support.clio.com/hc/en-us/articles/360004691033-Obtaining-authorization-as-a-developer-North-American-instance",
+   "title": "Obtaining authorization as a developer (North American instance)",
+   "domain": "developers.support.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S5",
+   "url": "https://developers.support.clio.com/hc/en-us/articles/5634197258651-Implementing-Add-to-Clio-in-Your-Application",
+   "title": "Implementing \"Add to Clio\" in Your Application",
+   "domain": "developers.support.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S6",
+   "url": "https://docs.developers.clio.com/handbook/build-your-app/",
+   "title": "Building your app - Clio Developer Documentation Hub",
+   "domain": "docs.developers.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S7",
+   "url": "https://developers.support.clio.com/hc/en-us/articles/360004640953-What-methods-of-authorization-does-Clio-s-API-v4-support",
+   "title": "What methods of authorization does Clio's API v4 support?",
+   "domain": "developers.support.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S8",
+   "url": "https://www.clio.com/partnerships/developers/",
+   "title": "Clio Developer Hub",
+   "domain": "clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S9",
+   "url": "https://developers.support.clio.com/hc/en-us/articles/1260803824849",
+   "title": "App Developer Guide - Welcome to Clio!",
+   "domain": "developers.support.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S10",
+   "url": "https://docs.developers.clio.com/handbook/launch-your-app/",
+   "title": "Launch and Grow Your App",
+   "domain": "docs.developers.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S11",
+   "url": "https://developers.support.clio.com/hc/en-us/articles/4929105874843-How-to-list-your-app-in-Clio-s-App-Directory",
+   "title": "How to list your app in Clio's App Directory",
+   "domain": "developers.support.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-19"
+  },
+  {
+   "id": "S12",
+   "url": "https://docs.developers.clio.com/handbook/getting-started/get-a-developer-account/",
+   "title": "Get a Developer Account - Clio Developer Documentation Hub",
+   "domain": "docs.developers.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S13",
+   "url": "https://docs.developers.clio.com/handbook/grow-your-app/clio-certified-app-program/",
+   "title": "Clio Certified App Program - Clio Developer Documentation Hub",
+   "domain": "docs.developers.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S14",
+   "url": "https://docs.developers.clio.com/handbook/build-your-app/developer-security-and-data-guidelines/",
+   "title": "Developer security and data guidelines",
+   "domain": "docs.developers.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-17"
+  },
+  {
+   "id": "S15",
+   "url": "https://docs.developers.clio.com/api-docs/clio-manage/rate-limits/",
+   "title": "Rate Limits",
+   "domain": "docs.developers.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S16",
+   "url": "https://docs.developers.clio.com/handbook/getting-started/clio-manage-and-clio-platform/",
+   "title": "Clio Manage and Clio Platform APIs",
+   "domain": "docs.developers.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S17",
+   "url": "https://www.clio.com/partnerships/developers/developer-terms-service/",
+   "title": "Developer Terms of Service",
+   "domain": "clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S18",
+   "url": "https://developers.support.clio.com/hc/en-us/articles/1260803891710-Building-your-app",
+   "title": "Building your app",
+   "domain": "developers.support.clio.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S19",
+   "url": "https://rollout.com/integration-guides/clio/how-to-build-a-public-clio-integration-building-the-auth-flow",
+   "title": "How to build a Clio API integration",
+   "domain": "rollout.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S20",
+   "url": "https://dev.to/drewopexcell/why-your-clio-token-stopped-working-4ob8",
+   "title": "Why your Clio token stopped working - DEV Community",
+   "domain": "dev.to",
+   "class": "third_party",
+   "retrievedAt": "2026-10-02"
+  },
+  {
+   "id": "S21",
+   "url": "https://www.acucoders.com/guides/clio-api-authentication/",
+   "title": "Clio API Authentication: OAuth 2.0 Setup and Scopes",
+   "domain": "acucoders.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S22",
+   "url": "https://apis.io/providers/clio/",
+   "title": "Clio",
+   "domain": "apis.io",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  }
+ ],
+ "probes": [],
+ "composio": {
+  "toolkits": [],
+  "defaultRedirect": null
+ },
+ "run": {
+  "model": "claude-sonnet-5-5 + claude-opus-5-5",
+  "seconds": 174,
+  "searches": 11,
+  "fetches": 8,
+  "costUsd": 1.29
+ }
+}

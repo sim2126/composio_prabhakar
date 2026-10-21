@@ -1,0 +1,731 @@
+{
+ "outcome": "partner_only",
+ "outcomeNote": "Reddit requires explicit approval before any Data API access. Submit a Data Access Request through Reddit's support request form, or build on the Developer Platform (Devvit) if it supports the use case. Composio's managed app is shown separately.",
+ "name": "Reddit",
+ "vendorDomain": "reddit.com",
+ "covers": [
+  "reddit"
+ ],
+ "summary": "Reddit OAuth needs explicit approval before any Data API access; developers report the self-serve create-app button no longer creates apps and requests take weeks.",
+ "capabilities": [
+  {
+   "id": "read_content",
+   "label": "Read posts, comments and subreddits",
+   "scopes": [],
+   "alternative": "Limit access to only the subreddits and API actions the agent needs"
+  },
+  {
+   "id": "account",
+   "label": "Read the user's account details",
+   "scopes": [
+    {
+     "name": "account",
+     "tier": "basic",
+     "label": "Account details"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "edit_content",
+   "label": "Edit the user's posts and comments",
+   "scopes": [
+    {
+     "name": "edit",
+     "tier": "basic",
+     "label": "Edit posts and comments"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "flair",
+   "label": "Manage flair",
+   "scopes": [
+    {
+     "name": "flair",
+     "tier": "basic",
+     "label": "Manage flair"
+    }
+   ],
+   "alternative": null
+  }
+ ],
+ "defaultCapabilities": [
+  "read_content",
+  "account"
+ ],
+ "paths": [
+  {
+   "id": "noncommercial_request",
+   "label": "Data Access Request for non-commercial use",
+   "audiences": [
+    "team"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "partner",
+   "drivenBy": "Reddit requires explicit approval for all API access. You file a request, create a developer profile at developers.reddit.com/app-registration, state a clear purpose and scope, and set a compliant User-Agent. A human reviews and can refuse.",
+   "effort": "1–3 hours",
+   "waitOfficial": null,
+   "waitReported": "2–4 weeks",
+   "waitEvidence": [
+    "S8"
+   ],
+   "cost": "$0",
+   "costNote": "Free access is limited to 100 queries per minute per OAuth client id.",
+   "costEvidence": [
+    "S6"
+   ],
+   "customerAdmin": "none",
+   "next": "Submit a Data Access Request via Reddit's support request form, choosing the role for apps not supported by Devvit and giving a public product URL. Once approved, create a web app and register https://backend.composio.dev/api/v1/auth-apps/add as the redirect URI.",
+   "untilApproved": [
+    {
+     "text": "No Reddit data may be accessed through the API before explicit approval.",
+     "evidence": [
+      "S7"
+     ]
+    },
+    {
+     "text": "The create-app button at /prefs/apps reportedly routes to the policy instead of creating an app.",
+     "evidence": [
+      "S8"
+     ]
+    },
+    {
+     "text": "Traffic without OAuth credentials is blocked.",
+     "evidence": [
+      "S6"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Submit request",
+     "Set User-Agent",
+     "",
+     "Create web app"
+    ],
+    "provider": [
+     "",
+     "",
+     "2–4 weeks reported",
+     "Approve or deny"
+    ]
+   }
+  },
+  {
+   "id": "commercial_request",
+   "label": "Commercial Data Access Request",
+   "audiences": [
+    "customers",
+    "public"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "partner",
+   "drivenBy": "Commercial use of Reddit data needs explicit written approval on top of API access; Reddit contacts you only if the proposal fits its criteria. Commercial terms go through the enterprise contact form.",
+   "effort": "1–3 days",
+   "waitOfficial": null,
+   "waitReported": "2–4 weeks",
+   "waitEvidence": [
+    "S8"
+   ],
+   "cost": "Unknown",
+   "costNote": "Reddit publishes no fee amounts. A competing vendor claims commercial use is billed at $0.24 per 1,000 calls with no annual minimum; this is not official.",
+   "costEvidence": [
+    "S6",
+    "S9"
+   ],
+   "customerAdmin": "none",
+   "next": "Write a proposal stating purpose, subreddits and API actions needed, then submit it through the support request form or enterprise contact form. After approval, create a web app and register https://backend.composio.dev/api/v1/auth-apps/add.",
+   "untilApproved": [
+    {
+     "text": "Commercial use of Reddit data is barred without explicit written approval.",
+     "evidence": [
+      "S7"
+     ]
+    },
+    {
+     "text": "Requests can be denied with no stated reason or appeal, per a third-party vendor.",
+     "evidence": [
+      "S9"
+     ]
+    },
+    {
+     "text": "Plan for Reddit being unavailable rather than treating approval as a delay.",
+     "evidence": [
+      "S8"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Draft proposal",
+     "Submit request",
+     "",
+     "Create web app"
+    ],
+    "provider": [
+     "",
+     "",
+     "2–4 weeks reported",
+     "Approve or deny"
+    ]
+   }
+  }
+ ],
+ "prereqs": [
+  {
+   "text": "Have the Reddit account that will own the app, signed in, and a developer profile at developers.reddit.com/app-registration.",
+   "why": "Reddit requires apps, including bots and AI agents, to register a developer profile and carry an \"App\" profile label.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Have a public product URL and a written statement of purpose that lists the subreddits and API actions the agent needs.",
+   "why": "The Data Access Request asks for a public product URL. The policy requires a clearly specified purpose and scope of access.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Confirm whether the use case is commercial. If it is, prepare for a separate written approval and commercial terms through Reddit's enterprise contact form.",
+   "why": "Commercial use of Reddit data requires explicit written approval. Reddit handles commercial terms through the enterprise contact form.",
+   "owner": "you",
+   "paths": [
+    "commercial_request"
+   ]
+  },
+  {
+   "text": "Have a fallback for Reddit being unavailable to the product.",
+   "why": "Approval is not guaranteed, and requests can be refused outright.",
+   "owner": "you",
+   "paths": null
+  }
+ ],
+ "steps": [
+  {
+   "id": "s1",
+   "phase": "today",
+   "title": "Check whether Devvit covers the use case",
+   "owner": "you",
+   "time": "30 min",
+   "detail": "Reddit directs developers to build on its Developer Platform (Devvit). File a request only if Devvit doesn't support the use case. An external agent integration is the typical unsupported case.",
+   "values": [],
+   "evidence": [
+    "S7",
+    "S10"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s2",
+   "phase": "today",
+   "title": "Create the developer profile",
+   "owner": "you",
+   "time": "15 min",
+   "detail": "Sign in as the owning account and register the app and developer profile. The policy applies to bots and AI agents.",
+   "values": [
+    {
+     "label": "Registration URL",
+     "text": "developers.reddit.com/app-registration"
+    }
+   ],
+   "evidence": [
+    "S7"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s3",
+   "phase": "today",
+   "title": "Draft the Data Access Request text",
+   "owner": "agent_drafts",
+   "time": "30 min",
+   "detail": "Describe the purpose, the exact subreddits and API actions, how private communications get explicit user consent, and how content deleted from Reddit is deleted from storage. Ask only for what the agent needs. Reddit doesn't publish the other documents it requires.",
+   "values": [
+    {
+     "label": "Developer role",
+     "text": "App not supported by Devvit"
+    }
+   ],
+   "evidence": [
+    "S7",
+    "S8",
+    "S6"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s4",
+   "phase": "today",
+   "title": "Submit the Data Access Request",
+   "owner": "you",
+   "time": "20 min",
+   "detail": "Submit through Reddit's support request form with the developer role and public product URL. Mark the use as non-commercial. Non-commercial research belongs in the separate Reddit for Researchers Program instead.",
+   "values": [],
+   "evidence": [
+    "S6",
+    "S7",
+    "S8"
+   ],
+   "paths": [
+    "noncommercial_request"
+   ]
+  },
+  {
+   "id": "s5",
+   "phase": "today",
+   "title": "Submit the commercial Data Access Request",
+   "owner": "you",
+   "time": "30 min",
+   "detail": "File the request and contact Reddit through the enterprise contact form for commercial terms. Commercial use needs explicit written approval. Reddit's team makes contact only if the proposal fits its criteria.",
+   "values": [],
+   "evidence": [
+    "S6",
+    "S7"
+   ],
+   "paths": [
+    "commercial_request"
+   ]
+  },
+  {
+   "id": "s6",
+   "phase": "wait",
+   "title": "Wait for Reddit's decision",
+   "owner": "provider",
+   "time": "Unpublished; one report says 2-4 weeks",
+   "detail": "Reddit publishes no review time and replies by email. One developer reported about 2-4 weeks. Requests can be refused or go unanswered. Use the Composio managed app for development in the meantime.",
+   "values": [],
+   "evidence": [
+    "S8",
+    "S9",
+    "S10"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s7",
+   "phase": "week",
+   "title": "Create the web app after approval",
+   "owner": "you",
+   "time": "10 min",
+   "detail": "Open the apps page as the owning account, click \"Create app\" and choose the \"web app\" type. Fill in name, description, about url and redirect uri. One report says the button creates nothing without approval.",
+   "values": [
+    {
+     "label": "Console URL",
+     "text": "https://www.reddit.com/prefs/apps/"
+    },
+    {
+     "label": "App type",
+     "text": "web app"
+    },
+    {
+     "label": "Redirect URI",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    }
+   ],
+   "evidence": [
+    "S2",
+    "S4",
+    "S5",
+    "S8"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s8",
+   "phase": "week",
+   "title": "Copy the client ID and secret",
+   "owner": "you",
+   "time": "5 min",
+   "detail": "The app page shows the client ID and secret. Reddit doesn't publish guidance on secret rotation.",
+   "values": [],
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s9",
+   "phase": "week",
+   "title": "Choose scopes",
+   "owner": "agent",
+   "time": "10 min",
+   "detail": "Fetch Reddit's current scope list and pick only the scopes the approved purpose covers. Pass them as a space-separated string. Reddit doesn't classify any scope as sensitive.",
+   "values": [
+    {
+     "label": "Scope list",
+     "text": "https://www.reddit.com/api/v1/scopes.json"
+    },
+    {
+     "label": "Known scopes",
+     "text": "account edit flair wikiread announcements"
+    },
+    {
+     "label": "Duration",
+     "text": "permanent"
+    }
+   ],
+   "evidence": [
+    "S1",
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s10",
+   "phase": "week",
+   "title": "Create the Composio auth config",
+   "owner": "agent",
+   "time": "10 min",
+   "detail": "Create a custom auth config for the reddit toolkit with the client ID, secret and chosen scopes. Request duration=permanent so Composio receives a refresh token.",
+   "values": [
+    {
+     "label": "Toolkit",
+     "text": "reddit"
+    },
+    {
+     "label": "Authorize URL",
+     "text": "https://www.reddit.com/api/v1/authorize"
+    },
+    {
+     "label": "Token URL",
+     "text": "https://www.reddit.com/api/v1/access_token"
+    },
+    {
+     "label": "Redirect URI",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    }
+   ],
+   "evidence": [
+    "S1",
+    "S3"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s11",
+   "phase": "week",
+   "title": "Set a compliant User-Agent",
+   "owner": "agent_drafts",
+   "time": "10 min",
+   "detail": "Send a unique, descriptive User-Agent on every request. Reddit throttles or blocks unidentified clients.",
+   "values": [
+    {
+     "label": "Format",
+     "text": "<platform>:<app ID>:<version string> (by /u/<reddit username>)"
+    }
+   ],
+   "evidence": [
+    "S6"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s12",
+   "phase": "launch",
+   "title": "Test a connection and token refresh",
+   "owner": "you",
+   "time": "20 min",
+   "detail": "Connect a test Reddit account through the new auth config. Check that the consent screen shows your app, then confirm the token refreshes after the 1-hour expiry.",
+   "values": [],
+   "evidence": [
+    "S1",
+    "S4"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s13",
+   "phase": "launch",
+   "title": "Switch users to the new auth config",
+   "owner": "agent",
+   "time": "15 min",
+   "detail": "Point new connections at the custom auth config. Existing users of the managed app must reconnect.",
+   "values": [],
+   "evidence": [],
+   "paths": null
+  },
+  {
+   "id": "s14",
+   "phase": "launch",
+   "title": "Schedule deletion of stored Reddit data",
+   "owner": "agent_drafts",
+   "time": "1 hr",
+   "detail": "Delete content that has been removed from Reddit. Reddit recommends routinely deleting stored user data and content within 48 hours.",
+   "values": [],
+   "evidence": [
+    "S6"
+   ],
+   "paths": null
+  }
+ ],
+ "gotchas": [
+  {
+   "text": "Reddit's two official pages disagree on whether approval is needed. The Data API Wiki describes free access by default. The Responsible Builder Policy, updated 5 Oct 2026, requires explicit approval for any API access. Follow the policy.",
+   "evidence": [
+    "S6",
+    "S7"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The free rate limit is 100 queries per minute per OAuth client ID, averaged over 10 minutes. All users of one app share it.",
+   "evidence": [
+    "S6"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Free-access chat limits are 2,000 messages per day per recipient and 3,000 per day in total. Bot API users can join at most 300 chat rooms per day.",
+   "evidence": [
+    "S6"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Access tokens expire after 1 hour (expires_in 3600). Reddit issues a refresh token only when the request uses duration=permanent. The implicit grant can't get permanent tokens.",
+   "evidence": [
+    "S1",
+    "S4"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Selling, licensing or sharing Reddit data, and using it for ads targeting or AI/ML training, is barred without express written approval. Check that data passed to model vendors fits the approved purpose.",
+   "evidence": [
+    "S7"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Reddit publishes no fees. A third-party vendor claims commercial use costs $0.24 per 1,000 calls. Treat that figure as unverified until Reddit quotes terms.",
+   "evidence": [
+    "S9",
+    "S6"
+   ],
+   "paths": [
+    "commercial_request"
+   ]
+  },
+  {
+   "text": "Reddit's discovery document lists the token endpoint as https://www.reddit.com/oauth2/v1/token with PKCE S256. Library configs use https://www.reddit.com/api/v1/access_token. Reddit warns that some legacy API docs may be out of date.",
+   "evidence": [
+    "P1",
+    "S3",
+    "S6"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Reddit can revoke tokens and suspend the app, the account and associated bots, domains or subreddits for policy breaches.",
+   "evidence": [
+    "S7"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The revoke endpoint returns 204 even when the token was never valid, so a 204 doesn't confirm that a live token was revoked.",
+   "evidence": [
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Reddit offers no API, CLI or manifest for creating apps. App creation goes only through the web form.",
+   "evidence": [
+    "S2",
+    "S4"
+   ],
+   "paths": null
+  }
+ ],
+ "blockers": [
+  {
+   "see": "\"Create app\" on /prefs/apps creates nothing and routes to the Responsible Builder Policy.",
+   "cause": "Since November 2025, self-serve app creation requires an approved Data Access Request.",
+   "fix": "Submit the Data Access Request, wait for approval, then create the web app.",
+   "paths": null
+  },
+  {
+   "see": "Data Access Request denied, or no response.",
+   "cause": "Reddit reviews requests by hand. A vendor report says denials come with no stated reason or appeal.",
+   "fix": "Narrow the stated purpose and scope, check whether Devvit covers the use case, and keep the product working without Reddit.",
+   "paths": null
+  },
+  {
+   "see": "401 Unauthorized from https://www.reddit.com/api/v1/access_token",
+   "cause": "The token request uses an unknown or wrong client ID or secret.",
+   "fix": "Re-copy the client ID and secret from the app page into the Composio auth config.",
+   "paths": null
+  },
+  {
+   "see": "Requests throttled or blocked",
+   "cause": "The client sent no OAuth credentials or an undescriptive User-Agent.",
+   "fix": "Authenticate with OAuth and send a User-Agent in the format <platform>:<app ID>:<version string> (by /u/<reddit username>).",
+   "paths": null
+  },
+  {
+   "see": "Connection stops working after about an hour",
+   "cause": "The authorize request omitted duration=permanent, so Reddit issued no refresh token.",
+   "fix": "Add duration=permanent to the auth config and reconnect the user.",
+   "paths": null
+  }
+ ],
+ "aiPolicy": {
+  "status": "restrictions",
+  "summary": "Using Reddit data for AI/ML training, ads targeting, scraping, or selling, licensing or sharing it is barred without express written approval. Apps must delete content removed from Reddit; Reddit recommends deleting stored user data within 48 hours. Bots and AI agents must register and carry an App profile label.",
+  "evidence": [
+   "S7",
+   "S6"
+  ]
+ },
+ "customerAdminNote": null,
+ "unknowns": [
+  "Reddit doesn't publish a review time for Data Access Requests.",
+  "Reddit doesn't publish fees or paid tiers for commercial API access.",
+  "Reddit doesn't classify any scopes as sensitive or restricted.",
+  "Reddit doesn't publish redirect URI rules (https, wildcards, maximum count).",
+  "Reddit doesn't document PKCE support for its authorize endpoint, though its discovery document lists S256.",
+  "Reddit doesn't publish refresh token rotation or re-consent rules.",
+  "Reddit doesn't say whether rate limits differ after approval.",
+  "Reddit doesn't say whether tokens issued before the Responsible Builder Policy keep working.",
+  "Reddit's terms don't say whether passing data to model vendors in prompts or through intermediaries like Composio counts as sharing.",
+  "Reddit doesn't offer an API or manifest for creating OAuth apps."
+ ],
+ "slug": "reddit",
+ "kind": "generated",
+ "checkedAt": "2026-10-20",
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://github.com/reddit-archive/reddit/wiki/oauth2",
+   "title": "OAuth2 · reddit-archive/reddit Wiki · GitHub",
+   "domain": "github.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S2",
+   "url": "https://praw.readthedocs.io/en/stable/tutorials/refresh_token.html",
+   "title": "Working with Refresh Tokens - PRAW 8.0.2 documentation",
+   "domain": "praw.readthedocs.io",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S3",
+   "url": "https://github.com/p2/OAuth2/wiki/Reddit",
+   "title": "Reddit · p2/OAuth2 Wiki · GitHub",
+   "domain": "github.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S4",
+   "url": "https://github.com/reddit-archive/reddit/wiki/oauth2-quick-start-example",
+   "title": "OAuth2 Quick Start Example · reddit-archive/reddit Wiki · GitHub",
+   "domain": "github.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S5",
+   "url": "https://www.redditapis.com/blogs/how-to-get-reddit-api-key-2026",
+   "title": "How to Get a Reddit API Key in 2026 (Step-by-Step) - Redditapis",
+   "domain": "redditapis.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S6",
+   "url": "https://support.reddithelp.com/hc/en-us/articles/16160319875092-Reddit-Data-API-Wiki",
+   "title": "Reddit Data API Wiki",
+   "domain": "support.reddithelp.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S7",
+   "url": "https://support.reddithelp.com/hc/articles/42728983564564",
+   "title": "Responsible Builder Policy",
+   "domain": "support.reddithelp.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S8",
+   "url": "https://postwire.io/platforms/reddit/approval/",
+   "title": "Reddit API approval: what it actually takes - PostWire",
+   "domain": "postwire.io",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S9",
+   "url": "https://www.redditapis.com/answers/how-to-get-reddit-api-access",
+   "title": "How to Get Reddit API Access in 2026",
+   "domain": "redditapis.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S10",
+   "url": "https://www.redditapis.com/blogs/reddit-data-api-2026",
+   "title": "Reddit Data API in 2026: How to Get Access and Alternatives",
+   "domain": "redditapis.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P1",
+   "url": "https://www.reddit.com/.well-known/oauth-authorization-server",
+   "title": "GET discovery document: 200: token endpoint https://www.reddit.com/oauth2/v1/token, PKCE S256",
+   "domain": "www.reddit.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P2",
+   "url": "https://www.reddit.com/api/v1/access_token",
+   "title": "POST token request with an unknown client: 401: 401: Unauthorized",
+   "domain": "www.reddit.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  }
+ ],
+ "probes": [
+  {
+   "target": "www.reddit.com/.well-known/oauth-authorization-server",
+   "request": "GET discovery document",
+   "result": "200: token endpoint https://www.reddit.com/oauth2/v1/token, PKCE S256",
+   "at": "2026-10-20T20:52:59.214Z"
+  },
+  {
+   "target": "www.reddit.com/api/v1/access_token",
+   "request": "POST token request with an unknown client",
+   "result": "401: 401: Unauthorized",
+   "at": "2026-10-20T20:52:59.214Z"
+  }
+ ],
+ "composio": {
+  "toolkits": [
+   {
+    "slug": "reddit",
+    "name": "Reddit",
+    "managed": true
+   }
+  ],
+  "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add"
+ },
+ "run": {
+  "model": "claude-sonnet-5-5 + claude-opus-5-5",
+  "seconds": 147,
+  "searches": 8,
+  "fetches": 8,
+  "costUsd": 1.11
+ }
+}

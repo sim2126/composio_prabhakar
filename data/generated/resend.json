@@ -1,0 +1,619 @@
+{
+ "outcome": "oauth_app",
+ "outcomeNote": null,
+ "name": "Resend",
+ "vendorDomain": "resend.com",
+ "covers": [
+  "resend"
+ ],
+ "summary": "Resend offers OAuth 2.1 with PKCE; register your own client through an unauthenticated API call, with no console, review or fee published.",
+ "capabilities": [
+  {
+   "id": "send_email",
+   "label": "Send transactional emails",
+   "scopes": [
+    {
+     "name": "emails:send",
+     "tier": "basic",
+     "label": "Send-only routes such as POST /emails"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "send_broadcast",
+   "label": "Send existing broadcasts",
+   "scopes": [
+    {
+     "name": "emails:send",
+     "tier": "basic",
+     "label": "POST /broadcasts/:broadcastId/send"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "manage_account",
+   "label": "Manage domains, contacts, broadcasts and other resources",
+   "scopes": [
+    {
+     "name": "full_access",
+     "tier": "basic",
+     "label": "All routes other than send-only ones"
+    }
+   ],
+   "alternative": "Use emails:send if the agent only sends"
+  },
+  {
+   "id": "read_data",
+   "label": "Read emails, logs and account data",
+   "scopes": [
+    {
+     "name": "full_access",
+     "tier": "basic",
+     "label": "All routes other than send-only ones"
+    }
+   ],
+   "alternative": null
+  }
+ ],
+ "defaultCapabilities": [
+  "send_email"
+ ],
+ "paths": [
+  {
+   "id": "preregistered_client",
+   "label": "Pre-register a confidential client via POST /oauth/register",
+   "audiences": [
+    "team",
+    "customers",
+    "public"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "none",
+   "drivenBy": "Resend has no dashboard for OAuth clients; registration is a single unauthenticated API call to POST https://api.resend.com/oauth/register (RFC 7591) with Composio's redirect URI and token_endpoint_auth_method client_secret_basic or client_secret_post. Resend publishes no review, verification or listing step, and recommends pre-registering remote third-party clients rather than using DCR at runtime.",
+   "effort": "~15–60 min",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "Resend publishes no fee, plan or account-type requirement for registering an OAuth client.",
+   "costEvidence": [
+    "S2",
+    "S3"
+   ],
+   "customerAdmin": "none",
+   "next": "Call POST https://api.resend.com/oauth/register with redirect_uris [\"https://backend.composio.dev/api/v1/auth-apps/add\"], a confidential auth method and an explicit scope, save the client_id and client_secret, then create the Composio auth config.",
+   "untilApproved": [
+    {
+     "text": "Save the client_secret immediately; Resend returns it only once and stores a hash, so losing it means registering a new client.",
+     "evidence": [
+      "S3"
+     ]
+    },
+    {
+     "text": "Pass scope explicitly; a client that omits scope gets both emails:send and full_access.",
+     "evidence": [
+      "S2"
+     ]
+    },
+    {
+     "text": "Persist each rotated refresh token; replaying an old one fails with invalid_grant and can revoke the whole grant.",
+     "evidence": [
+      "S2"
+     ]
+    },
+    {
+     "text": "Access tokens expire after 15 minutes; refresh tokens last 60 days from each refresh.",
+     "evidence": [
+      "S1",
+      "S2"
+     ]
+    },
+    {
+     "text": "DCR is limited to 20 registrations per hour per IP; excess requests get 429.",
+     "evidence": [
+      "S3"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Register client",
+     "",
+     "",
+     "Go live"
+    ],
+    "provider": [
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  }
+ ],
+ "prereqs": [
+  {
+   "text": "A Resend account you can sign in to for testing the consent flow.",
+   "why": "Each user approves access on Resend's own consent screen, so an end-to-end test needs a real Resend login.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "A Composio project where you can create an auth config for the resend toolkit with your own OAuth credentials.",
+   "why": "Composio has no managed OAuth app for Resend, so you must supply your own client.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "A secret store ready to receive the client_secret at registration time.",
+   "why": "Resend returns the client_secret only once and keeps only a hash. If you lose it, you must register a new client.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "A decision on which capabilities you need: send_email and send_broadcast only, or also manage_account and read_data.",
+   "why": "This decides between the emails:send and full_access scopes before you register the client.",
+   "owner": "you",
+   "paths": null
+  }
+ ],
+ "steps": [
+  {
+   "id": "choose-scope",
+   "phase": "today",
+   "title": "Choose the scope string",
+   "owner": "you",
+   "time": "10 min",
+   "detail": "Use emails:send if the agent only sends emails or existing broadcasts (POST /emails, POST /broadcasts/:broadcastId/send). Use full_access for any other route: managing domains, contacts and broadcasts, or reading emails and logs. Always pass scope explicitly. A client that omits it gets both scopes. Resend asks for the smallest scope that works.",
+   "values": [
+    {
+     "label": "Send-only scope (send_email, send_broadcast)",
+     "text": "emails:send"
+    },
+    {
+     "label": "All other routes (manage_account, read_data)",
+     "text": "full_access"
+    }
+   ],
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "register-client",
+   "phase": "today",
+   "title": "Register a confidential client via POST /oauth/register",
+   "owner": "agent",
+   "time": "5 min",
+   "detail": "Call the unauthenticated, RFC 7591 register endpoint with no API key. Set the Composio redirect URI, a confidential token_endpoint_auth_method, and the chosen scope. Resend recommends pre-registering remote third-party clients this way rather than registering them dynamically at runtime. The response contains a UUID client_id and the client_secret. Tested: an agent registered a client this way in under a second, with no console or human step.",
+   "values": [
+    {
+     "label": "Register endpoint",
+     "text": "https://api.resend.com/oauth/register"
+    },
+    {
+     "label": "redirect_uris",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    },
+    {
+     "label": "token_endpoint_auth_method",
+     "text": "client_secret_basic or client_secret_post"
+    },
+    {
+     "label": "scope",
+     "text": "emails:send or full_access (or both, space-separated, only if needed)"
+    }
+   ],
+   "evidence": [
+    "S1",
+    "S2",
+    "S3",
+    "T1"
+   ],
+   "paths": [
+    "preregistered_client"
+   ]
+  },
+  {
+   "id": "store-secret",
+   "phase": "today",
+   "title": "Store client_id and client_secret immediately",
+   "owner": "you",
+   "time": "5 min",
+   "detail": "Save both values from the registration response to your secret store. The secret is shown only once and cannot be retrieved later.",
+   "values": [],
+   "evidence": [
+    "S3"
+   ],
+   "paths": [
+    "preregistered_client"
+   ]
+  },
+  {
+   "id": "create-auth-config",
+   "phase": "today",
+   "title": "Create the Composio auth config for resend",
+   "owner": "agent",
+   "time": "10 min",
+   "detail": "Create an auth config for the resend toolkit with your own OAuth credentials. Use the client_id, the client_secret and the chosen scope. Resend requires PKCE (S256) on every code exchange, including for confidential clients, so make sure the config sends PKCE.",
+   "values": [
+    {
+     "label": "Toolkit",
+     "text": "resend"
+    },
+    {
+     "label": "Authorize URL",
+     "text": "https://api.resend.com/oauth/authorize"
+    },
+    {
+     "label": "Token URL",
+     "text": "https://api.resend.com/oauth/token"
+    },
+    {
+     "label": "Redirect URI",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    },
+    {
+     "label": "PKCE method",
+     "text": "S256"
+    }
+   ],
+   "evidence": [
+    "S2",
+    "P1"
+   ],
+   "paths": null
+  },
+  {
+   "id": "test-connection",
+   "phase": "week",
+   "title": "Connect a test Resend account end to end",
+   "owner": "you",
+   "time": "30 min",
+   "detail": "Start a connection through the new auth config, sign in on Resend's consent screen, and approve. Call one route covered by your scope. Then confirm the app appears under Team settings in the Resend account, where users can revoke it.",
+   "values": [],
+   "evidence": [
+    "S1",
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "test-refresh",
+   "phase": "week",
+   "title": "Verify refresh token rotation",
+   "owner": "you",
+   "time": "30 min",
+   "detail": "Access tokens expire after 15 minutes (expires_in 900). Wait past expiry and run a tool call. Confirm that Composio refreshes the token and persists the new, rotated refresh token. Each refresh resets a 60-day lifetime.",
+   "values": [
+    {
+     "label": "Access token lifetime",
+     "text": "900 seconds"
+    }
+   ],
+   "evidence": [
+    "S1",
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "no-review",
+   "phase": "wait",
+   "title": "Proceed without a review queue",
+   "owner": "provider",
+   "time": "0",
+   "detail": "Resend publishes no app review, verification, listing or install cap before external users can connect. Resend offers no self-service verification yet, so the client is unverified. Re-check Resend's docs before launch in case a verification programme has appeared.",
+   "values": [],
+   "evidence": [
+    "S2"
+   ],
+   "paths": [
+    "preregistered_client"
+   ]
+  },
+  {
+   "id": "switch-config",
+   "phase": "launch",
+   "title": "Switch production connections to the new auth config",
+   "owner": "agent",
+   "time": "15 min",
+   "detail": "Point your app's Resend connection flow at the new auth config ID. Existing users must reconnect through it to get tokens issued to your client.",
+   "values": [],
+   "evidence": [],
+   "paths": null
+  },
+  {
+   "id": "handle-revocation",
+   "phase": "launch",
+   "title": "Handle revoked and expired grants",
+   "owner": "agent_drafts",
+   "time": "1 h",
+   "detail": "Users can revoke access in Team settings at any time, and refresh tokens die after 60 days without use. Detect invalid_grant on refresh and prompt the user to reconnect. To end a grant yourself, revoke its refresh token at /oauth/revoke, presenting the client secret.",
+   "values": [
+    {
+     "label": "Revocation endpoint path",
+     "text": "/oauth/revoke"
+    }
+   ],
+   "evidence": [
+    "S1",
+    "S2",
+    "S3"
+   ],
+   "paths": null
+  }
+ ],
+ "gotchas": [
+  {
+   "text": "Resend recommends pre-registering remote third-party clients rather than registering them by API, because it has no domain-ownership checks yet. Ask Resend before relying on self-registration in production.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The client_secret is returned only once at registration. Resend stores only a hash, so a lost secret means registering a new client and updating the auth config.",
+   "evidence": [
+    "S3"
+   ],
+   "paths": [
+    "preregistered_client"
+   ]
+  },
+  {
+   "text": "Omitting scope grants both emails:send and full_access. Always set scope explicitly at registration and in the auth config.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Refresh tokens rotate on every refresh. Replaying an old one fails with invalid_grant and revokes the whole grant, except within about one minute of rotation; do not rely on that window. Concurrent refreshes from multiple workers can trigger this.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Refresh tokens expire 60 days after their last refresh. Connections left idle longer need reauthorization.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "PKCE is required for confidential clients too. A token exchange without a code_verifier will fail even with a valid secret.",
+   "evidence": [
+    "S2",
+    "P1"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Redirect URI rules: 1 to 10 URIs, each up to 2048 characters, no fragments, and http only on loopback. Resend doesn't document wildcard redirect URIs.",
+   "evidence": [
+    "S3"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Registration is limited to 20 per hour per IP address. Over the limit returns 429.",
+   "evidence": [
+    "S3"
+   ],
+   "paths": [
+    "preregistered_client"
+   ]
+  },
+  {
+   "text": "Resend has no dashboard UI, CLI or manifest for OAuth clients. Registration is API-only, and existing clients cannot be viewed in a console.",
+   "evidence": [
+    "S2",
+    "S3"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The resource parameter (RFC 8707) is accepted but ignored.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Resend publishes no API or developer policy addressing AI, LLM use, agents or data retention. Only general Terms of Service, Enterprise Terms, Privacy Policy and DPA exist. Review them before launch.",
+   "evidence": [
+    "S5"
+   ],
+   "paths": null
+  }
+ ],
+ "blockers": [
+  {
+   "see": "401 invalid_client: Unknown client_id from https://api.resend.com/oauth/token",
+   "cause": "The auth config uses a client_id that Resend did not issue, or that comes from a different registration.",
+   "fix": "Copy the exact UUID client_id returned by POST /oauth/register into the Composio auth config, or register a new client.",
+   "paths": null
+  },
+  {
+   "see": "invalid_grant on token refresh",
+   "cause": "A rotated refresh token was replayed or not persisted, which revokes the grant. It can also mean the token passed its 60-day lifetime or the user revoked access.",
+   "fix": "Have the user reconnect. Ensure only one refresh runs at a time and that the new refresh token is saved after every refresh.",
+   "paths": null
+  },
+  {
+   "see": "429 from POST /oauth/register",
+   "cause": "More than 20 registrations per hour from one IP address.",
+   "fix": "Wait for the hourly window to reset. Register one pre-registered client and reuse it instead of registering repeatedly.",
+   "paths": [
+    "preregistered_client"
+   ]
+  }
+ ],
+ "aiPolicy": {
+  "status": "unknown",
+  "summary": "Resend has no separate API terms or developer policy. Its general Terms of Service, Privacy Policy, Enterprise Terms and DPA show no clause on AI or LLM use, model training, agents acting for users, or retention limits for API data.",
+  "evidence": [
+   "S4",
+   "S5",
+   "S6",
+   "S7",
+   "S8"
+  ]
+ },
+ "customerAdminNote": null,
+ "unknowns": [
+  "Resend doesn't publish a dashboard or console path for creating or managing OAuth clients.",
+  "Resend doesn't publish whether wildcard redirect URIs are allowed.",
+  "Resend doesn't publish any future review, verification or listing process for OAuth clients.",
+  "Resend doesn't publish whether team administrators can restrict which OAuth apps members authorize.",
+  "Resend doesn't publish whether repeat authorizations re-prompt for consent.",
+  "Resend doesn't publish rate limits that apply specifically to OAuth-issued tokens.",
+  "Resend's terms don't address AI or LLM use of API data, model training, or data retention for integrators.",
+  "Resend doesn't publish how to update or delete a registered client."
+ ],
+ "slug": "resend",
+ "kind": "generated",
+ "checkedAt": "2026-10-20",
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://resend.com/changelog/oauth-support",
+   "title": "OAuth Support · Resend",
+   "domain": "resend.com",
+   "class": "official",
+   "retrievedAt": "2026-10-13"
+  },
+  {
+   "id": "S2",
+   "url": "https://resend.com/docs/guides/building-a-resend-oauth-client",
+   "title": "Building an OAuth client for Resend - Resend",
+   "domain": "resend.com",
+   "class": "official",
+   "retrievedAt": "2026-10-08"
+  },
+  {
+   "id": "S3",
+   "url": "https://resend.com/docs/api-reference/oauth/register",
+   "title": "resend.com",
+   "domain": "resend.com",
+   "class": "official",
+   "retrievedAt": "2026-09-21"
+  },
+  {
+   "id": "S4",
+   "url": "https://resend.com/legal/terms-of-service",
+   "title": "Terms of Service · Resend",
+   "domain": "resend.com",
+   "class": "official",
+   "retrievedAt": "2026-10-19"
+  },
+  {
+   "id": "S5",
+   "url": "https://resend.com/legal",
+   "title": "Legal · Resend",
+   "domain": "resend.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S6",
+   "url": "https://resend.com/legal/enterprise-terms",
+   "title": "Enterprise Terms and Conditions · Resend",
+   "domain": "resend.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S7",
+   "url": "https://resend.com/legal/privacy-policy",
+   "title": "Privacy Policy · Resend",
+   "domain": "resend.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S8",
+   "url": "https://resend.com/legal/dpa",
+   "title": "Data Processing Addendum · Resend",
+   "domain": "resend.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S9",
+   "url": "https://github.com/getsentry/sentry/issues/110317",
+   "title": "Rethink integrations: open OAuth, featured partners, no approval queue · Issue #110317 · getsentry/sentry · GitHub",
+   "domain": "github.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P1",
+   "url": "https://resend.com/.well-known/oauth-authorization-server",
+   "title": "GET discovery document: 200: token endpoint https://api.resend.com/oauth/token, PKCE S256, dynamic client registration offered",
+   "domain": "resend.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P2",
+   "url": "https://api.resend.com/oauth/token",
+   "title": "POST token request with an unknown client: 401: invalid_client: Unknown client_id",
+   "domain": "api.resend.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "T1",
+   "url": "https://api.resend.com/oauth/register",
+   "title": "Registered a confidential client by API (201 in 0.76 s); authorize accepted it with the Composio callback (302 to consent)",
+   "domain": "api.resend.com",
+   "class": "tested",
+   "retrievedAt": "2026-10-20"
+  }
+ ],
+ "probes": [
+  {
+   "target": "resend.com/.well-known/oauth-authorization-server",
+   "request": "GET discovery document",
+   "result": "200: token endpoint https://api.resend.com/oauth/token, PKCE S256, dynamic client registration offered",
+   "at": "2026-10-20T20:48:36.166Z"
+  },
+  {
+   "target": "api.resend.com/oauth/token",
+   "request": "POST token request with an unknown client",
+   "result": "401: invalid_client: Unknown client_id",
+   "at": "2026-10-20T20:48:36.166Z"
+  },
+  {
+   "target": "api.resend.com/oauth/register",
+   "request": "POST client registration (client_secret_basic, emails:send, Composio callback)",
+   "result": "201: client issued in 0.76 s; authorize then answered 302 to the consent page (unknown client: 401)",
+   "at": "2026-10-20T20:07:55Z"
+  }
+ ],
+ "composio": {
+  "toolkits": [
+   {
+    "slug": "resend",
+    "name": "Resend",
+    "managed": false
+   }
+  ],
+  "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add"
+ },
+ "run": {
+  "model": "claude-sonnet-5-5 + claude-opus-5-5",
+  "seconds": 108,
+  "searches": 11,
+  "fetches": 9,
+  "costUsd": 1.53
+ }
+}

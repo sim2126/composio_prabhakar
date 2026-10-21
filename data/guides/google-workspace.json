@@ -1,0 +1,167 @@
+{
+  "slug": "google-workspace",
+  "kind": "verified",
+  "checkedAt": "2026-10-21",
+  "outcome": "oauth_app",
+  "outcomeNote": null,
+  "name": "Google Workspace",
+  "vendorDomain": "google.com",
+  "covers": ["Gmail", "Google Calendar", "Google Drive", "Docs", "Sheets", "Slides", "Meet", "Tasks"],
+  "summary": "One Google Cloud project and OAuth client covers every Workspace toolkit; the scopes you request decide whether Google reviews the app and whether a yearly security assessment applies.",
+  "capabilities": [
+    { "id": "send", "label": "Send email", "scopes": [{ "name": "https://www.googleapis.com/auth/gmail.send", "tier": "sensitive", "label": "Sensitive" }], "alternative": "Narrowest scope for sending mail." },
+    { "id": "read", "label": "Read email", "scopes": [{ "name": "https://www.googleapis.com/auth/gmail.readonly", "tier": "restricted", "label": "Restricted" }], "alternative": "No non-restricted way to read mail; gmail.metadata is restricted too." },
+    { "id": "calendar", "label": "Manage calendar", "scopes": [{ "name": "https://www.googleapis.com/auth/calendar.events", "tier": "sensitive", "label": "Sensitive" }], "alternative": "Calendar has no restricted scopes." },
+    { "id": "drive-picked", "label": "Open files users pick", "scopes": [{ "name": "https://www.googleapis.com/auth/drive.file", "tier": "basic", "label": "Non-sensitive" }], "alternative": "Google recommends this scope for most Drive use." },
+    { "id": "drive-all", "label": "Read all Drive files", "scopes": [{ "name": "https://www.googleapis.com/auth/drive.readonly", "tier": "restricted", "label": "Restricted" }], "alternative": "Use drive.file (non-sensitive) if users can pick files." },
+    { "id": "tasks", "label": "Manage tasks", "scopes": [{ "name": "https://www.googleapis.com/auth/tasks", "tier": "sensitive", "label": "Not classified in docs" }], "alternative": "tasks.readonly if the agent only reads tasks. Treated as sensitive until the console says otherwise." }
+  ],
+  "defaultCapabilities": ["send", "read", "calendar"],
+  "paths": [
+    {
+      "id": "internal", "label": "Your Workspace organisation only",
+      "audiences": ["team"], "tiers": ["basic", "sensitive", "restricted"],
+      "review": "none",
+      "drivenBy": "Internal apps are exempt from verification and the 100-user cap; only accounts in your organisation can connect, and an organisation admin may need to approve the app.",
+      "effort": "~45 min", "waitOfficial": "None for internal apps", "waitReported": null, "waitEvidence": ["S1"],
+      "cost": "$0", "costNote": "Google charges no fee.", "costEvidence": ["S3"],
+      "customerAdmin": "none",
+      "next": "Create the project inside your organisation and connect today.",
+      "untilApproved": [],
+      "lanes": { "you": ["~45 min", "", "", "~10 min"], "provider": ["", "", "", ""] }
+    },
+    {
+      "id": "external-basic", "label": "External users, non-sensitive scopes",
+      "audiences": ["customers", "public"], "tiers": ["basic"],
+      "review": "light",
+      "drivenBy": "Only non-sensitive scopes, so no scope review; brand verification shows your app name and logo on the consent screen.",
+      "effort": "~1 hour", "waitOfficial": "2–3 business days for brand verification", "waitReported": null, "waitEvidence": ["S3"],
+      "cost": "$0", "costNote": "Google charges no fee.", "costEvidence": ["S3"],
+      "customerAdmin": "sometimes",
+      "next": "Publish and connect users today, then submit brand verification so they see your name.",
+      "untilApproved": [
+        { "text": "Without brand verification the consent screen shows your domain, not your app name.", "evidence": ["S1"] }
+      ],
+      "lanes": { "you": ["~45 min", "~1 h", "", "~10 min"], "provider": ["", "", "2–3 BD", ""] }
+    },
+    {
+      "id": "external-sensitive", "label": "External users, sensitive scopes",
+      "audiences": ["customers", "public"], "tiers": ["sensitive"],
+      "review": "formal",
+      "drivenBy": "A sensitive scope (for example gmail.send or calendar.events) means Google reviews the app before it can leave Testing.",
+      "effort": "~1 day", "waitOfficial": "3–10 business days; Google's own pages disagree", "waitReported": null, "waitEvidence": ["S3", "S12"],
+      "cost": "$0", "costNote": "Google charges no fee.", "costEvidence": ["S3"],
+      "customerAdmin": "sometimes",
+      "next": "Submit verification this week and build in Testing mode meanwhile.",
+      "untilApproved": [
+        { "text": "Testing: up to 100 test users, and their access expires 7 days after consent.", "evidence": ["S21", "S7"] },
+        { "text": "Published but unverified: at most 100 new users, behind an “unverified app” warning.", "evidence": ["S2"] }
+      ],
+      "lanes": { "you": ["~45 min", "~1 day", "", "~30 min"], "provider": ["", "", "3–10 BD", ""] }
+    },
+    {
+      "id": "external-restricted", "label": "External users, restricted scopes",
+      "audiences": ["customers", "public"], "tiers": ["restricted"],
+      "review": "assessment",
+      "drivenBy": "A restricted scope (for example gmail.readonly or drive.readonly) needs verification plus a security assessment by an authorised lab, renewed every 12 months.",
+      "effort": "1–2 days", "waitOfficial": "~6 weeks of review, not guaranteed, plus 1–3 weeks with the lab", "waitReported": "2–5 months when submissions bounce", "waitEvidence": ["S3", "S13", "S18", "S19"],
+      "cost": "$540–6,000 / yr", "costNote": "Paid to the assessment lab, not Google; price depends on the lab and assessment level.", "costEvidence": ["S16", "S17", "S9"],
+      "customerAdmin": "sometimes",
+      "next": "Submit verification this week — it is the long pole. Keep Gmail on Composio's managed app until you are approved.",
+      "untilApproved": [
+        { "text": "Testing: up to 100 test users, and their access expires 7 days after consent.", "evidence": ["S21", "S7"] },
+        { "text": "Published but unverified: at most 100 new users, behind an “unverified app” warning.", "evidence": ["S2"] }
+      ],
+      "lanes": { "you": ["~45 min", "1–2 days", "fix findings", "~30 min"], "provider": ["", "", "~6 wk + lab", ""] }
+    }
+  ],
+  "prereqs": [
+    { "text": "A Workspace organisation that owns the project", "why": "Required for the Internal audience.", "owner": "you", "paths": ["internal"] },
+    { "text": "Public homepage and privacy policy on your own domain", "why": "Not behind a login. Allow time for legal review.", "owner": "you", "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "text": "DNS access for that domain", "why": "Needed to verify it in Search Console.", "owner": "you", "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "text": "A redirect endpoint on that domain", "why": "Google verifies every redirect domain; the agent writes the 302 route to Composio.", "owner": "agent_drafts", "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "text": "Budget and an owner for the yearly security assessment", "why": "$540–6,000 a year depending on lab and level.", "owner": "you", "paths": ["external-restricted"] }
+  ],
+  "steps": [
+    { "id": "project", "phase": "today", "title": "Create a Google Cloud project", "owner": "you", "time": "5 min", "detail": "console.cloud.google.com → New project. For an internal app, create it inside your Workspace organisation. There is no API for this step.", "values": [], "evidence": ["S1"], "paths": null },
+    { "id": "branding", "phase": "today", "title": "Fill in branding", "owner": "agent_drafts", "time": "10 min", "detail": "Google Auth Platform → Branding: app name, support email, logo, homepage, privacy policy and authorised domains. The agent prepares the values from your site; you paste them.", "values": [], "evidence": ["S1"], "paths": null },
+    { "id": "audience-internal", "phase": "today", "title": "Set audience to Internal", "owner": "you", "time": "2 min", "detail": "Google Auth Platform → Audience → Internal. Only accounts in your organisation can sign in.", "values": [], "evidence": ["S1"], "paths": ["internal"] },
+    { "id": "audience-external", "phase": "today", "title": "Set audience to External and add test users", "owner": "you", "time": "5 min", "detail": "Google Auth Platform → Audience → External, publishing status Testing. Add up to 100 test users.", "values": [], "evidence": ["S21"], "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "id": "scopes", "phase": "today", "title": "Add only the scopes you use", "owner": "agent_drafts", "time": "5 min", "detail": "Google Auth Platform → Data access → Add or remove scopes. Requested-but-unused scopes are a common rejection reason.", "values": [], "evidence": ["S5", "S6"], "paths": null },
+    { "id": "client", "phase": "today", "title": "Create the OAuth client", "owner": "you", "time": "5 min", "detail": "Clients → Create client → Web application. Paste the redirect URI shown in your Composio auth config. The client secret is shown once: copy it now.", "values": [{ "label": "Composio redirect URI (default in auth configs)", "text": "https://backend.composio.dev/api/v1/auth-apps/add" }], "evidence": ["S8", "S15", "S20"], "paths": null },
+    { "id": "auth-config", "phase": "today", "title": "Create the Composio auth config", "owner": "agent", "time": "1 min", "detail": "The agent creates a custom auth config with your client ID, secret and scopes through the Composio API, then returns a test connect link.", "values": [], "evidence": ["S15"], "paths": null },
+    { "id": "test-internal", "phase": "today", "title": "Connect an account in your organisation", "owner": "you", "time": "5 min", "detail": "Open the connect link and sign in with a Workspace account from your organisation.", "values": [], "evidence": ["S1"], "paths": ["internal"] },
+    { "id": "test-external", "phase": "today", "title": "Connect a test user", "owner": "you", "time": "10 min", "detail": "Use an account listed as a test user. Its access lapses 7 days after consent, so reconnect before demos.", "values": [], "evidence": ["S7"], "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "id": "redirect-proxy", "phase": "week", "title": "Route the redirect through your domain", "owner": "agent_drafts", "time": "20 min", "detail": "Google verifies every domain in your redirect URIs and you cannot verify composio.dev. Add an endpoint on your domain that 302-redirects to Composio, then use that URL in both the Google client and your auth config.", "values": [{ "label": "Redirect endpoint (Next.js route)", "text": "// app/api/composio-redirect/route.ts\nexport function GET(req: Request) {\n  const qs = new URL(req.url).search;\n  return Response.redirect(\"https://backend.composio.dev/api/v3/toolkits/auth/callback\" + qs, 302);\n}" }], "evidence": ["S4", "S14"], "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "id": "domain", "phase": "week", "title": "Verify your domain in Search Console", "owner": "you", "time": "15 min", "detail": "Add a DNS TXT record for the domain that hosts your homepage, privacy policy and redirect endpoint. Propagation can take hours.", "values": [], "evidence": ["S4"], "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "id": "limited-use", "phase": "week", "title": "Add the Limited Use disclosure", "owner": "agent_drafts", "time": "30 min", "detail": "Required for sensitive and restricted scopes, on your app or website. The agent drafts it; you publish it on the verified domain.", "values": [{ "label": "Disclosure (Google's example wording)", "text": "The use of information received from Google Workspace scopes will adhere to the Google User Data Policy, including the Limited Use requirements." }], "evidence": ["S11"], "paths": ["external-sensitive", "external-restricted"] },
+    { "id": "video", "phase": "week", "title": "Record the demo video", "owner": "agent_drafts", "time": "1–2 h", "detail": "Show the consent screen with your app name, then each requested scope in use. Mismatches between scopes, code and video are the most common reason for another round. The agent writes the shot list.", "values": [], "evidence": ["S3", "S18"], "paths": ["external-sensitive", "external-restricted"] },
+    { "id": "justify", "phase": "week", "title": "Write scope justifications", "owner": "agent_drafts", "time": "20 min", "detail": "One reason per scope, tied to a feature users see. The field allows about 1,000 characters. The agent drafts; you edit.", "values": [], "evidence": ["S3", "S18"], "paths": ["external-sensitive", "external-restricted"] },
+    { "id": "submit-brand", "phase": "week", "title": "Submit brand verification", "owner": "you", "time": "5 min", "detail": "Google Auth Platform → Verification centre → Submit.", "values": [], "evidence": ["S3"], "paths": ["external-basic"] },
+    { "id": "submit", "phase": "week", "title": "Submit for verification", "owner": "you", "time": "5 min", "detail": "Google Auth Platform → Verification centre → Submit, with the video link and justifications.", "values": [], "evidence": ["S3"], "paths": ["external-sensitive", "external-restricted"] },
+    { "id": "review", "phase": "wait", "title": "Google reviews the app", "owner": "provider", "time": "2 BD – 6 wk", "detail": "Status shows in the Verification centre. Rejection notes do not always arrive by email, so check it weekly and reply in the same thread.", "values": [], "evidence": ["S3", "S18"], "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "id": "casa", "phase": "wait", "title": "Pass the security assessment", "owner": "lab", "time": "1–3 wk", "detail": "Google sets the assessment level. Pick an authorised lab, run the scan, fix findings, and send the lab's letter to Google. Repeat every 12 months.", "values": [], "evidence": ["S9", "S16", "S17"], "paths": ["external-restricted"] },
+    { "id": "switch", "phase": "launch", "title": "Switch your auth config to your client", "owner": "agent_drafts", "time": "30 min", "detail": "Publish to production. New connections use your client; existing users stay on the old auth config until they reconnect, so the agent drafts the reconnect message.", "values": [], "evidence": ["S15"], "paths": null }
+  ],
+  "gotchas": [
+    { "text": "Test users must reconnect every 7 days while the app is in Testing.", "evidence": ["S7"], "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "text": "Google's FAQ describes the 100-user cap as lasting the project's lifetime, while another page says quotas “might be adjusted”. Plan as if it is permanent.", "evidence": ["S3", "S2"], "paths": ["external-sensitive", "external-restricted"] },
+    { "text": "The client secret is shown once, and clients unused for six months are deleted.", "evidence": ["S8"], "paths": null },
+    { "text": "Users can untick scopes on the consent screen. Handle partial grants.", "evidence": ["S7"], "paths": null },
+    { "text": "Google keeps at most 100 refresh tokens per account per client and silently revokes the oldest.", "evidence": ["S7"], "paths": null },
+    { "text": "Customers' Workspace admins can limit Gmail and Drive to trusted apps.", "evidence": ["S10"], "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "text": "Adding a sensitive or restricted scope after approval likely means another review.", "evidence": [], "paths": ["external-sensitive", "external-restricted"] }
+  ],
+  "blockers": [
+    { "see": "Error 400: redirect_uri_mismatch", "cause": "The client's redirect URI differs from your auth config", "fix": "Copy the exact URI from the auth config into the client", "paths": null },
+    { "see": "Access blocked: app has not completed verification", "cause": "The user is not a test user while the app is in Testing", "fix": "Add them as a test user, or finish verification", "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "see": "Reviewer: domain not verified", "cause": "A redirect, homepage or policy URL is on a domain you have not verified", "fix": "Route the redirect through your domain and verify it in Search Console", "paths": ["external-basic", "external-sensitive", "external-restricted"] },
+    { "see": "Reviewer: demo video incomplete", "cause": "The consent screen or a scope's use is not shown", "fix": "Re-record from the shot list, one scope at a time", "paths": ["external-sensitive", "external-restricted"] },
+    { "see": "Assessment findings from the lab", "cause": "The scan found issues", "fix": "Fix, rescan, and send the new report to the same lab", "paths": ["external-restricted"] }
+  ],
+  "aiPolicy": { "status": "restrictions", "summary": "User-facing features such as AI summaries of the user's own mail are allowed; using Workspace data to train generalised AI models is prohibited.", "evidence": ["S11"] },
+  "customerAdminNote": "Workspace admins can limit Gmail and Drive to trusted apps. Send them your client ID to trust before rollout.",
+  "unknowns": [
+    "Whether adding a new sensitive or restricted scope after approval needs a full re-review.",
+    "Your exact assessment price: labs quote per app and level.",
+    "Google's Tasks API docs do not classify the tasks scopes; this guide treats them as sensitive."
+  ],
+  "sources": [
+    { "id": "S1", "url": "https://support.google.com/cloud/answer/13464323", "title": "When verification is not needed", "domain": "support.google.com", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S2", "url": "https://support.google.com/cloud/answer/7454865", "title": "Unverified apps", "domain": "support.google.com", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S3", "url": "https://support.google.com/cloud/answer/13463817", "title": "OAuth verification FAQ", "domain": "support.google.com", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S4", "url": "https://support.google.com/cloud/answer/13804266", "title": "Domain verification", "domain": "support.google.com", "class": "official", "retrievedAt": "2026-10-21" },
+    { "id": "S5", "url": "https://developers.google.com/workspace/gmail/api/auth/scopes", "title": "Gmail API scopes", "domain": "developers.google.com", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S6", "url": "https://developers.google.com/workspace/drive/api/guides/api-specific-auth", "title": "Drive API scopes", "domain": "developers.google.com", "class": "official", "retrievedAt": "2026-10-21" },
+    { "id": "S7", "url": "https://developers.google.com/identity/protocols/oauth2", "title": "Using OAuth 2.0", "domain": "developers.google.com", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S8", "url": "https://support.google.com/cloud/answer/15549257", "title": "Manage OAuth clients", "domain": "support.google.com", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S9", "url": "https://support.google.com/cloud/answer/13465431", "title": "Security assessment", "domain": "support.google.com", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S10", "url": "https://knowledge.workspace.google.com/admin/apps/control-which-apps-access-google-workspace-data", "title": "Control which apps access Workspace data", "domain": "knowledge.workspace.google.com", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S11", "url": "https://developers.google.com/workspace/workspace-api-user-data-developer-policy", "title": "Workspace API user data policy", "domain": "developers.google.com", "class": "official", "retrievedAt": "2026-10-21" },
+    { "id": "S12", "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/sensitive-scope-verification", "title": "Sensitive scope verification", "domain": "developers.google.com", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S13", "url": "https://developers.google.com/identity/protocols/oauth2/production-readiness/restricted-scope-verification", "title": "Restricted scope verification", "domain": "developers.google.com", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S14", "url": "https://docs.composio.dev/docs/white-labeling-authentication", "title": "Composio: redirect through your domain", "domain": "docs.composio.dev", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S15", "url": "https://docs.composio.dev/docs/authentication/custom-app-vs-managed-app", "title": "Composio: managed vs custom auth", "domain": "docs.composio.dev", "class": "official", "retrievedAt": "2026-10-20" },
+    { "id": "S16", "url": "https://tacsecurity.com/?p=18721", "title": "CASA assessment pricing (TAC Security)", "domain": "tacsecurity.com", "class": "third_party", "retrievedAt": "2026-10-20" },
+    { "id": "S17", "url": "https://leviathansecurity.com/programs/google-casa-cloud-application-security-assessment", "title": "Google CASA (Leviathan Security)", "domain": "leviathansecurity.com", "class": "third_party", "retrievedAt": "2026-10-20" },
+    { "id": "S18", "url": "https://zencapital.substack.com/p/two-months-in-google-oauth-verification", "title": "Two months in Google OAuth verification", "domain": "zencapital.substack.com", "class": "third_party", "retrievedAt": "2026-10-21" },
+    { "id": "S19", "url": "https://ia.net/topics/our-android-app-is-frozen-in-carbonite", "title": "Our Android app is frozen in carbonite", "domain": "ia.net", "class": "third_party", "retrievedAt": "2026-10-20" },
+    { "id": "S20", "url": "https://oauth2.googleapis.com/token", "title": "Token endpoint answers 401 invalid_client for an unknown client", "domain": "oauth2.googleapis.com", "class": "probed", "retrievedAt": "2026-10-20" },
+    { "id": "S21", "url": "https://support.google.com/cloud/answer/15549945", "title": "Manage app audience", "domain": "support.google.com", "class": "official", "retrievedAt": "2026-10-20" }
+  ],
+  "probes": [
+    { "target": "oauth2.googleapis.com/token", "request": "POST authorization_code with an unknown client", "result": "401 invalid_client: The OAuth client was not found.", "at": "2026-10-20" },
+    { "target": "accounts.google.com/o/oauth2/v2/auth", "request": "GET with an unknown client_id and the Composio redirect", "result": "302 to an error page: invalid_client", "at": "2026-10-20" }
+  ],
+  "composio": {
+    "toolkits": [
+      { "slug": "gmail", "name": "Gmail", "managed": true },
+      { "slug": "googlecalendar", "name": "Google Calendar", "managed": true },
+      { "slug": "googledrive", "name": "Google Drive", "managed": true },
+      { "slug": "googledocs", "name": "Google Docs", "managed": true },
+      { "slug": "googlesheets", "name": "Google Sheets", "managed": true }
+    ],
+    "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add"
+  },
+  "run": null
+}

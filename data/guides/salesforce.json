@@ -1,0 +1,1086 @@
+{
+ "outcome": "oauth_app",
+ "outcomeNote": null,
+ "name": "Salesforce",
+ "vendorDomain": "salesforce.com",
+ "covers": [
+  "Salesforce Platform / CRM (Sales Cloud, Service Cloud orgs)"
+ ],
+ "summary": "New integrations use an External Client App; reaching other companies means packaging it so each customer's admin installs it, and an AppExchange listing adds a paid security review.",
+ "capabilities": [
+  {
+   "id": "crm_data",
+   "label": "Read and write CRM records (accounts, contacts, leads, opportunities, cases) via REST API",
+   "scopes": [
+    {
+     "name": "api",
+     "tier": "basic",
+     "label": "Access and manage data via APIs"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "offline_access",
+   "label": "Keep acting for the user after the session ends",
+   "scopes": [
+    {
+     "name": "refresh_token",
+     "tier": "basic",
+     "label": "Perform requests at any time (refresh_token / offline_access)"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "identity",
+   "label": "Identify the connected user",
+   "scopes": [
+    {
+     "name": "openid",
+     "tier": "basic",
+     "label": "OpenID Connect identity"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "full_access",
+   "label": "Access everything the user can access",
+   "scopes": [
+    {
+     "name": "full",
+     "tier": "basic",
+     "label": "Full access; does not return a refresh token, so also request refresh_token"
+    }
+   ],
+   "alternative": "Use api plus refresh_token instead of full"
+  }
+ ],
+ "defaultCapabilities": [
+  "crm_data",
+  "offline_access"
+ ],
+ "paths": [
+  {
+   "id": "own_org",
+   "label": "Local ECA in your own org",
+   "audiences": [
+    "team"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "none",
+   "drivenBy": "Console setup only: create the ECA in Setup > App Manager, enable OAuth, add the Composio callback URL and scopes. New connected apps are blocked, so use an ECA. A local ECA only works in its own org.",
+   "effort": "~30 min–2 hours",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "No fee to create an External Client App.",
+   "costEvidence": [],
+   "customerAdmin": "none",
+   "next": "Create an External Client App in your org, enable OAuth, add https://backend.composio.dev/api/v1/auth-apps/add as the callback URL, select api and refresh_token, then copy the Consumer Key and Secret into a Composio auth config.",
+   "untilApproved": [],
+   "lanes": {
+    "you": [
+     "Create ECA",
+     "Test OAuth flow",
+     "",
+     ""
+    ],
+    "provider": [
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "packaged_unlisted",
+   "label": "Packaged ECA installed by customer admins",
+   "audiences": [
+    "customers"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "light",
+   "drivenBy": "Each customer's admin must install your packaged External Client App before their users can connect. Salesforce doesn't say whether a package that hasn't passed security review installs cleanly in production orgs, so pilot with one customer first.",
+   "effort": "1–5 days",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "No fee for packaging; customers need an edition with API access.",
+   "costEvidence": [],
+   "customerAdmin": "always",
+   "next": "Package the External Client App and plan an admin install step in each customer's onboarding.",
+   "untilApproved": [
+    {
+     "text": "Users can't authorize an app that isn't installed in their org unless they hold 'Approve Uninstalled Connected Apps'.",
+     "evidence": [
+      "S15"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Create ECA",
+     "Package, share link",
+     "Admin installs",
+     "Users connect"
+    ],
+    "provider": [
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "appexchange",
+   "label": "AppExchange listing with Security Review",
+   "audiences": [
+    "public",
+    "customers"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "assessment",
+   "drivenBy": "Security Review tests the package and any external web apps or API endpoints it integrates with. Needs complete docs, a configured test org and clean scan results (Code Analyzer, Checkmarx, ZAP). Resubmissions add weeks.",
+   "effort": "2–6 weeks",
+   "waitOfficial": "Typically 4–5 weeks",
+   "waitReported": "6–9 weeks in practice; 4–5 weeks typical per vendor blogs",
+   "waitEvidence": [
+    "V3"
+   ],
+   "cost": "$999 per attempt",
+   "costNote": "For paid solutions, charged on submission and on every resubmission; waived for free solutions. Reviewed again every year.",
+   "costEvidence": [
+    "V3"
+   ],
+   "customerAdmin": "always",
+   "next": "Run Salesforce Code Analyzer and ZAP, prepare a test org and documentation, then submit through the Partner Console.",
+   "untilApproved": [
+    {
+     "text": "Distribute the packaged ECA via install link to customer admins while review is pending.",
+     "evidence": [
+      "S12",
+      "S27"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Prepare submission",
+     "Scan, test org",
+     "Fix findings",
+     "List app"
+    ],
+    "provider": [
+     "",
+     "Pre-queue check",
+     "4–6 weeks",
+     "Result in Partner Console"
+    ]
+   }
+  }
+ ],
+ "prereqs": [
+  {
+   "text": "Admin access to a Salesforce org where you can open Setup > App Manager and create an External Client App. A free Developer Edition org works for building.",
+   "why": "New connected apps can no longer be created, so the ECA is the app type to use.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Set up a packaging org that can build a first- or second-generation managed package.",
+   "why": "Only packaged ECAs can be deployed to other orgs.",
+   "owner": "you",
+   "paths": [
+    "packaged_unlisted",
+    "appexchange"
+   ]
+  },
+  {
+   "text": "Enroll in the Salesforce Partner Program (ISV) and budget for the security review: $999 per attempt for paid solutions, waived for free ones.",
+   "why": "The AppExchange path needs a paid review plus a 4-6 week wait after a complete submission.",
+   "owner": "you",
+   "paths": [
+    "appexchange"
+   ]
+  },
+  {
+   "text": "Prepare a fully configured test environment and complete documentation for reviewers.",
+   "why": "Salesforce asks for both to avoid review delays. Incomplete submissions slow the manual review.",
+   "owner": "you",
+   "paths": [
+    "appexchange"
+   ]
+  },
+  {
+   "text": "Decide whether your setup can meet the four partner controls: PKCE, Refresh Token Rotation, Refresh Token Idle TTL and Refresh Token IP Allowlist.",
+   "why": "Salesforce mandates these controls for partner-created apps used by more than two customer production orgs.",
+   "owner": "you",
+   "paths": [
+    "packaged_unlisted",
+    "appexchange"
+   ]
+  },
+  {
+   "text": "Customers on an edition with API access",
+   "why": "Enterprise, Performance, Unlimited and Developer include it; Professional needs a paid add-on. Users also need the API Enabled permission.",
+   "owner": "customer_admin",
+   "paths": null
+  }
+ ],
+ "steps": [
+  {
+   "id": "s1",
+   "phase": "today",
+   "title": "Create an External Client App",
+   "owner": "you",
+   "time": "30 min",
+   "detail": "Setup → App Manager → New External Client App. New connected apps can no longer be created (except by installing a package); existing ones keep working.",
+   "values": [
+    {
+     "label": "Callback URL",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    },
+    {
+     "label": "Scopes (CRM data, offline access, identity)",
+     "text": "api refresh_token openid"
+    },
+    {
+     "label": "Optional scope (full access)",
+     "text": "full"
+    },
+    {
+     "label": "Alias for refresh_token",
+     "text": "offline_access"
+    }
+   ],
+   "evidence": [
+    "V1",
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s2",
+   "phase": "today",
+   "title": "Set OAuth policies and secret requirements",
+   "owner": "you",
+   "time": "15 min",
+   "detail": "Set Permitted Users. One walkthrough uses \"All users may self-authorize\". \"Admin approved users are pre-authorized\" requires a Profile or Permission Set assignment for each user. Keep \"Require Secret for Web Server Flow\" and \"Require Secret for Refresh Token Flow\" on, since Composio holds the secret. Turn on \"Require Proof Key for Code Exchange (PKCE) Extension for Supported Authorization Flows\" only after confirming the client sends code_verifier, because enforced PKCE causes OAuth errors.",
+   "values": [
+    {
+     "label": "Permitted Users",
+     "text": "All users may self-authorize"
+    },
+    {
+     "label": "PKCE setting",
+     "text": "Require Proof Key for Code Exchange (PKCE) Extension for Supported Authorization Flows"
+    }
+   ],
+   "evidence": [
+    "S19",
+    "S14",
+    "S22",
+    "S23",
+    "S5",
+    "S36"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s3",
+   "phase": "today",
+   "title": "Copy the Consumer Key and Consumer Secret",
+   "owner": "you",
+   "time": "5 min",
+   "detail": "Open Manage Consumer Details for the app. Salesforce may ask for an OTP verification code first.",
+   "values": [],
+   "evidence": [
+    "S23",
+    "S22"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s4",
+   "phase": "today",
+   "title": "Create the Composio auth config",
+   "owner": "agent",
+   "time": "5 min",
+   "detail": "Create an auth config for the salesforce toolkit using your own OAuth credentials. Use the Consumer Key as client ID and the Consumer Secret as client secret, with the same scopes configured in the app. The scopes requested must be a subset of the app's configured scopes.",
+   "values": [
+    {
+     "label": "Toolkit",
+     "text": "salesforce"
+    },
+    {
+     "label": "Scopes",
+     "text": "api refresh_token openid"
+    },
+    {
+     "label": "Authorize endpoint",
+     "text": "/services/oauth2/authorize on login.salesforce.com or the org's My Domain host"
+    },
+    {
+     "label": "Token endpoint",
+     "text": "/services/oauth2/token"
+    }
+   ],
+   "evidence": [
+    "S2",
+    "S20",
+    "S21"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s5",
+   "phase": "today",
+   "title": "Test a connection from your own org",
+   "owner": "you",
+   "time": "15 min",
+   "detail": "Connect a user from the org that owns the ECA. Confirm that a refresh token is returned. If login fails, check Login History in Setup.",
+   "values": [],
+   "evidence": [
+    "S2",
+    "S14"
+   ],
+   "paths": [
+    "own_org"
+   ]
+  },
+  {
+   "id": "s6",
+   "phase": "week",
+   "title": "Package the ECA in a managed package",
+   "owner": "you",
+   "time": "1-2 days",
+   "detail": "Add the External Client App to a managed package (second-generation packaging is recommended). Subscriber admins can set policies but can't edit your app's settings.",
+   "values": [],
+   "evidence": [
+    "S11",
+    "S12",
+    "S27"
+   ],
+   "paths": [
+    "packaged_unlisted",
+    "appexchange"
+   ]
+  },
+  {
+   "id": "s7",
+   "phase": "week",
+   "title": "Review the partner security controls",
+   "owner": "you",
+   "time": "1 day",
+   "detail": "Apps used by more than two customer production orgs must use PKCE, refresh-token rotation, a 30-day idle timeout and an IP allowlist. The 11 May 2026 deadline has passed; non-compliant integrations may be suspended.",
+   "values": [],
+   "evidence": [
+    "S7"
+   ],
+   "paths": [
+    "packaged_unlisted",
+    "appexchange"
+   ]
+  },
+  {
+   "id": "s8",
+   "phase": "week",
+   "title": "Draft customer admin install instructions",
+   "owner": "agent_drafts",
+   "time": "1 hour",
+   "detail": "Write instructions with the package install link and the policy steps for the customer's admin. The admin installs the package, sets Permitted Users, and assigns Profiles or Permission Sets. Subscriber admins manage policies but cannot edit app settings.",
+   "values": [],
+   "evidence": [
+    "S27",
+    "S12",
+    "S14",
+    "S39"
+   ],
+   "paths": [
+    "packaged_unlisted",
+    "appexchange"
+   ]
+  },
+  {
+   "id": "s9",
+   "phase": "week",
+   "title": "Install the package and approve access in the customer org",
+   "owner": "customer_admin",
+   "time": "30 min per org",
+   "detail": "Since September 2025, users can't authorize a connected app that isn't installed in their org unless they hold 'Approve Uninstalled Connected Apps'. The customer's admin installs your package and grants access.",
+   "values": [],
+   "evidence": [
+    "S15"
+   ],
+   "paths": [
+    "packaged_unlisted",
+    "appexchange"
+   ]
+  },
+  {
+   "id": "s10",
+   "phase": "week",
+   "title": "Prepare the Security Review submission",
+   "owner": "you",
+   "time": "1-2 weeks",
+   "detail": "Run Salesforce Code Analyzer (it covers CRUD, FLS and AppExchange rules) and the ZAP web scanner. Use the Partner Security Portal for Chimera, Checkmarx and office hours. Explain any scan findings, and include a working test org and complete docs. Salesforce tests every part of the offering, including integrated external services and API endpoints.",
+   "values": [],
+   "evidence": [
+    "S9",
+    "S35",
+    "S34",
+    "S5"
+   ],
+   "paths": [
+    "appexchange"
+   ]
+  },
+  {
+   "id": "s11",
+   "phase": "wait",
+   "title": "Submit and pay for Security Review",
+   "owner": "provider",
+   "time": "4-6 weeks",
+   "detail": "Salesforce's published time is about 4-6 weeks from receipt of a complete submission. Vendor blogs report 6-9 weeks in practice, and resubmissions add weeks.",
+   "values": [
+    {
+     "label": "Initial fee (official)",
+     "text": "$2,700 USD per paid app; free apps no fee"
+    },
+    {
+     "label": "Listing fee (official)",
+     "text": "$150 USD annual"
+    }
+   ],
+   "evidence": [
+    "V3"
+   ],
+   "paths": [
+    "appexchange"
+   ]
+  },
+  {
+   "id": "s12",
+   "phase": "wait",
+   "title": "Act on review results",
+   "owner": "you",
+   "time": "varies",
+   "detail": "Read the pass/fail result in the AgentExchange Partner Console. List the solution publicly if it passed. If it failed, fix the findings and request a follow-up review.",
+   "values": [],
+   "evidence": [
+    "S10"
+   ],
+   "paths": [
+    "appexchange"
+   ]
+  },
+  {
+   "id": "s13",
+   "phase": "launch",
+   "title": "Switch Composio from the managed app to your auth config",
+   "owner": "agent",
+   "time": "10 min",
+   "detail": "Point new salesforce connections at your auth config instead of Composio's managed OAuth app. Existing users re-authenticate to move to the new app.",
+   "values": [
+    {
+     "label": "Redirect URI",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    }
+   ],
+   "evidence": [],
+   "paths": null
+  },
+  {
+   "id": "s14",
+   "phase": "launch",
+   "title": "Monitor token refresh and re-consent",
+   "owner": "you",
+   "time": "ongoing",
+   "detail": "Watch for refresh failures. Users must re-authenticate when the session has expired and the refresh token can no longer be exchanged. With the idle-TTL control on, a refresh token unused for 30 days is invalidated.",
+   "values": [],
+   "evidence": [
+    "S8",
+    "S5"
+   ],
+   "paths": null
+  }
+ ],
+ "gotchas": [
+  {
+   "text": "Salesforce's agent protocols expect commercial agents to call its APIs through an app you created and forbid masking the calling app or chaining agents to hide the originating one. Plan to move off any shared app before launch.",
+   "evidence": [
+    "V5"
+   ],
+   "paths": null
+  },
+  {
+   "text": "New connected apps cannot be created through the UI or APIs, including the Metadata API. Salesforce Support can re-enable creation for now, but not in future releases. A third-party blog says connected app support ends in Summer '27.",
+   "evidence": [
+    "S1",
+    "S25",
+    "S26",
+    "S28"
+   ],
+   "paths": null
+  },
+  {
+   "text": "A local ECA works only in its own org. Users from other orgs get a cross-org error until the ECA is packaged and installed in their org.",
+   "evidence": [
+    "S11",
+    "S12",
+    "S27"
+   ],
+   "paths": [
+    "own_org",
+    "packaged_unlisted"
+   ]
+  },
+  {
+   "text": "The full scope includes all other scopes but does not return a refresh token. Add refresh_token explicitly.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "With rotation on, reusing a rotated-out refresh token invalidates the current token and its access tokens. Make sure only one system refreshes each token.",
+   "evidence": [
+    "S5",
+    "S6"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Clicking \"Review Controls\" permanently locks the partner controls. They cannot be reverted.",
+   "evidence": [
+    "S7"
+   ],
+   "paths": [
+    "packaged_unlisted",
+    "appexchange"
+   ]
+  },
+  {
+   "text": "Refresh tokens are valid until revoked by default; each customer's admin can change that policy.",
+   "evidence": [
+    "S8"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Salesforce keeps five refresh tokens per user per app; a sixth approval revokes the oldest, breaking that user's older connection.",
+   "evidence": [
+    "V4"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Apps used by more than two customer production orgs must meet partner security controls (PKCE, rotation, idle timeout, IP allowlist) or risk suspension.",
+   "evidence": [
+    "S7"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Professional Edition orgs have no API access without a paid add-on.",
+   "evidence": [
+    "V2"
+   ],
+   "paths": null
+  }
+ ],
+ "blockers": [
+  {
+   "see": "OAUTH_APPROVAL_ERROR_GENERIC",
+   "cause": "The org has not installed the app and the user lacks \"Approve Uninstalled Connected Apps\". Other causes include wrong scopes, IP restrictions and enforced PKCE.",
+   "fix": "The org admin installs the app under Setup > Connected Apps OAuth Usage, or sets Permitted Users to \"Admin approved users are pre-authorized\" under Manage App Policies > Edit Policies. Also check scopes and PKCE.",
+   "paths": null
+  },
+  {
+   "see": "error=invalid_client&error_description=app+must+be+installed+into+org",
+   "cause": "The app is not installed in the user's org.",
+   "fix": "Install the app or package in that org.",
+   "paths": null
+  },
+  {
+   "see": "Cross-org OAuth flows are not supported for this external client app",
+   "cause": "A local ECA is being used by a user from another org.",
+   "fix": "Package the ECA and have the customer admin install it.",
+   "paths": [
+    "own_org",
+    "packaged_unlisted"
+   ]
+  },
+  {
+   "see": "Failed: Not approved for access (Login History)",
+   "cause": "The policy is admin-approved pre-authorized and the user has no Profile or Permission Set granting the app.",
+   "fix": "Assign the app to the user's Profile or a Permission Set.",
+   "paths": null
+  },
+  {
+   "see": "invalid_app_access",
+   "cause": "The app policy allows admin-approved users only.",
+   "fix": "Grant the user access or change Permitted Users.",
+   "paths": null
+  },
+  {
+   "see": "redirect_uri_mismatch",
+   "cause": "The callback URL does not exactly match. Common causes are a trailing slash, http instead of https, or the wrong environment.",
+   "fix": "Set the callback exactly to https://backend.composio.dev/api/v1/auth-apps/add.",
+   "paths": null
+  },
+  {
+   "see": "invalid_scope",
+   "cause": "The request asked for a scope that is not configured on the app.",
+   "fix": "Add the scope to the app or remove it from the Composio auth config.",
+   "paths": null
+  },
+  {
+   "see": "OAUTH_APPROVAL_ERROR_GENERIC in a sandbox where \"Approve Uninstalled Connected Apps\" cannot be granted",
+   "cause": "The sandbox licenses do not match production.",
+   "fix": "Run \"Match Production Licenses to Sandbox without a Refresh\".",
+   "paths": null
+  },
+  {
+   "see": "Security Review failure for missing CRUD/FLS enforcement or insecure handling of sensitive data",
+   "cause": "Code does not enforce CRUD and field-level security, or sensitive data is stored unencrypted or sent insecurely.",
+   "fix": "Run Salesforce Code Analyzer, fix the findings, encrypt sensitive data, then request a follow-up review.",
+   "paths": [
+    "appexchange"
+   ]
+  },
+  {
+   "see": "Slow or returned Security Review submission",
+   "cause": "Missing docs, no working test org, or unexplained scan findings.",
+   "fix": "Provide complete docs, a configured test environment, and explanations for scan findings.",
+   "paths": [
+    "appexchange"
+   ]
+  }
+ ],
+ "aiPolicy": {
+  "status": "restrictions",
+  "summary": "Salesforce's Agent Integration Protocols (30 Jun 2026) bind every AI agent that calls its APIs: connect commercial use through a Connected App or External Client App you created, never mask which app or agent is calling, keep data access and retention to the minimum, prefer Salesforce's MCP and Agentforce APIs where they exist, and follow its AI Acceptable Use Policy.",
+  "evidence": [
+   "V5",
+   "V6"
+  ]
+ },
+ "customerAdminNote": "Each customer's Salesforce admin must install your package (or approve your app) before users can connect, and users need the API Enabled permission.",
+ "unknowns": [
+  "Whether a packaged External Client App that hasn't passed security review installs cleanly in customers' production orgs."
+ ],
+ "slug": "salesforce",
+ "kind": "verified",
+ "checkedAt": "2026-10-21",
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://help.salesforce.com/s/articleView?id=005228017&language=en_US&type=1",
+   "title": "Salesforce Platform: New Connected Apps Can No Longer Be Created in Spring '26",
+   "domain": "help.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S2",
+   "url": "https://developer.salesforce.com/docs/platform/mobile-sdk/guide/oauth-scope-parameter-values.html",
+   "title": "Scope Parameter Values",
+   "domain": "developer.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S3",
+   "url": "https://help.salesforce.com/s/articleView?id=001116350&language=en_US&type=1",
+   "title": "How to get a refresh token when using the connected app in Anypoint?",
+   "domain": "help.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S4",
+   "url": "https://trailhead.salesforce.com/content/learn/modules/mobile_sdk_introduction/mobilesdk_intro_security",
+   "title": "Learn OAuth 2.0 for Secure Mobile App Authentication",
+   "domain": "trailhead.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S5",
+   "url": "https://developer.salesforce.com/docs/atlas.en-us.packagingGuide.meta/packagingGuide/secure_code_ac_eca.htm",
+   "title": "Secure Your Connected Apps and External Client Apps",
+   "domain": "developer.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S6",
+   "url": "https://help.salesforce.com/s/articleView?language=en_US&id=sf.connected_app_create_api_integration.htm",
+   "title": "Enable OAuth Settings for API Integration",
+   "domain": "help.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S7",
+   "url": "https://help.salesforce.com/s/articleView?id=005387798&language=en_US&type=1",
+   "title": "Salesforce Connected Apps & ECA Security Controls - Partner App FAQs",
+   "domain": "help.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-19"
+  },
+  {
+   "id": "S8",
+   "url": "https://help.salesforce.com/s/articleView?id=xcloud.connected_app_manage_oauth.htm&language=en_US&type=5",
+   "title": "Manage OAuth Access Policies for a Connected App",
+   "domain": "help.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S9",
+   "url": "https://partners.salesforce.com/s/education/appinnovators/Security_Review?language=en",
+   "title": "Security_Review",
+   "domain": "partners.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-18"
+  },
+  {
+   "id": "S10",
+   "url": "https://developer.salesforce.com/docs/platform/isvforce/guide/security-review-act-on-results.html",
+   "title": "Act on Security Review Results",
+   "domain": "developer.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S11",
+   "url": "https://help.salesforce.com/s/articleView?id=sf.configure_packageable_external_client_apps.htm&language=en_US&type=5",
+   "title": "Package an External Client App",
+   "domain": "help.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S12",
+   "url": "https://help.salesforce.com/s/articleView?id=sf.external_client_apps.htm&language=en_US",
+   "title": "External Client Apps",
+   "domain": "help.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-07"
+  },
+  {
+   "id": "S13",
+   "url": "https://developer.salesforce.com/docs/analytics/einstein-vision-language/guide/terms-of-service.html",
+   "title": "Terms of Service",
+   "domain": "developer.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S14",
+   "url": "https://help.salesforce.com/s/articleView?id=000386708&language=en_US&type=1",
+   "title": "Salesforce Connected App: 'Failed: Not Approved for Access' Error When Logging In via API",
+   "domain": "help.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S15",
+   "url": "https://help.salesforce.com/s/articleView?id=005132365&language=en_US&type=1",
+   "title": "Prepare for Salesforce Connected App Usage Restrictions Change",
+   "domain": "help.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S16",
+   "url": "https://appnigma.ai/blogs/connected-app-vs-external-client-app-salesforce/",
+   "title": "Connected App vs External Client App in Salesforce 2026",
+   "domain": "appnigma.ai",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S17",
+   "url": "https://appnigma.ai/blogs/external-client-app-salesforce/",
+   "title": "Salesforce ECA (External Client App): What It Is and Setup",
+   "domain": "appnigma.ai",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S18",
+   "url": "https://aquiva.com/blog/external-client-apps-the-next-generation-of-app-interoperability",
+   "title": "Salesforce External Client Apps vs Connected Apps: A Deep Dive · Aquiva",
+   "domain": "aquiva.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S19",
+   "url": "https://medium.com/@bpmmendis94/obtain-access-refresh-tokens-from-salesforce-rest-api-a324fe4ccd9b",
+   "title": "Obtain Access & Refresh tokens from Salesforce REST API",
+   "domain": "medium.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S20",
+   "url": "https://sfdcpulse.wordpress.com/2024/02/05/salesforce-rest-api-access-and-refresh-tokens/",
+   "title": "Salesforce API: Access and Refresh Token Generation Guide",
+   "domain": "sfdcpulse.wordpress.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S21",
+   "url": "https://experienceleague.adobe.com/docs/experience-manager-learn/cloud-service/forms/integrate-with-salesforce/create-data-source.html",
+   "title": "Create Data Source",
+   "domain": "experienceleague.adobe.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S22",
+   "url": "https://dev.to/darkedges/salesforce-connected-app-57jd",
+   "title": "DEV Community",
+   "domain": "dev.to",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S23",
+   "url": "https://documentation.sailpoint.com/connectors/salesforce/help/integrating_salesforce/generating_refresh_token.html",
+   "title": "Generating a Refresh Token",
+   "domain": "documentation.sailpoint.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S24",
+   "url": "https://beaglesecurity.com/blog/article/pass-saledforce-appexchange-security-review.html",
+   "title": "How to pass the Salesforce AppExchange security review",
+   "domain": "beaglesecurity.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S25",
+   "url": "https://help-people.sage.com/Content/SP_AdditionalResources/Salesforce_updates/SP_AddRes_SFUpdates_Salesforce_disabling_new_connected_apps.htm",
+   "title": "Salesforce disabling the creation of new connected apps",
+   "domain": "help-people.sage.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S26",
+   "url": "https://community.servicemax.com/s/article/Announcement-Salesforce---New-connected-apps-can-no-longer-be-created-in-Spring-26",
+   "title": "Announcement: Salesforce - New connected apps can no longer be created in Spring ‘26 - ServiceMax Knowledge",
+   "domain": "community.servicemax.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S27",
+   "url": "https://unified.to/blog/salesforce_external_client_apps_on_multiple_organizations",
+   "title": "SalesForce (External Client Apps) on Multiple Organizations",
+   "domain": "unified.to",
+   "class": "third_party",
+   "retrievedAt": "2026-06-22"
+  },
+  {
+   "id": "S28",
+   "url": "https://www.softwareinsights.dev/posts/salesforce-connected-app-migration-external-client-apps/",
+   "title": "Migrating Connected Apps to External Client Apps: The Tool Now Covers Packaged and Distributed Apps — Software Insights",
+   "domain": "softwareinsights.dev",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S29",
+   "url": "https://www.computerworld.com/article/4005509/salesforce-changes-slack-api-terms-to-block-bulk-data-access-for-llms.html",
+   "title": "Salesforce changes Slack API terms to block bulk data access for LLMs",
+   "domain": "computerworld.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S30",
+   "url": "https://www.hunton.com/privacy-and-information-security-law/salesforce-locks-down-slack-data-time-to-review-your-slack-api-terms",
+   "title": "Salesforce Locks Down Slack Data: Time to Review Your Slack API Terms",
+   "domain": "hunton.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S31",
+   "url": "https://tekunda.com/blog/Salesforce-Security-Review-Checklist:-What-to-Fix,-In-Order",
+   "title": "Salesforce Security Review Checklist: What to Fix, In Order",
+   "domain": "tekunda.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S32",
+   "url": "https://www.concret.io/blog/mastering-the-appexchange-security-review-your-strategic-guide-to-approval",
+   "title": "Salesforce AppExchange Security Review: The Approval Guide",
+   "domain": "concret.io",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S33",
+   "url": "https://www.concret.io/blog/navigating-salesforce-appexchange-security-review-failure-a-guide-for-isvs",
+   "title": "Tips To Pass Salesforce AppExchange Security Review",
+   "domain": "concret.io",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S34",
+   "url": "https://appnigma.ai/blogs/how-long-salesforce-security-review-takes/",
+   "title": "How Long Does the Salesforce Security Review Take?",
+   "domain": "appnigma.ai",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S35",
+   "url": "https://success-craft.com/blog/appexchange-security-review-findings/",
+   "title": "AppExchange Security Review: Why Packages Get Rejected",
+   "domain": "success-craft.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S36",
+   "url": "https://nango.dev/blog/fix-salesforce-oauth-approval-error-generic/",
+   "title": "How to fix Salesforce OAuth error OAUTH_APPROVAL_ ERROR_GENERIC",
+   "domain": "nango.dev",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S37",
+   "url": "https://appnigma.ai/blogs/salesforce-oauth-errors-and-troubleshooting/",
+   "title": "Salesforce OAuth Errors: A Troubleshooting Reference",
+   "domain": "appnigma.ai",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S38",
+   "url": "https://www.cdata.com/kb/articles/salesforce-oauth-update-2025.rst",
+   "title": "Action Required: Salesforce Connected App Usage Changes (September 2025)",
+   "domain": "cdata.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S39",
+   "url": "https://community.docusign.com/salesforce-30/oauth-error-when-users-try-to-authorize-their-docusign-account-in-salesforce-to-send-their-1st-envelope-25382",
+   "title": "OAUTH Error when users try to authorize their Docusign account in Salesforce to send their 1st envelope",
+   "domain": "community.docusign.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S40",
+   "url": "https://github.com/forcedotcom/cli/issues/3368",
+   "title": "Restricted usage of the `Salesforce CLI` connected app · Issue #3368 · forcedotcom/cli · GitHub",
+   "domain": "github.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S41",
+   "url": "https://community.zapier.com/troubleshooting-99/is-anyone-else-unable-to-connect-to-salesforce-52005",
+   "title": "Is anyone else unable to connect to Salesforce?",
+   "domain": "community.zapier.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S42",
+   "url": "https://www.forcetrails.com/2025/11/salesforce-oauth-breaking-with-app-must-be-installed.html",
+   "title": "Salesforce OAuth Breaking with “app must be installed into org”",
+   "domain": "forcetrails.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "V1",
+   "url": "https://help.salesforce.com/s/articleView?id=xcloud.external_client_apps.htm&language=en_US&type=5",
+   "title": "External Client Apps",
+   "domain": "help.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V2",
+   "url": "https://developer.salesforce.com/docs/platform/api-rest/guide/intro-rest-compatible-editions.html",
+   "title": "Supported editions for the REST API",
+   "domain": "developer.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V3",
+   "url": "https://trailhead.salesforce.com/content/learn/modules/isv_security_review/isv_security_review_submit",
+   "title": "Submit for security review (Trailhead)",
+   "domain": "trailhead.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V4",
+   "url": "https://docs.composio.dev/kb/guide/toolkits-salesforce",
+   "title": "Composio: Salesforce toolkit notes",
+   "domain": "docs.composio.dev",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V5",
+   "url": "https://developer.salesforce.com/salesforce-agent-integration-protocols",
+   "title": "Salesforce Agent Integration Protocols (30 Jun 2026)",
+   "domain": "developer.salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V6",
+   "url": "https://www.salesforce.com/en-us/wp-content/uploads/sites/4/documents/legal/Agreements/policies/ai-acceptable-use-policy.pdf",
+   "title": "Artificial Intelligence Acceptable Use Policy",
+   "domain": "salesforce.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  }
+ ],
+ "probes": [],
+ "composio": {
+  "toolkits": [
+   {
+    "slug": "salesforce",
+    "name": "Salesforce",
+    "managed": true
+   }
+  ],
+  "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add"
+ },
+ "run": null
+}

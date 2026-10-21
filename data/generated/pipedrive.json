@@ -1,0 +1,835 @@
+{
+ "outcome": "oauth_app",
+ "outcomeNote": null,
+ "name": "Pipedrive",
+ "vendorDomain": "pipedrive.com",
+ "covers": [
+  "pipedrive"
+ ],
+ "summary": "Register an OAuth app in Pipedrive's Developer Hub. A live private app installs through an unlisted link without review. Public Marketplace listing needs approval.",
+ "capabilities": [
+  {
+   "id": "deals",
+   "label": "Read and update deals and pipelines",
+   "scopes": [],
+   "alternative": "Request read-only deal access if the agent only reports on pipelines"
+  },
+  {
+   "id": "contacts",
+   "label": "Read and update persons and organizations",
+   "scopes": [],
+   "alternative": "Request read-only contact access for lookup-only agents"
+  },
+  {
+   "id": "activities",
+   "label": "Create and manage activities and tasks",
+   "scopes": [],
+   "alternative": null
+  },
+  {
+   "id": "leads",
+   "label": "Read and create leads",
+   "scopes": [],
+   "alternative": null
+  },
+  {
+   "id": "webhooks",
+   "label": "Subscribe to change events via webhooks",
+   "scopes": [],
+   "alternative": "Poll the API instead of registering webhooks"
+  }
+ ],
+ "defaultCapabilities": [
+  "deals",
+  "contacts",
+  "activities"
+ ],
+ "paths": [
+  {
+   "id": "private_live",
+   "label": "Private app shared by unlisted install link",
+   "audiences": [
+    "team",
+    "customers"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "none",
+   "drivenBy": "Needs a developer sandbox account to see Developer Hub. You save a draft with a name and callback URL, pick scopes, then click 'Change to live'. A draft installs only in your own company. A live private app installs for other companies via a direct link with no review. It shows the default icon, and the app type can't be changed later.",
+   "effort": "~1–3 hours",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "Pipedrive publishes no registration fee. A developer sandbox account is required, and Pipedrive states no price for it. Customers' daily API budgets depend on their plan and seat count.",
+   "costEvidence": [
+    "S8",
+    "S10"
+   ],
+   "customerAdmin": "unknown",
+   "next": "Request a developer sandbox account, then create a private app in Developer Hub with callback https://backend.composio.dev/api/v1/auth-apps/add.",
+   "untilApproved": [],
+   "lanes": {
+    "you": [
+     "Create draft app",
+     "Change to live",
+     "",
+     "Share install link"
+    ],
+    "provider": [
+     "Sandbox access",
+     "",
+     "",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "public_marketplace",
+   "label": "Public Marketplace app",
+   "audiences": [
+    "customers",
+    "public"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "formal",
+   "drivenBy": "Every new public app must pass approval. Preparation includes the following:\n- Agree to the Developer Partner Agreement.\n- Publish Terms of Service and a Privacy Policy that describe Client Data use.\n- Record a demo video explaining scopes.\n- Provide working test accounts.\n- Test install and uninstall flows.\n- Build the listing with 3–5 images, a pricing page and support contacts.\nAfter approval the app stays unlisted until you click Publish.",
+   "effort": "3–7 days",
+   "waitOfficial": "Up to 21 business days",
+   "waitReported": "Two weeks to over two months with no feedback",
+   "waitEvidence": [
+    "S6",
+    "S20",
+    "S24",
+    "S31"
+   ],
+   "cost": "$0",
+   "costNote": "Pipedrive publishes no listing, review or assessment fee. A sandbox account is required, and Pipedrive states no price for it.",
+   "costEvidence": [
+    "S6"
+   ],
+   "customerAdmin": "unknown",
+   "next": "Request a sandbox account, review the Developer Partner Agreement, fill in the Developer Hub listing, test, then click 'Send to review'.",
+   "untilApproved": [
+    {
+     "text": "Use a separate live private app with an unlisted install link for customers. The app type is fixed at creation, so the private app must be a different app.",
+     "evidence": [
+      "S8",
+      "S21"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Request sandbox",
+     "Video, policies, listing",
+     "Answer feedback",
+     "Click Publish"
+    ],
+    "provider": [
+     "Sandbox access",
+     "",
+     "Up to 21 BD",
+     "Approval email"
+    ]
+   }
+  }
+ ],
+ "prereqs": [
+  {
+   "text": "Request a Pipedrive developer sandbox account. Developer Hub is only visible from a sandbox account.",
+   "why": "You cannot create, configure or submit an app without Developer Hub. Pipedrive doesn't publish a turnaround time for sandbox requests or a price for them.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Decide between a private app and a public app before you create it.",
+   "why": "The app type is fixed at creation and cannot be changed later in Developer Hub.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Publish a Terms of Service page, a Privacy Policy page and a pricing page on your domain. The privacy policy must accurately and completely describe how you collect, process, disclose and use Client Data, including disclosure to Composio and any model vendor.",
+   "why": "Pipedrive's approval checklist and Developer Agreement require these pages for Marketplace apps.",
+   "owner": "agent_drafts",
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "text": "Prepare fully functional test accounts, a demo video that explains each permission and scope and shows key functionality, 3-5 listing images, support contact details and a named approval contact.",
+   "why": "Reviewers test from the install flow through to functionality, and an incomplete checklist delays review.",
+   "owner": "you",
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "text": "Review and agree to the Developer Partner Agreement and the Pipedrive Developer Agreement.",
+   "why": "Both are required to submit. The Developer Agreement requires express Client consent for any disclosure of Client Data and requires third parties you use to comply with it.",
+   "owner": "you",
+   "paths": [
+    "public_marketplace"
+   ]
+  }
+ ],
+ "steps": [
+  {
+   "id": "s1",
+   "phase": "today",
+   "title": "Create a draft app in Developer Hub",
+   "owner": "you",
+   "time": "10 min",
+   "detail": "Sign in with the developer sandbox account and open Developer Hub. Choose private or public; this cannot be changed later. A draft needs only an app name and an OAuth callback URL. Set the callback URL to the Composio redirect URI exactly, because the redirect_uri in the authorize request must match the registered value. Pipedrive doesn't publish the Developer Hub console URL.",
+   "values": [
+    {
+     "label": "OAuth callback URL",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    },
+    {
+     "label": "Authorize endpoint",
+     "text": "GET https://oauth.pipedrive.com/oauth/authorize"
+    },
+    {
+     "label": "Token endpoint",
+     "text": "POST https://oauth.pipedrive.com/oauth/token"
+    }
+   ],
+   "evidence": [
+    "S5",
+    "S8",
+    "S2",
+    "P1"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s2",
+   "phase": "today",
+   "title": "Select scopes on the OAuth & access scopes tab",
+   "owner": "you",
+   "time": "10 min",
+   "detail": "Pick only the scopes for the endpoints your agent calls: deals, persons and organizations, activities, leads, and webhooks. Requesting only the scopes you need is an approval requirement. Pipedrive's official scope list is not reproduced here. A third-party article gives example names such as deals:read, contacts:write and webhooks:write. Use the names shown in the tab.",
+   "values": [
+    {
+     "label": "Example scope names (third-party, unverified)",
+     "text": "deals:read, contacts:write, products:full, webhooks:write"
+    }
+   ],
+   "evidence": [
+    "S5",
+    "S6",
+    "S18"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s3",
+   "phase": "today",
+   "title": "Copy the client ID and client secret",
+   "owner": "you",
+   "time": "2 min",
+   "detail": "Saving the draft issues the client_id and client_secret. Copy both from the app's OAuth & access scopes tab and store the secret securely.",
+   "values": [],
+   "evidence": [
+    "S5",
+    "S19"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s4",
+   "phase": "today",
+   "title": "Create the Composio auth config for the pipedrive toolkit",
+   "owner": "agent",
+   "time": "5 min",
+   "detail": "Composio has no managed Pipedrive OAuth app, so create an auth config with your own client ID, client secret and the scopes chosen in Developer Hub. Pipedrive's token endpoint expects HTTP Basic client authentication with an application/x-www-form-urlencoded body.",
+   "values": [
+    {
+     "label": "Toolkit",
+     "text": "pipedrive"
+    },
+    {
+     "label": "Redirect URI",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    }
+   ],
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s5",
+   "phase": "today",
+   "title": "Test the connection from the creating company",
+   "owner": "you",
+   "time": "15 min",
+   "detail": "A draft app can only be installed by users in the company where it was created. Connect a test account through Composio. Check that the consent screen shows your app title, company name, icon and scopes, then make a few API calls.",
+   "values": [],
+   "evidence": [
+    "S21",
+    "S16",
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s6",
+   "phase": "week",
+   "title": "Fill in the private app and click Change to live",
+   "owner": "you",
+   "time": "30 min",
+   "detail": "Complete the app details, then click Change to live on the OAuth & access scopes tab. A live private app can be installed by any Pipedrive company through a direct, unlisted install link, without review. It is not listed in the Marketplace.",
+   "values": [],
+   "evidence": [
+    "S8",
+    "S21"
+   ],
+   "paths": [
+    "private_live"
+   ]
+  },
+  {
+   "id": "s7",
+   "phase": "week",
+   "title": "Complete the Marketplace listing form",
+   "owner": "agent_drafts",
+   "time": "1-2 days",
+   "detail": "Draft the listing text, permission explanations and the demo-video script. A human then adds the images, pricing page link, support contacts, legal page links and test account credentials. Replace any placeholder callback URL with the working Composio URI before you submit.",
+   "values": [
+    {
+     "label": "Callback URL",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    }
+   ],
+   "evidence": [
+    "S6",
+    "S5"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "id": "s8",
+   "phase": "week",
+   "title": "Test install and uninstall, preview the listing and click Send to review",
+   "owner": "you",
+   "time": "1 hour",
+   "detail": "Reviewers test the install flow and the app's functionality. Confirm that install, uninstall and token refresh work. If the app-sharing feature is enabled for your app, confirm it works too.",
+   "values": [],
+   "evidence": [
+    "S6"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "id": "s9",
+   "phase": "wait",
+   "title": "Wait for Pipedrive's review",
+   "owner": "provider",
+   "time": "up to 21 business days (published); longer in reports",
+   "detail": "Pipedrive emails you when review starts and when the app is approved or rejected. A rejection email lists the reasons, which you must fix before resubmitting. Developers in 2026 report reviews of about 35 business days and over 2 months with no feedback.",
+   "values": [],
+   "evidence": [
+    "S6",
+    "S20",
+    "S24",
+    "S31"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "id": "s10",
+   "phase": "launch",
+   "title": "Click Publish after approval",
+   "owner": "you",
+   "time": "5 min",
+   "detail": "An approved app stays unlisted until you click Publish.",
+   "values": [],
+   "evidence": [
+    "S6"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "id": "s11",
+   "phase": "launch",
+   "title": "Switch the agent to the new auth config",
+   "owner": "agent",
+   "time": "10 min",
+   "detail": "Point new Pipedrive connections at the new auth config. For a private app, give customers the unlisted install link. Each user consents per company with Allow and install.",
+   "values": [],
+   "evidence": [
+    "S2",
+    "S8"
+   ],
+   "paths": null
+  }
+ ],
+ "gotchas": [
+  {
+   "text": "App type is fixed at creation. A private app cannot later become a public Marketplace app in Developer Hub.",
+   "evidence": [
+    "S8"
+   ],
+   "paths": null
+  },
+  {
+   "text": "A draft app is only installable by users in the creating company. Other companies get \"App is not found\".",
+   "evidence": [
+    "S21"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Live private apps display the default icon.",
+   "evidence": [
+    "S21"
+   ],
+   "paths": [
+    "private_live"
+   ]
+  },
+  {
+   "text": "Access tokens last 60 minutes. Refresh tokens expire after 60 days without use, and refreshing returns the same refresh token with the window extended. If the refresh token lapses, the user must reinstall.",
+   "evidence": [
+    "S6",
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The authorization code expires in 5 minutes.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The daily API budget is per customer company: 30,000 base tokens x plan multiplier (Lite 1, Growth 2, Premium 5, Ultimate 7) x seats, plus purchased top-ups. Burst limits for OAuth apps are 80/160/400/480 requests per 2 seconds by plan. Requests return 429 when the budget is exhausted.",
+   "evidence": [
+    "S10"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The Developer Agreement requires express Client consent for any collection, use or disclosure of Client Data. It also makes you responsible for third parties' compliance. It has no AI-specific clause. Pipedrive's AI FAQ says it does not permit third parties to use client data to train AI models, but that FAQ is not a contract term.",
+   "evidence": [
+    "S11",
+    "S14"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Pipedrive can change the Developer Agreement and its policies without notice. Changes take effect 30 days after posting.",
+   "evidence": [
+    "S11"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Pipedrive's docs don't list PKCE parameters, but the live discovery document advertises PKCE (S256 and plain) and dynamic client registration.",
+   "evidence": [
+    "S2",
+    "P1"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Pipedrive doesn't publish a cap on installs for live private apps, or any business or domain verification step.",
+   "evidence": [],
+   "paths": [
+    "private_live"
+   ]
+  },
+  {
+   "text": "Pricing and sandbox claims (API on every plan including the $14/month Lite tier, a free sandbox) come from a third-party article. Pipedrive's own pages don't state a price for the sandbox.",
+   "evidence": [
+    "S18",
+    "S10"
+   ],
+   "paths": null
+  }
+ ],
+ "blockers": [
+  {
+   "see": "Redirect URI mismatch error, or \"Invalid request: redirect_uri is not a valid URI\"",
+   "cause": "The redirect_uri sent is missing, or doesn't exactly match the callback URL registered in Developer Hub.",
+   "fix": "Set the callback URL to exactly https://backend.composio.dev/api/v1/auth-apps/add, with no trailing differences.",
+   "paths": null
+  },
+  {
+   "see": "\"Application misconfiguration\" when a shared user clicks Authorize app",
+   "cause": "Reported for Marketplace apps in Add app to account sharing mode. The button sends an empty redirect_uri even with a correct callback URL. No published resolution.",
+   "fix": "Confirm the callback URL is saved, reproduce with a non-shared user, and raise it with Pipedrive marketplace developer support.",
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "see": "\"App is not found\" when another company installs",
+   "cause": "The app is still in draft status.",
+   "fix": "Click Change to live for a private app, or get approval and click Publish for a public app.",
+   "paths": null
+  },
+  {
+   "see": "400 invalid_client: Invalid client: client is invalid",
+   "cause": "The token request used an unknown or wrong client_id or client_secret.",
+   "fix": "Re-copy both values from the OAuth & access scopes tab into the Composio auth config.",
+   "paths": null
+  },
+  {
+   "see": "429 responses",
+   "cause": "The customer company's daily token budget or the per-token burst limit is exhausted.",
+   "fix": "Throttle the agent's calls, or the customer can upgrade plan, add seats or buy API token top-ups.",
+   "paths": null
+  },
+  {
+   "see": "Review past 21 business days with no status change",
+   "cause": "Pipedrive review backlog, reported in 2026.",
+   "fix": "Email Pipedrive's marketplace developer team with the app name and submission date, and keep test accounts working.",
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "see": "Rejection email",
+   "cause": "Approval checklist items not met. Pipedrive states the reasons in the email.",
+   "fix": "Resolve every listed reason, then resubmit with Send to review.",
+   "paths": [
+    "public_marketplace"
+   ]
+  }
+ ],
+ "aiPolicy": {
+  "status": "restrictions",
+  "summary": "The Developer Agreement has no AI, training, agent or retention clause. It requires the following:\n- Clear disclosure and express client consent for any collection, use or disclosure of Client Data, which covers sending it to model vendors.\n- Third parties you use must comply with the agreement.\n- A privacy policy describing Client Data use.\nPipedrive's AI product FAQ says it does not permit third parties to use client data to train AI models. Pipedrive can change terms with 30 days' effect after posting.",
+  "evidence": [
+   "S11",
+   "S14"
+  ]
+ },
+ "customerAdminNote": "Pipedrive doesn't publish whether a company admin must approve installs. Each user authorizes the app for the company they are logged into. Multi-user app sharing is enabled on request.",
+ "unknowns": [
+  "Pipedrive doesn't publish an official scope list in its public docs, nor any sensitive or restricted scope classification.",
+  "Pipedrive doesn't publish whether a customer company admin must approve or can block app installs.",
+  "Pipedrive doesn't publish the price, if any, of the developer sandbox account or how long access takes.",
+  "Pipedrive doesn't publish a cap on installs or users for live private apps.",
+  "Pipedrive doesn't publish redirect URI rules (https, localhost, wildcards, count) beyond exact match.",
+  "Pipedrive's Acceptable Use Policy, Partner Code of Conduct and Developer Partner Agreement may add limits on AI agents; these are unverified.",
+  "Pipedrive doesn't publish data retention or caching limits for Client Data.",
+  "Pipedrive doesn't publish whether create-pipedrive-app or any API can register the app itself.",
+  "Pipedrive doesn't publish the plan or account type required to register an app."
+ ],
+ "slug": "pipedrive",
+ "kind": "generated",
+ "checkedAt": "2026-10-20",
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://developers.pipedrive.com/docs/api/v1/Oauth",
+   "title": "Pipedrive API v1 Dev References (Oauth) - Learn - Test - Try Now",
+   "domain": "developers.pipedrive.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S2",
+   "url": "https://pipedrive.readme.io/docs/marketplace-oauth-authorization",
+   "title": "OAuth authorization - Getting started - ReadMe",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S3",
+   "url": "https://pipedrive.readme.io/docs/core-api-concepts-authentication",
+   "title": "Authentication - Getting started",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S4",
+   "url": "https://pipedrive.readme.io/docs/marketplace-oauth-api",
+   "title": "OAuth 2.0 overview - Getting started",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S5",
+   "url": "https://pipedrive.readme.io/docs/developer-hub",
+   "title": "Developer Hub - Getting started",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S6",
+   "url": "https://pipedrive.readme.io/docs/marketplace-app-approval-process",
+   "title": "App approval process - Getting started - ReadMe",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S7",
+   "url": "https://pipedrive.readme.io/docs/marketplace-creating-a-proper-app",
+   "title": "Creating an app - Getting started",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S8",
+   "url": "https://pipedrive.readme.io/docs/marketplace-registering-a-private-app",
+   "title": "Registering a private app - Getting started - ReadMe",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S9",
+   "url": "https://pipedrive.readme.io/docs/app-installation-flows",
+   "title": "App installation flows",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S10",
+   "url": "https://pipedrive.readme.io/docs/core-api-concepts-rate-limiting",
+   "title": "Rate limiting",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S11",
+   "url": "https://www.pipedrive.com/en/developer-agreement",
+   "title": "Pipedrive Developer Agreement",
+   "domain": "pipedrive.com",
+   "class": "official",
+   "retrievedAt": "2026-10-19"
+  },
+  {
+   "id": "S12",
+   "url": "https://www.pipedrive.com/en/terms-of-service",
+   "title": "Terms of Service",
+   "domain": "pipedrive.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S13",
+   "url": "https://pipedrive.readme.io/docs/marketplace-vendor-agreement",
+   "title": "Pipedrive Developer Partner Agreement",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S14",
+   "url": "https://www.pipedrive.com/en/products/ai-crm",
+   "title": "AI CRM",
+   "domain": "pipedrive.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S15",
+   "url": "https://pipedrive.readme.io/docs/marketplace-updating-the-existing-app",
+   "title": "Updating approved apps",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S16",
+   "url": "https://pipedrive.readme.io/docs/faq",
+   "title": "FAQ - Getting started - ReadMe",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S17",
+   "url": "https://pipedrive.readme.io/docs/marketplace-oauth-and-api-proxy-status-codes",
+   "title": "OAuth status codes",
+   "domain": "pipedrive.readme.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S18",
+   "url": "https://pipeline.zoominfo.com/sales/pipedrive-api",
+   "title": "Pipedrive API Review [August 2026]: Features & Limits",
+   "domain": "pipeline.zoominfo.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S19",
+   "url": "https://devcommunity.pipedrive.com/t/oauth-authorization-step-4-and-step-5-getting-the-tokens/7821",
+   "title": "OAuth authorization. Step 4 and Step 5: Getting the tokens - App Development - Pipedrive Developers' Community",
+   "domain": "devcommunity.pipedrive.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S20",
+   "url": "https://devcommunity.pipedrive.com/t/marketplace-app-review-timeline-2-weeks-no-updates-yet/20214",
+   "title": "Marketplace app review timeline - 2 weeks, no updates yet - App Development - Pipedrive Developers' Community",
+   "domain": "devcommunity.pipedrive.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S21",
+   "url": "https://devcommunity.pipedrive.com/t/is-app-review-required-for-oauth-app-to-be-found-by-any-user/7555",
+   "title": "Is app review required for OAuth app to be found by any user? - App Development - Pipedrive Developers' Community",
+   "domain": "devcommunity.pipedrive.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S22",
+   "url": "https://devcommunity.pipedrive.com/t/is-there-any-expiry-of-personal-api-token/669",
+   "title": "Is there any Expiry of personal API token - API - Pipedrive Developers' Community",
+   "domain": "devcommunity.pipedrive.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S23",
+   "url": "https://crmbooster.io/en/blog/pipedrive-marketplace/",
+   "title": "The Pipedrive Marketplace: how apps get there and what building one costs",
+   "domain": "crmbooster.io",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S24",
+   "url": "https://devcommunity.pipedrive.com/t/public-app-in-review-since-may-8-past-the-21-business-day-window-no-feedback-yet/20447",
+   "title": "Public app in review since May 8 — past the 21 business-day window, no feedback yet - App Development - Pipedrive Developers' Community",
+   "domain": "devcommunity.pipedrive.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-01"
+  },
+  {
+   "id": "S25",
+   "url": "https://devcommunity.pipedrive.com/t/shared-user-authorize-app-button-sends-empty-redirect-uri-application-misconfiguration-error/20183",
+   "title": "Shared user \"Authorize app\" button sends empty redirect_uri — \"Application misconfiguration\" error - App Development - Pipedrive Developers'",
+   "domain": "devcommunity.pipedrive.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S26",
+   "url": "https://devcommunity.pipedrive.com/t/redirect-uri-match-failed/4162",
+   "title": "\"Redirect URI match failed\" - App Development - Pipedrive Developers' Community",
+   "domain": "devcommunity.pipedrive.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S27",
+   "url": "https://devcommunity.pipedrive.com/t/mcp-server-allow-redirect-uris-for-our-mcp-client-blueticks-agents/20725",
+   "title": "MCP server: allow redirect URIs for our MCP client (Blueticks Agents) - API - Pipedrive Developers' Community",
+   "domain": "devcommunity.pipedrive.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S28",
+   "url": "https://www.3cx.com/community/threads/pipedrive-3cx-integration-redirect-url-failed.127272/",
+   "title": "Solved - Pipedrive 3CX Integration - Redirect URL Failed",
+   "domain": "3cx.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S29",
+   "url": "https://community.n8n.io/t/pipedrive-trigger-via-oauth2-returns-scope-and-url-mismatch-error/21814",
+   "title": "Pipedrive Trigger via OAuth2 returns \"Scope and URL mismatch\" error - Questions - n8n Community",
+   "domain": "community.n8n.io",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S30",
+   "url": "https://devcommunity.pipedrive.com/t/app-publishing-issue/1549",
+   "title": "App publishing issue - App Development - Pipedrive Developers' Community",
+   "domain": "devcommunity.pipedrive.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S31",
+   "url": "https://devcommunity.pipedrive.com/t/public-app-review-pending-for-2-months/20728",
+   "title": "Public App Review Pending for 2+ Months - App Development - Pipedrive Developers' Community",
+   "domain": "devcommunity.pipedrive.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P1",
+   "url": "https://oauth.pipedrive.com/.well-known/oauth-authorization-server",
+   "title": "GET discovery document: 200: token endpoint https://oauth.pipedrive.com/oauth/token, PKCE S256/plain, dynamic client registration offered",
+   "domain": "oauth.pipedrive.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P2",
+   "url": "https://oauth.pipedrive.com/oauth/token",
+   "title": "POST token request with an unknown client: 400: invalid_client: Invalid client: client is invalid",
+   "domain": "oauth.pipedrive.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  }
+ ],
+ "probes": [
+  {
+   "target": "oauth.pipedrive.com/.well-known/oauth-authorization-server",
+   "request": "GET discovery document",
+   "result": "200: token endpoint https://oauth.pipedrive.com/oauth/token, PKCE S256/plain, dynamic client registration offered",
+   "at": "2026-10-20T20:50:13.029Z"
+  },
+  {
+   "target": "oauth.pipedrive.com/oauth/token",
+   "request": "POST token request with an unknown client",
+   "result": "400: invalid_client: Invalid client: client is invalid",
+   "at": "2026-10-20T20:50:13.029Z"
+  }
+ ],
+ "composio": {
+  "toolkits": [
+   {
+    "slug": "pipedrive",
+    "name": "Pipedrive",
+    "managed": false
+   }
+  ],
+  "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add"
+ },
+ "run": {
+  "model": "claude-sonnet-5-5 + claude-opus-5-5",
+  "seconds": 226,
+  "searches": 12,
+  "fetches": 9,
+  "costUsd": 1.71
+ }
+}

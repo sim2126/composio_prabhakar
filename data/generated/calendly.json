@@ -1,0 +1,903 @@
+{
+ "outcome": "oauth_app",
+ "outcomeNote": null,
+ "name": "Calendly",
+ "vendorDomain": "calendly.com",
+ "covers": [
+  "calendly"
+ ],
+ "summary": "Calendly lets anyone register an OAuth app from a separate developer account, with Sandbox and Production environments, granular scopes, PKCE, and no published review step.",
+ "capabilities": [
+  {
+   "id": "read_schedule",
+   "label": "Read scheduled meetings and invitees",
+   "scopes": [
+    {
+     "name": "scheduled_events:read",
+     "tier": "basic",
+     "label": "Read scheduled events"
+    },
+    {
+     "name": "users:read",
+     "tier": "basic",
+     "label": "Read user profile"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "manage_events",
+   "label": "Cancel or change scheduled meetings",
+   "scopes": [
+    {
+     "name": "scheduled_events:write",
+     "tier": "basic",
+     "label": "Manage scheduled events (includes read)"
+    }
+   ],
+   "alternative": "scheduled_events:read for read-only agents"
+  },
+  {
+   "id": "booking_links",
+   "label": "Look up event types and availability and create booking links",
+   "scopes": [
+    {
+     "name": "event_types:read",
+     "tier": "basic",
+     "label": "Read event types"
+    },
+    {
+     "name": "availability:read",
+     "tier": "basic",
+     "label": "Read availability"
+    },
+    {
+     "name": "scheduling_links:write",
+     "tier": "basic",
+     "label": "Create scheduling links"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "webhooks",
+   "label": "Subscribe to booking and cancellation webhooks",
+   "scopes": [
+    {
+     "name": "webhooks:write",
+     "tier": "basic",
+     "label": "Manage webhook subscriptions (includes read)"
+    },
+    {
+     "name": "scheduled_events:read",
+     "tier": "basic",
+     "label": "Required read scope for event webhooks"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "org_admin",
+   "label": "Read organization members and groups",
+   "scopes": [
+    {
+     "name": "organizations:read",
+     "tier": "basic",
+     "label": "Read organization"
+    },
+    {
+     "name": "groups:read",
+     "tier": "basic",
+     "label": "Read groups"
+    }
+   ],
+   "alternative": null
+  }
+ ],
+ "defaultCapabilities": [
+  "read_schedule",
+  "manage_events",
+  "booking_links"
+ ],
+ "paths": [
+  {
+   "id": "sandbox",
+   "label": "Sandbox app for your own team",
+   "audiences": [
+    "team"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "none",
+   "drivenBy": "Self-serve developer portal; sign up with GitHub or Google, create a Sandbox app, register the Composio redirect URI and pick scopes. Calendly suggests personal access tokens for internal-only use.",
+   "effort": "~30 min–1 hour",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "No app fee is published. API access depends on the user's plan and role; webhooks need a paid premium plan or above.",
+   "costEvidence": [
+    "S3",
+    "S6"
+   ],
+   "customerAdmin": "none",
+   "next": "Sign up for a Calendly developer account on developer.calendly.com and create a Sandbox OAuth app.",
+   "untilApproved": [
+    {
+     "text": "Copy the Client Secret and Webhook signing key at creation; they cannot be viewed again.",
+     "evidence": [
+      "S3",
+      "S5"
+     ]
+    },
+    {
+     "text": "Request every scope your Composio tools need; new apps get no API access without scopes.",
+     "evidence": [
+      "S4",
+      "S21"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Create Sandbox app",
+     "Test connection",
+     "",
+     ""
+    ],
+    "provider": [
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "production",
+   "label": "Production app for customers and public users",
+   "audiences": [
+    "customers",
+    "public"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "none",
+   "drivenBy": "Separate Production app with an HTTPS redirect URI; Calendly's Developer Policy requires an industry-standard privacy policy that discloses data collection, use and sharing. No approval step is published.",
+   "effort": "1–4 hours",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "No app or review fee is published. Webhooks need the connecting user to be on a paid premium plan or above.",
+   "costEvidence": [
+    "S3",
+    "S6",
+    "S7"
+   ],
+   "customerAdmin": "none",
+   "next": "Publish a privacy policy covering AI use, then create a second OAuth app with environment set to Production.",
+   "untilApproved": [
+    {
+     "text": "Keep testing in the Sandbox app; Calendly recommends a separate Production app for live customer data.",
+     "evidence": [
+      "S3",
+      "S5"
+     ]
+    },
+    {
+     "text": "Handle single-use rotating refresh tokens; on a 400/401 refresh failure, clear tokens and ask the user to reauthorize.",
+     "evidence": [
+      "S1"
+     ]
+    },
+    {
+     "text": "Composio's bundled Calendly app has refused tool-derived scopes; your own app avoids this.",
+     "evidence": [
+      "S21"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Create Production app",
+     "Privacy policy",
+     "",
+     "Go live"
+    ],
+    "provider": [
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  }
+ ],
+ "prereqs": [
+  {
+   "text": "Have a GitHub or Google login for the Calendly developer account. It is separate from any Calendly user account.",
+   "why": "Calendly only offers developer sign-up through GitHub or Google.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Have a secrets store ready before you create each app.",
+   "why": "Calendly shows the Client Secret and Webhook signing key only once, at creation.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Publish a privacy policy that discloses how you collect, use and share Calendly data, including any AI or agent processing.",
+   "why": "The Developer Policy requires an industry-standard privacy policy and limits data use to the practices you disclose.",
+   "owner": "agent_drafts",
+   "paths": [
+    "production"
+   ]
+  },
+  {
+   "text": "Have a test Calendly account on a paid premium plan or above, with org admin rights if you need organization data.",
+   "why": "Webhooks need a paid premium plan or above. Organization-wide endpoints can fail without enough user privileges.",
+   "owner": "you",
+   "paths": null
+  }
+ ],
+ "steps": [
+  {
+   "id": "s1",
+   "phase": "today",
+   "title": "Sign up for a Calendly developer account",
+   "owner": "you",
+   "time": "5 min",
+   "detail": "Use the Sign Up button on developer.calendly.com and log in with GitHub or Google. Calendly doesn't publish a direct console URL.",
+   "values": [
+    {
+     "label": "Portal",
+     "text": "developer.calendly.com"
+    }
+   ],
+   "evidence": [
+    "S3",
+    "S5"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s2",
+   "phase": "today",
+   "title": "Create a Sandbox OAuth app",
+   "owner": "you",
+   "time": "10 min",
+   "detail": "Create a new OAuth application. Set kind to web, environment to Sandbox, and the redirect URI to Composio's callback. Request only the scopes your capabilities need. A :write scope includes the matching :read scope. New apps have no API access until scopes are requested.",
+   "values": [
+    {
+     "label": "Redirect URI",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    },
+    {
+     "label": "Kind / environment",
+     "text": "web / Sandbox"
+    },
+    {
+     "label": "read_schedule",
+     "text": "scheduled_events:read users:read"
+    },
+    {
+     "label": "manage_events",
+     "text": "scheduled_events:write"
+    },
+    {
+     "label": "booking_links",
+     "text": "event_types:read availability:read scheduling_links:write"
+    },
+    {
+     "label": "webhooks",
+     "text": "webhooks:write scheduled_events:read"
+    },
+    {
+     "label": "org_admin",
+     "text": "organizations:read groups:read users:read"
+    }
+   ],
+   "evidence": [
+    "S3",
+    "S4",
+    "S5"
+   ],
+   "paths": [
+    "sandbox"
+   ]
+  },
+  {
+   "id": "s3",
+   "phase": "today",
+   "title": "Save the Client ID, Client Secret and Webhook signing key",
+   "owner": "you",
+   "time": "2 min",
+   "detail": "Copy all three into your secrets store before leaving the page. They cannot be viewed again, including when you edit the app.",
+   "values": [],
+   "evidence": [
+    "S3",
+    "S5"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s4",
+   "phase": "today",
+   "title": "Create a Composio auth config with your own Calendly credentials",
+   "owner": "agent",
+   "time": "5 min",
+   "detail": "Create a calendly auth config that uses your Client ID and Secret, with the same scope string you registered. Don't rely on Composio's managed Calendly app: tool-derived scopes have been refused by the bundled app.",
+   "values": [
+    {
+     "label": "Toolkit",
+     "text": "calendly"
+    },
+    {
+     "label": "Redirect URI",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    },
+    {
+     "label": "Scope separator",
+     "text": "space"
+    }
+   ],
+   "evidence": [
+    "S21",
+    "S4"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s5",
+   "phase": "today",
+   "title": "Connect a test account and verify granted scopes",
+   "owner": "you",
+   "time": "15 min",
+   "detail": "Run the flow against https://auth.calendly.com/oauth/authorize, approve every scope, then call one endpoint per capability. A 403 missing-scope error means the scope was not requested or the user declined it.",
+   "values": [
+    {
+     "label": "Authorize URL",
+     "text": "https://auth.calendly.com/oauth/authorize"
+    },
+    {
+     "label": "Token URL",
+     "text": "https://auth.calendly.com/oauth/token"
+    }
+   ],
+   "evidence": [
+    "S4",
+    "S1",
+    "P1"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s6",
+   "phase": "today",
+   "title": "Confirm refresh tokens rotate correctly",
+   "owner": "agent",
+   "time": "15 min",
+   "detail": "Force a refresh and check that the new refresh token is stored and the old one is never reused. Each refresh revokes the used token. On a 400/401 refresh failure, clear the tokens and ask the user to reauthorize.",
+   "values": [],
+   "evidence": [
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s7",
+   "phase": "week",
+   "title": "Draft the privacy policy section for Calendly data",
+   "owner": "agent_drafts",
+   "time": "1 h",
+   "detail": "Disclose what Calendly data the agent reads and writes, why, and which third parties process it. Keep actual use within what you disclose.",
+   "values": [],
+   "evidence": [
+    "S7"
+   ],
+   "paths": [
+    "production"
+   ]
+  },
+  {
+   "id": "s8",
+   "phase": "week",
+   "title": "Ask Calendly for written consent to use sub-processors",
+   "owner": "you",
+   "time": "30 min",
+   "detail": "The Developer Policy bans subcontracting data processing to a sub-processor without prior written consent. Composio and any LLM vendor may count as sub-processors. Calendly doesn't publish a contact for this request. Use your Calendly support channel.",
+   "values": [],
+   "evidence": [
+    "S7"
+   ],
+   "paths": [
+    "production"
+   ]
+  },
+  {
+   "id": "s9",
+   "phase": "wait",
+   "title": "Wait for Calendly's reply on sub-processor consent",
+   "owner": "provider",
+   "time": "",
+   "detail": "Calendly doesn't publish a response time.",
+   "values": [],
+   "evidence": [
+    "S7"
+   ],
+   "paths": [
+    "production"
+   ]
+  },
+  {
+   "id": "s10",
+   "phase": "week",
+   "title": "Create a separate Production OAuth app",
+   "owner": "you",
+   "time": "10 min",
+   "detail": "Calendly recommends a second app for Production. Use the same HTTPS Composio redirect URI and the scope set you tested. Save the new secrets immediately. Calendly describes no review step before external users can connect.",
+   "values": [
+    {
+     "label": "Redirect URI",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    },
+    {
+     "label": "Kind / environment",
+     "text": "web / Production"
+    }
+   ],
+   "evidence": [
+    "S3",
+    "S5"
+   ],
+   "paths": [
+    "production"
+   ]
+  },
+  {
+   "id": "s11",
+   "phase": "week",
+   "title": "Create the Production Composio auth config",
+   "owner": "agent",
+   "time": "5 min",
+   "detail": "Create a new calendly auth config with the Production Client ID, Secret and scopes.",
+   "values": [
+    {
+     "label": "Toolkit",
+     "text": "calendly"
+    }
+   ],
+   "evidence": [
+    "S21"
+   ],
+   "paths": [
+    "production"
+   ]
+  },
+  {
+   "id": "s12",
+   "phase": "launch",
+   "title": "Switch agents to the Production auth config",
+   "owner": "agent",
+   "time": "10 min",
+   "detail": "Point new connections at the Production auth config. Sandbox connections don't carry over, so users must connect again.",
+   "values": [],
+   "evidence": [
+    "S3"
+   ],
+   "paths": [
+    "production"
+   ]
+  },
+  {
+   "id": "s13",
+   "phase": "launch",
+   "title": "Prompt reauthorization when you add scopes",
+   "owner": "agent",
+   "time": "ongoing",
+   "detail": "Existing installs may need to reauthorize to grant new scopes. Watch for 403 missing-scope errors and send the user back through the connect flow.",
+   "values": [],
+   "evidence": [
+    "S4"
+   ],
+   "paths": null
+  }
+ ],
+ "gotchas": [
+  {
+   "text": "Composio's managed Calendly app has refused authorization requests built from tool-derived scopes. Use your own OAuth app.",
+   "evidence": [
+    "S21"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The Client Secret and Webhook signing key are shown once. If you lose them, create a new app.",
+   "evidence": [
+    "S3",
+    "S5"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Calendly's docs say PKCE is not enforced for web apps, but the token endpoint returned 'Missing required parameter: code_verifier', and a developer hit the same error in one environment. Send PKCE with S256.",
+   "evidence": [
+    "S3",
+    "P2",
+    "S12"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Refresh tokens are single-use. Reusing one fails, and the August 31, 2026 rotation deadline has passed. Parallel refreshes of the same connection can break it.",
+   "evidence": [
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Calendly doesn't publish access or refresh token lifetimes. Read expires_in from each token response.",
+   "evidence": [
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Sandbox allows HTTP on localhost. Production requires HTTPS redirect URIs.",
+   "evidence": [
+    "S3",
+    "S5"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Webhooks need a paid premium plan or above, and organization-wide endpoints need enough user privileges. Plan and role limits apply per connected user.",
+   "evidence": [
+    "S6"
+   ],
+   "paths": [
+    "production"
+   ]
+  },
+  {
+   "text": "Calendly doesn't publish an app review, user caps, rate limits for unlisted apps or a review time for Production apps.",
+   "evidence": [
+    "S5"
+   ],
+   "paths": [
+    "production"
+   ]
+  },
+  {
+   "text": "The Developer Policy bans replicating the Calendly user experience, concealing your app's identity during authorization, integrating with software Calendly has not authorized, and sharing user data with external parties without user agreement. It doesn't say whether agent platforms count as authorized.",
+   "evidence": [
+    "S7"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Report any data breach to affected users and to Calendly at support+developer@calendly.com immediately.",
+   "evidence": [
+    "S7"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Calendly suggests personal access tokens for internal team-only apps and OAuth for public apps.",
+   "evidence": [
+    "S6"
+   ],
+   "paths": [
+    "sandbox"
+   ]
+  },
+  {
+   "text": "The partner programme is described only on a third-party directory. Calendly publishes no official listing requirements.",
+   "evidence": [
+    "S11"
+   ],
+   "paths": [
+    "production"
+   ]
+  },
+  {
+   "text": "'Approval required' screens about Microsoft come from Entra ID admin consent for Calendly's own Outlook connection. They are not part of your OAuth app.",
+   "evidence": [
+    "S14",
+    "S10",
+    "S16"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Calendly's discovery document offers dynamic client registration. Some MCP clients have added scope=openid to Calendly requests.",
+   "evidence": [
+    "P1",
+    "S18"
+   ],
+   "paths": null
+  }
+ ],
+ "blockers": [
+  {
+   "see": "The requested scope is invalid, unknown, or malformed.",
+   "cause": "The request used scope names outside Calendly's catalog (for example user.read user.write), or scopes the OAuth app is not allowed to request.",
+   "fix": "Use only catalog scopes such as scheduled_events:read, space-separated, and match them to the scopes registered on your own app.",
+   "paths": null
+  },
+  {
+   "see": "Composio Calendly auth config cannot be connected",
+   "cause": "The auth config derives scopes from its tools, and the bundled Composio Calendly app refuses them.",
+   "fix": "Create your own Calendly OAuth app and a Composio auth config that uses its credentials and scopes.",
+   "paths": null
+  },
+  {
+   "see": "invalid_request: Missing required parameter: code_verifier",
+   "cause": "The token request did not include a PKCE code_verifier.",
+   "fix": "Send code_challenge with S256 on authorize and code_verifier on the token request. Check that the redirect URI matches the app exactly.",
+   "paths": null
+  },
+  {
+   "see": "invalid_grant on token exchange",
+   "cause": "Calendly doesn't publish the cause. Reusing a code or a rotated refresh token fails.",
+   "fix": "Start a fresh authorization and use the new code once. Store each new refresh token and never reuse an old one.",
+   "paths": null
+  },
+  {
+   "see": "403 missing scope",
+   "cause": "The scope was not requested, or the user declined it during install.",
+   "fix": "Add the scope to the app and auth config, then have the user reauthorize.",
+   "paths": null
+  },
+  {
+   "see": "400 or 401 on refresh",
+   "cause": "The refresh token was already used or revoked.",
+   "fix": "Clear the stored tokens and ask the user to reconnect.",
+   "paths": null
+  }
+ ],
+ "aiPolicy": {
+  "status": "restrictions",
+  "summary": "Calendly's Developer Policy has no AI, model-training or retention clause. It requires disclosing data use in a privacy policy and limiting use to those practices, bars sharing user data with external parties unless the user agrees (with narrow exceptions), and bars subcontracting data processing to a sub-processor without prior written consent, which may cover LLM vendors. It also bars integrating the API with software not authorized by Calendly and replicating the Calendly user experience. Breaches must be reported to users and Calendly immediately.",
+  "evidence": [
+   "S7",
+   "S8"
+  ]
+ },
+ "customerAdminNote": "Customer admins do not install or approve the app; each user authorizes it. Organization-wide endpoints may fail if the connecting user lacks sufficient privileges.",
+ "unknowns": [
+  "Calendly doesn't state whether Production OAuth apps face any review, verification or install cap.",
+  "Calendly doesn't publish access token or refresh token lifetimes in seconds.",
+  "Calendly doesn't classify any scope as sensitive or admin-only.",
+  "Calendly doesn't say whether redirect URIs allow wildcards or how many can be registered.",
+  "Calendly doesn't say whether an agent platform like Composio counts as an authorized integration or whether LLM vendors need written sub-processor consent.",
+  "Calendly doesn't publish data retention or caching limits for API data.",
+  "Calendly doesn't publish official partner programme or marketplace listing requirements.",
+  "Calendly doesn't publish rate limits for OAuth apps.",
+  "Calendly offers no API or manifest for creating OAuth apps; whether its dynamic client registration endpoint applies to regular API apps is not documented."
+ ],
+ "slug": "calendly",
+ "kind": "generated",
+ "checkedAt": "2026-10-20",
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://developer.calendly.com/refresh-token-rotation-guide",
+   "title": "Refresh token rotation guide",
+   "domain": "developer.calendly.com",
+   "class": "official",
+   "retrievedAt": "2026-09-02"
+  },
+  {
+   "id": "S2",
+   "url": "https://developer.calendly.com/docs/getting-started/frequently-asked-questions",
+   "title": "Frequently Asked Questions",
+   "domain": "developer.calendly.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S3",
+   "url": "https://developer.calendly.com/creating-an-oauth-app",
+   "title": "Creating an OAuth App",
+   "domain": "developer.calendly.com",
+   "class": "official",
+   "retrievedAt": "2026-09-02"
+  },
+  {
+   "id": "S4",
+   "url": "https://developer.calendly.com/scopes",
+   "title": "Scopes",
+   "domain": "developer.calendly.com",
+   "class": "official",
+   "retrievedAt": "2026-09-02"
+  },
+  {
+   "id": "S5",
+   "url": "https://developer.calendly.com/docs/authentication/creating-an-oauth-app",
+   "title": "Creating an OAuth app",
+   "domain": "developer.calendly.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S6",
+   "url": "https://developer.calendly.com/docs/getting-started/introduction",
+   "title": "Introduction to the API",
+   "domain": "developer.calendly.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S7",
+   "url": "https://calendly.com/legal/developer-policy",
+   "title": "Developer Policy — Security, Data Use & Integration Guidelines",
+   "domain": "calendly.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S8",
+   "url": "https://calendly.com/legal/customer-terms-conditions",
+   "title": "Customer Terms and Conditions",
+   "domain": "calendly.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S9",
+   "url": "https://developer.calendly.com/developer-policy",
+   "title": "Developer Policy",
+   "domain": "developer.calendly.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S10",
+   "url": "https://calendly.com/help/approval-required-when-using-microsoft-with-calendly",
+   "title": "Approval required when using Microsoft with Calendly",
+   "domain": "calendly.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S11",
+   "url": "https://partner-program-directory.partnerfleet.io/partners/calendly-partner-program",
+   "title": "Calendly Partner Program - Tech Partner Program Directory",
+   "domain": "partner-program-directory.partnerfleet.io",
+   "class": "third_party",
+   "retrievedAt": "2025-10-13"
+  },
+  {
+   "id": "S12",
+   "url": "https://community.calendly.com/developer-community-60/index7.html",
+   "title": "Developer Community",
+   "domain": "community.calendly.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S13",
+   "url": "https://community.calendly.com/api-webhook-help-61/forcing-calendy-oauth-consent-4589",
+   "title": "Forcing calendy oauth consent",
+   "domain": "community.calendly.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S14",
+   "url": "https://community.calendly.com/asked-answered-79/approval-required-prompt-when-logging-into-calendly-4973",
+   "title": "“Approval Required” Prompt When Logging Into Calendly",
+   "domain": "community.calendly.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S15",
+   "url": "https://github.com/nrjimenez2-code/creatornet-mvp/pull/171",
+   "title": "Allow Calendly to launch while Cal.com approval is pending by nrjimenez2-code · Pull Request #171 · nrjimenez2-code/creatornet-mvp · GitHub",
+   "domain": "github.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S16",
+   "url": "https://community.calendly.com/how-do-i-40/how-do-i-resolve-this-i-don-t-have-admin-rights-2844",
+   "title": "How do I resolve this? I don't have Admin rights",
+   "domain": "community.calendly.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S17",
+   "url": "https://community.calendly.com/api-webhook-help-61/the-requested-scope-is-invalid-unknown-or-malformed-2203",
+   "title": "The requested scope is invalid, unknown, or malformed.",
+   "domain": "community.calendly.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S18",
+   "url": "https://github.com/n8n-io/n8n/issues/30147",
+   "title": "MCP OAuth/DCR incorrectly adds scope=openid for Calendly MCP · Issue #30147 · n8n-io/n8n · GitHub",
+   "domain": "github.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S19",
+   "url": "https://community.calendly.com/api-webhook-help-61/an-error-has-occurred-the-requested-scope-is-invalid-unknown-or-malformed-3657",
+   "title": "An error has occurred The requested scope is invalid, unknown, or malformed.",
+   "domain": "community.calendly.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S20",
+   "url": "https://community.calendly.com/api-webhook-help-61/trouble-with-oauth2-token-exchange-using-calendly-api-invalid-grant-error-1285",
+   "title": "Trouble with OAuth2 Token Exchange using Calendly API - Invalid Grant Error",
+   "domain": "community.calendly.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S21",
+   "url": "https://github.com/ComposioHQ/composio/issues/4392",
+   "title": "[Bug]: Calendly auth configs are unconnectable — derived scopes are refused by the bundled Calendly OAuth app · Issue #4392 · ComposioHQ/com",
+   "domain": "github.com",
+   "class": "third_party",
+   "retrievedAt": "2026-09-27"
+  },
+  {
+   "id": "P1",
+   "url": "https://calendly.com/.well-known/openid-configuration",
+   "title": "GET discovery document: 200: token endpoint https://calendly.com/oauth/token, PKCE S256, dynamic client registration offered",
+   "domain": "calendly.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P2",
+   "url": "https://auth.calendly.com/oauth/token",
+   "title": "POST token request with an unknown client: 400: invalid_request: Missing required parameter: code_verifier.",
+   "domain": "auth.calendly.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  }
+ ],
+ "probes": [
+  {
+   "target": "calendly.com/.well-known/openid-configuration",
+   "request": "GET discovery document",
+   "result": "200: token endpoint https://calendly.com/oauth/token, PKCE S256, dynamic client registration offered",
+   "at": "2026-10-20T20:52:51.047Z"
+  },
+  {
+   "target": "auth.calendly.com/oauth/token",
+   "request": "POST token request with an unknown client",
+   "result": "400: invalid_request: Missing required parameter: code_verifier.",
+   "at": "2026-10-20T20:52:51.047Z"
+  }
+ ],
+ "composio": {
+  "toolkits": [
+   {
+    "slug": "calendly",
+    "name": "Calendly",
+    "managed": true
+   }
+  ],
+  "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add"
+ },
+ "run": {
+  "model": "claude-sonnet-5-5 + claude-opus-5-5",
+  "seconds": 130,
+  "searches": 13,
+  "fetches": 9,
+  "costUsd": 1.34
+ }
+}

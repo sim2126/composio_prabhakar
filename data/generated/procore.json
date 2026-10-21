@@ -1,0 +1,886 @@
+{
+ "outcome": "oauth_app",
+ "outcomeNote": null,
+ "name": "Procore",
+ "vendorDomain": "procore.com",
+ "covers": [
+  "Procore API",
+  "Procore App Marketplace",
+  "Developer Managed Service Accounts"
+ ],
+ "summary": "Register an OAuth 2.0 app in the Procore Developer Portal; internal use is open, while reaching other companies requires Technology Partner contracting and Marketplace certification.",
+ "capabilities": [
+  {
+   "id": "projects",
+   "label": "Read companies and projects",
+   "scopes": [],
+   "alternative": "Use a Developer Managed Service Account limited to specific tools and projects"
+  },
+  {
+   "id": "rfis_submittals",
+   "label": "Read and create RFIs and submittals",
+   "scopes": [],
+   "alternative": "Use a Developer Managed Service Account limited to specific tools and projects"
+  },
+  {
+   "id": "documents",
+   "label": "Read documents and drawings",
+   "scopes": [],
+   "alternative": "Use a Developer Managed Service Account limited to specific tools and projects"
+  },
+  {
+   "id": "daily_logs",
+   "label": "Read and write daily logs",
+   "scopes": [],
+   "alternative": "Use a Developer Managed Service Account limited to specific tools and projects"
+  },
+  {
+   "id": "directory",
+   "label": "Read the company and project directory",
+   "scopes": [],
+   "alternative": null
+  }
+ ],
+ "defaultCapabilities": [
+  "projects",
+  "rfis_submittals",
+  "documents"
+ ],
+ "paths": [
+  {
+   "id": "custom_app",
+   "label": "Custom app in your own Procore company",
+   "audiences": [
+    "team"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "none",
+   "drivenBy": "Register the app in the Developer Portal, set redirect URIs, test in the auto-generated Developer Sandbox, then promote to production and install it with the Install Custom App flow. Procore has no OAuth scopes; the app inherits the authorizing user's permissions.",
+   "effort": "~1–3 hours",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "Procore publishes no fee for registering an app.",
+   "costEvidence": [
+    "S13"
+   ],
+   "customerAdmin": "sometimes",
+   "next": "Register an app in the Procore Developer Portal and copy the Client ID and Secret from the Manage App page.",
+   "untilApproved": [],
+   "lanes": {
+    "you": [
+     "Register app",
+     "Sandbox test",
+     "",
+     "Promote to prod"
+    ],
+    "provider": [
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "marketplace",
+   "label": "Marketplace app via Technology Partner program",
+   "audiences": [
+    "customers",
+    "public"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "formal",
+   "drivenBy": "Partner application, Technical Feasibility review, App Certification (security, API efficiency, reliability), Procore Review Questionnaire, signing the Framework Agreement and Technology Partner Addendum, a beta customer, a 3–5 minute demo video, a public support documentation URL and a manually reviewed listing.",
+   "effort": "2–6 weeks",
+   "waitOfficial": null,
+   "waitReported": "4–12 weeks",
+   "waitEvidence": [
+    "S21"
+   ],
+   "cost": "Unknown",
+   "costNote": "No listing fee is mentioned; Procore names Foundation, Select and Premier partner tiers but publishes no fees for them or for certification.",
+   "costEvidence": [
+    "S10",
+    "S13"
+   ],
+   "customerAdmin": "always",
+   "next": "Apply to become a partner from the app's Marketplace Listing section in the Developer Portal.",
+   "untilApproved": [
+    {
+     "text": "Build and test in the auto-generated Developer Sandbox using the Install Custom App flow.",
+     "evidence": [
+      "S11"
+     ]
+    },
+    {
+     "text": "Share the App Version Key so a beta customer can do a custom installation in the Monthly Sandbox.",
+     "evidence": [
+      "S9"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Partner application",
+     "Video and listing",
+     "Answer reviewers",
+     "Launch call"
+    ],
+    "provider": [
+     "",
+     "Feasibility review",
+     "Certification",
+     "Schedule launch"
+    ]
+   }
+  }
+ ],
+ "prereqs": [
+  {
+   "text": "Get a Procore login with access to the Developer Portal at developers.procore.com, plus Company Admin rights in the Procore company where the app will be installed.",
+   "why": "Apps are registered in the Developer Portal, and a Company Admin must install apps. Procore doesn't publish which account type or plan is needed to register an app.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Have a Composio project where you can create a custom OAuth2 auth config. Composio has no Procore toolkit.",
+   "why": "You must enter Procore's endpoints and credentials yourself.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Line up at least one beta customer willing to install and use the integration.",
+   "why": "The github.io requirements page requires one beta customer before publishing and one active customer within the prior 12 months. The GitHub checklist only recommends customer validation.",
+   "owner": "you",
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "text": "Have legal review the Procore API Terms of Use, the Developer Policy and the Procore Framework Agreement and Technology Partner Addendum.",
+   "why": "Listing requires full Technology Partner status, which means signing these agreements. Procore can change the terms at any time and can suspend API access.",
+   "owner": "you",
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "text": "Publish a public support documentation URL with step-by-step onboarding instructions.",
+   "why": "Both are listing requirements. Procore support does not troubleshoot partner apps.",
+   "owner": "agent_drafts",
+   "paths": [
+    "marketplace"
+   ]
+  }
+ ],
+ "steps": [
+  {
+   "id": "register",
+   "phase": "today",
+   "title": "Register the app in the Procore Developer Portal",
+   "owner": "you",
+   "time": "15 min",
+   "detail": "Sign in to the Developer Portal and create an app. The OAuth credentials are in a section of the Manage App page. Use the Authorization Code grant so each connection acts as the user who connects. Procore doesn't publish the exact console URL for app creation, and it offers no API or CLI for creating apps. A procore-app.manifest.json format is labelled \"Coming in 2026\" and is not confirmed as available.",
+   "values": [
+    {
+     "label": "Portal",
+     "text": "https://developers.procore.com/"
+    },
+    {
+     "label": "Grant type",
+     "text": "Authorization Code"
+    }
+   ],
+   "evidence": [
+    "S3",
+    "S8",
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "id": "composio-config",
+   "phase": "today",
+   "title": "Create a custom OAuth2 auth config in Composio",
+   "owner": "agent",
+   "time": "10 min",
+   "detail": "Create a custom OAuth2 auth config with Procore's sandbox endpoints and the app's Sandbox Client ID and Secret. Leave scopes empty: Procore does not use OAuth scope strings, and access follows the connecting user's Procore permissions. The token request sends client_secret in the request. Copy the redirect URI that Composio shows for this auth config.",
+   "values": [
+    {
+     "label": "Authorize URL (sandbox)",
+     "text": "https://login-sandbox-monthly.procore.com/oauth/authorize"
+    },
+    {
+     "label": "Token URL (sandbox)",
+     "text": "https://login-sandbox-monthly.procore.com/oauth/token"
+    },
+    {
+     "label": "API base (sandbox)",
+     "text": "https://api-monthly.procore.com/"
+    },
+    {
+     "label": "Scopes",
+     "text": ""
+    }
+   ],
+   "evidence": [
+    "S2",
+    "S4",
+    "S9"
+   ],
+   "paths": null
+  },
+  {
+   "id": "redirect",
+   "phase": "today",
+   "title": "Add the Composio redirect URI to the app",
+   "owner": "you",
+   "time": "5 min",
+   "detail": "On the Manage App page, add the Composio redirect URI from the auth config as an https URI. Procore lets you keep separate redirect URI sets for sandbox and production, so add it to both. New apps get http://localhost registered by default, which you can leave for local testing. Procore doesn't support dynamic or wildcard URIs, so the URI must match exactly.",
+   "values": [
+    {
+     "label": "Redirect URI",
+     "text": "The redirect URI shown in your Composio auth config"
+    }
+   ],
+   "evidence": [
+    "S8",
+    "S6",
+    "S24"
+   ],
+   "paths": null
+  },
+  {
+   "id": "sandbox-test",
+   "phase": "today",
+   "title": "Install the app in the Developer Sandbox and connect a test user",
+   "owner": "you",
+   "time": "30 min",
+   "detail": "Procore creates a Developer Sandbox for you automatically. Install the app there with the Install Custom App flow. Then run a Composio connection and check each capability: projects, RFIs and submittals, documents, daily logs and directory. On every API call except token management, listing companies and the optional ME call, send the Procore Company ID header.",
+   "values": [
+    {
+     "label": "Header",
+     "text": "Procore-Company-Id"
+    }
+   ],
+   "evidence": [
+    "S11",
+    "S9"
+   ],
+   "paths": null
+  },
+  {
+   "id": "custom-promote",
+   "phase": "week",
+   "title": "Promote the app to production and install it in your own company",
+   "owner": "you",
+   "time": "30 min",
+   "detail": "In the Developer Portal, promote the app to production. The Production App Version Key is generated under Manage Manifest. As Company Admin, install the custom app in your own Procore company. A custom integration runs only inside that one company's account.",
+   "values": [
+    {
+     "label": "Token host",
+     "text": "https://login.procore.com"
+    },
+    {
+     "label": "API host",
+     "text": "https://api.procore.com"
+    }
+   ],
+   "evidence": [
+    "S9",
+    "S26",
+    "S13"
+   ],
+   "paths": [
+    "custom_app"
+   ]
+  },
+  {
+   "id": "partner-apply",
+   "phase": "week",
+   "title": "Apply to the Technology Partner program",
+   "owner": "you",
+   "time": "1 hour",
+   "detail": "Apply from the app's Marketplace Listing section in the Developer Portal. The partner path has these gates: Partner Application, Technical Feasibility (an architectural and security review), App Certification (production readiness, security and API efficiency) and Partner Agreement. Developer Sandbox access continues throughout.",
+   "values": [
+    {
+     "label": "Partner page",
+     "text": "https://developers.procore.com/partner"
+    },
+    {
+     "label": "Contact",
+     "text": "partnerprograms@procore.com or techpartners@procore.com"
+    }
+   ],
+   "evidence": [
+    "S9",
+    "S10",
+    "S17"
+   ],
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "id": "listing",
+   "phase": "week",
+   "title": "Draft the listing, onboarding guide and demo video",
+   "owner": "agent_drafts",
+   "time": "1-2 days",
+   "detail": "Keep the app name to 30 characters or less, without the word Procore. Write step-by-step onboarding instructions and link the public support docs. Record a 3-5 minute video for the Admin App Specifications section. It must show installation and configuration, linking a Procore company to your service, and end-to-end functionality. Incomplete or misleading listings are rejected.",
+   "values": [
+    {
+     "label": "Video length",
+     "text": "3-5 minutes"
+    },
+    {
+     "label": "Name limit",
+     "text": "30 characters, no \"Procore\""
+    }
+   ],
+   "evidence": [
+    "S9",
+    "S18",
+    "S11"
+   ],
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "id": "monthly-sandbox",
+   "phase": "week",
+   "title": "Support the Monthly Sandbox and share the App Version Key",
+   "owner": "you",
+   "time": "1 hour",
+   "detail": "Make the app work against the Monthly Sandbox. Share the App Version Key so a client can do a custom app installation there.",
+   "values": [
+    {
+     "label": "Login",
+     "text": "https://login-sandbox-monthly.procore.com/"
+    },
+    {
+     "label": "API",
+     "text": "https://api-monthly.procore.com/"
+    }
+   ],
+   "evidence": [
+    "S9"
+   ],
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "id": "contract",
+   "phase": "week",
+   "title": "Complete the Review Questionnaire and sign the partner agreements",
+   "owner": "you",
+   "time": "",
+   "detail": "Partner contracting requires Procore's approval of the Procore Review Questionnaire, then signing the Framework Agreement and Technology Partner Addendum. Procore doesn't publish partner fees for its Foundation, Select or Premier tiers.",
+   "values": [],
+   "evidence": [
+    "S11",
+    "S10"
+   ],
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "id": "review",
+   "phase": "wait",
+   "title": "Wait for Technical Feasibility and Certification review",
+   "owner": "provider",
+   "time": "",
+   "detail": "Procore manually reviews the app and listing for security, API efficiency, reliability and functional testing. Procore doesn't publish a review time. A third-party estimate is 4 to 12 weeks.",
+   "values": [],
+   "evidence": [
+    "S17",
+    "S18",
+    "S11",
+    "S21",
+    "S23"
+   ],
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "id": "switch-prod",
+   "phase": "launch",
+   "title": "Switch the Composio auth config to production credentials",
+   "owner": "agent",
+   "time": "10 min",
+   "detail": "Update the auth config, or create a new one, with the production Client ID and Secret and production endpoints. Sandbox and production tokens are not interchangeable, so users must reconnect.",
+   "values": [
+    {
+     "label": "Authorize URL",
+     "text": "https://login.procore.com/oauth/authorize"
+    },
+    {
+     "label": "Token URL",
+     "text": "https://login.procore.com/oauth/token"
+    },
+    {
+     "label": "API base",
+     "text": "https://api.procore.com"
+    }
+   ],
+   "evidence": [
+    "S2",
+    "S9"
+   ],
+   "paths": null
+  },
+  {
+   "id": "launch-call",
+   "phase": "launch",
+   "title": "Schedule the launch date on Procore's check-in call",
+   "owner": "provider",
+   "time": "",
+   "detail": "After approval, Procore holds a final check-in call to set the launch date. This comes from an older support page.",
+   "values": [],
+   "evidence": [
+    "S12"
+   ],
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "id": "customer-install",
+   "phase": "launch",
+   "title": "Have each customer's Company Admin install the app",
+   "owner": "customer_admin",
+   "time": "",
+   "detail": "A Company Admin must install Marketplace apps before users in that company can connect through Composio. Don't ask customers to add your team members to their Procore account.",
+   "values": [],
+   "evidence": [
+    "S13",
+    "S11"
+   ],
+   "paths": [
+    "marketplace"
+   ]
+  }
+ ],
+ "gotchas": [
+  {
+   "text": "There are no scopes to request. An Authorization Code connection inherits the connecting user's Procore permissions, so features fail for users who lack access to the relevant tool or project.",
+   "evidence": [
+    "S4"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Refresh tokens rotate. Each refresh returns a new refresh token, and the old one is spent. Access tokens last 90 minutes.",
+   "evidence": [
+    "S4",
+    "S7"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Authorization codes are single-use and expire after 10 minutes.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Sandbox and production have separate credentials, tokens and base URLs. The On-Demand Sandbox runs on production infrastructure and production endpoints, which makes mix-ups easy.",
+   "evidence": [
+    "S2",
+    "S16"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Dynamic redirect URIs are not supported. Each redirect URI must be registered exactly.",
+   "evidence": [
+    "S8"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The live discovery document lists https://auth.procore.com/oauth/token, PKCE (S256/plain) and dynamic client registration. Procore's documentation uses login.procore.com and doesn't mention PKCE. Follow the documented endpoints.",
+   "evidence": [
+    "P1",
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Procore may refuse or remove apps that use Procore data to train ML models or LLMs. Keep customer data out of any model training.",
+   "evidence": [
+    "S11"
+   ],
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "text": "A custom app works only in its own Procore company. Reaching other companies requires a Marketplace listing and Technology Partner status.",
+   "evidence": [
+    "S13",
+    "S9"
+   ],
+   "paths": [
+    "custom_app"
+   ]
+  },
+  {
+   "text": "Procore's two checklist versions disagree on the partner contact email and on whether a beta customer is required. The GitHub version adds Certification Assessment and Technical Feasibility steps and appears newer. Plan for the stricter requirement.",
+   "evidence": [
+    "S9",
+    "S17",
+    "S11"
+   ],
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "text": "Procore can modify its API terms without notice and can suspend or terminate API access at its sole discretion. Procore doesn't publish terms covering AI agents, sharing data with model vendors, or retention limits.",
+   "evidence": [
+    "S14",
+    "S20"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Procore doesn't publish rate limits, re-consent rules or review timelines.",
+   "evidence": [],
+   "paths": null
+  }
+ ],
+ "blockers": [
+  {
+   "see": "401 invalid_client: Client authentication failed due to unknown client",
+   "cause": "The Client ID or Secret doesn't exist on that token host. This usually means sandbox credentials were sent to production, or the reverse.",
+   "fix": "Match the credentials to the environment: sandbox credentials with login-sandbox-monthly.procore.com, production credentials with login.procore.com.",
+   "paths": null
+  },
+  {
+   "see": "Redirect URI mismatch during authorization",
+   "cause": "The Composio redirect URI is not registered on the app for that environment.",
+   "fix": "Add the exact Composio redirect URI to the sandbox and production redirect URI sets on the Manage App page.",
+   "paths": null
+  },
+  {
+   "see": "Listing rejected as incomplete or misleading",
+   "cause": "The demo video, onboarding steps or support URL is missing or inaccurate.",
+   "fix": "Supply the 3-5 minute video, step-by-step onboarding instructions and a public support URL.",
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "see": "App refused or removed from the Marketplace",
+   "cause": "The app is built for one customer, is an internal tool, requires adding your team members to customer accounts, uses undocumented APIs, only offers Login with Procore, or trains ML models or LLMs on Procore data.",
+   "fix": "Remove the offending behaviour. Single-company tools should use the custom app path instead.",
+   "paths": [
+    "marketplace"
+   ]
+  },
+  {
+   "see": "The app does not appear in a third-party marketplace when testing against a sandbox",
+   "cause": "Only the live production app is listed there.",
+   "fix": "Test sandbox connections through your own auth config and sandbox credentials.",
+   "paths": null
+  }
+ ],
+ "aiPolicy": {
+  "status": "restrictions",
+  "summary": "Procore may refuse or remove Marketplace apps that use Procore data to train ML models or LLMs. The API Terms of Use let Procore change terms or suspend access at any time. Procore's AI Terms (effective July 1, 2026 per a third-party summary) appear to cover Procore's own AI features. No published wording on agents, sharing data with model vendors or retention limits.",
+  "evidence": [
+   "S11",
+   "S14",
+   "S19",
+   "S20"
+  ]
+ },
+ "customerAdminNote": "A Company Admin must install Marketplace apps in the customer's Procore account. The app must not require adding a developer or partner team member to that account. For service-account apps, the admin sets which tools and projects the service account can access.",
+ "unknowns": [
+  "Procore doesn't publish a review time or SLA for Marketplace certification.",
+  "Procore doesn't publish Technology Partner tier fees or certification assessment costs.",
+  "Procore doesn't document PKCE or dynamic client registration in its OAuth guides, though its discovery document advertises both.",
+  "Procore doesn't publish a maximum number of redirect URIs.",
+  "Procore doesn't publish rate-limit numbers.",
+  "Procore doesn't state whether a privacy policy, business verification or domain verification is required.",
+  "Procore's API Terms don't publicly address AI agents, sharing data with model vendors, or data retention and caching.",
+  "Procore's partner contact email differs between pages (partnerprograms@procore.com vs techpartners@procore.com).",
+  "Procore's checklist versions disagree on whether a beta customer is required or only recommended.",
+  "Procore doesn't document re-consent rules.",
+  "Procore's app manifest for creating apps is labelled 'Coming in 2026' and is not confirmed available."
+ ],
+ "slug": "procore",
+ "kind": "generated",
+ "checkedAt": "2026-10-20",
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://procore.github.io/documentation/oauth-choose-grant-type",
+   "title": "Choosing an OAuth 2.0 Grant Type",
+   "domain": "procore.github.io",
+   "class": "official",
+   "retrievedAt": "2026-06-23"
+  },
+  {
+   "id": "S2",
+   "url": "https://procore.github.io/documentation/oauth-auth-grant-flow",
+   "title": "OAuth 2.0 Authorization Code Grant Flow",
+   "domain": "procore.github.io",
+   "class": "official",
+   "retrievedAt": "2026-06-09"
+  },
+  {
+   "id": "S3",
+   "url": "https://developers.procore.com/",
+   "title": "Procore Developers",
+   "domain": "developers.procore.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S4",
+   "url": "https://procore.github.io/documentation/api-security-overview",
+   "title": "Procore API Security Overview",
+   "domain": "procore.github.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S5",
+   "url": "https://procore.github.io/documentation/developer-managed-service-accounts",
+   "title": "Developer Managed Service Accounts (DMSA)",
+   "domain": "procore.github.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S6",
+   "url": "https://procore.github.io/documentation/oauth-endpoints",
+   "title": "Procore API Authentication Endpoints",
+   "domain": "procore.github.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S7",
+   "url": "https://procore.github.io/documentation/faq",
+   "title": "FAQ",
+   "domain": "procore.github.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S8",
+   "url": "https://procore.github.io/documentation/oauth-keys",
+   "title": "OAuth Credentials Management",
+   "domain": "procore.github.io",
+   "class": "official",
+   "retrievedAt": "2026-01-07"
+  },
+  {
+   "id": "S9",
+   "url": "https://procore.github.io/documentation/marketplace-checklist",
+   "title": "Marketplace Approval Checklist",
+   "domain": "procore.github.io",
+   "class": "official",
+   "retrievedAt": "2026-06-07"
+  },
+  {
+   "id": "S10",
+   "url": "https://developers.procore.com/partner",
+   "title": "Partner Program",
+   "domain": "developers.procore.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S11",
+   "url": "https://procore.github.io/documentation/marketplace-requirements",
+   "title": "Prepare for the Marketplace",
+   "domain": "procore.github.io",
+   "class": "official",
+   "retrievedAt": "2026-06-22"
+  },
+  {
+   "id": "S12",
+   "url": "https://pl-pl.support.procore.com/products/procore-api",
+   "title": "Procore API - Procore",
+   "domain": "pl-pl.support.procore.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S13",
+   "url": "https://v2.support.procore.com/faq-common-questions-apps-and-marketplace",
+   "title": "Common Questions about Apps and the Procore App Marketplace",
+   "domain": "v2.support.procore.com",
+   "class": "official",
+   "retrievedAt": "2026-10-19"
+  },
+  {
+   "id": "S14",
+   "url": "https://procore.pactsafe.io/",
+   "title": "Procore Legal Center",
+   "domain": "procore.pactsafe.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S15",
+   "url": "https://mkt-cdn.procore.com/legal/procore-API-license-and-application-developer-agreement.pdf",
+   "title": "Procore API License and Application Developer Agreement",
+   "domain": "mkt-cdn.procore.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S16",
+   "url": "https://procore.github.io/documentation/development-environments",
+   "title": "Procore Sandboxes",
+   "domain": "procore.github.io",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S17",
+   "url": "https://github.com/procore/documentation/blob/main/app_marketplace/marketplace_checklist.md",
+   "title": "documentation/app_marketplace/marketplace_checklist.md at main · procore/documentation · GitHub",
+   "domain": "github.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S18",
+   "url": "https://github.com/procore/documentation/blob/main/app_marketplace/marketplace_listing_guidelines.md",
+   "title": "documentation/app_marketplace/marketplace_listing_guidelines.md at main · procore/documentation · GitHub",
+   "domain": "github.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S19",
+   "url": "https://wiki.licenseware.io/wiki/procore-api-and-ai-terms/",
+   "title": "Procore API Terms and AI Terms",
+   "domain": "wiki.licenseware.io",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S20",
+   "url": "https://wiki.licenseware.io/catalog/rules/procore-procore-may-suspend-or-terminate-api-access-in-its-sole-discretion/",
+   "title": "Procore may suspend or terminate API access in its sole discretion (Procore rule)",
+   "domain": "wiki.licenseware.io",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S21",
+   "url": "https://www.bolderapps.com/blog-posts/procore-integration-custom-construction-apps-2026",
+   "title": "Procore Integration for Custom Construction Apps in 2026: An Advanced Technical Guide",
+   "domain": "bolderapps.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S22",
+   "url": "https://community.procore.com/s/topic/0TO8V000000ThcFWAS/procore-marketplace",
+   "title": "Procore Marketplace",
+   "domain": "community.procore.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S23",
+   "url": "https://www.hashlogics.com/answers/procore-api-what-a-real-integration-involves",
+   "title": "Procore API: What a Real Integration Involves",
+   "domain": "hashlogics.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S24",
+   "url": "https://documenter.getpostman.com/view/3996804/SW7bzS65",
+   "title": "Procore OAuth 2.0 Collection",
+   "domain": "documenter.getpostman.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S25",
+   "url": "https://github.com/tomjodeit/procore-custom-app-starter",
+   "title": "GitHub - tomjodeit/procore-custom-app-starter: Procore Custom App Test · GitHub",
+   "domain": "github.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S26",
+   "url": "https://proconnector.hingepoint.com/support/05-create-migrate-procore-credentials-with-developer-managed-service-accounts/",
+   "title": "Guide To Procore DMSA App Creation And Credential Migration",
+   "domain": "proconnector.hingepoint.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S27",
+   "url": "https://community.procore.com/s/group/0F92T000000XbGqSAK/procore-api-developers",
+   "title": "Group: Procore API / Developers",
+   "domain": "community.procore.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P1",
+   "url": "https://auth.procore.com/.well-known/openid-configuration",
+   "title": "GET discovery document: 200: token endpoint https://auth.procore.com/oauth/token, PKCE S256/plain, dynamic client registration offered",
+   "domain": "auth.procore.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P2",
+   "url": "https://login.procore.com/oauth/token",
+   "title": "POST token request with an unknown client: 401: invalid_client: Client authentication failed due to unknown client, no client authentication",
+   "domain": "login.procore.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  }
+ ],
+ "probes": [
+  {
+   "target": "auth.procore.com/.well-known/openid-configuration",
+   "request": "GET discovery document",
+   "result": "200: token endpoint https://auth.procore.com/oauth/token, PKCE S256/plain, dynamic client registration offered",
+   "at": "2026-10-20T20:53:07.792Z"
+  },
+  {
+   "target": "login.procore.com/oauth/token",
+   "request": "POST token request with an unknown client",
+   "result": "401: invalid_client: Client authentication failed due to unknown client, no client authentication included, or ",
+   "at": "2026-10-20T20:53:07.792Z"
+  }
+ ],
+ "composio": {
+  "toolkits": [],
+  "defaultRedirect": null
+ },
+ "run": {
+  "model": "claude-sonnet-5-5 + claude-opus-5-5",
+  "seconds": 150,
+  "searches": 11,
+  "fetches": 9,
+  "costUsd": 1.41
+ }
+}

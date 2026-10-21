@@ -1,0 +1,882 @@
+{
+ "outcome": "oauth_app",
+ "outcomeNote": null,
+ "name": "Microsoft 365",
+ "vendorDomain": "microsoft.com",
+ "covers": [
+  "Outlook",
+  "Outlook Calendar",
+  "Teams",
+  "OneDrive",
+  "SharePoint",
+  "Excel"
+ ],
+ "summary": "Microsoft does not review your app, but other organisations' admins usually must consent to mail and calendar access, and multi-tenant apps should be publisher verified.",
+ "capabilities": [
+  {
+   "id": "read_mail",
+   "label": "Read email",
+   "scopes": [
+    {
+     "name": "Mail.Read",
+     "tier": "sensitive",
+     "label": "Admin consent"
+    }
+   ],
+   "alternative": "No user-consentable way to read mail in tenants on Microsoft's default policy."
+  },
+  {
+   "id": "send_mail",
+   "label": "Send email",
+   "scopes": [
+    {
+     "name": "Mail.Send",
+     "tier": "basic",
+     "label": "User consent"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "calendar",
+   "label": "Manage calendar",
+   "scopes": [
+    {
+     "name": "Calendars.ReadWrite",
+     "tier": "sensitive",
+     "label": "Admin consent"
+    }
+   ],
+   "alternative": "Admin consent in tenants on Microsoft's default policy."
+  },
+  {
+   "id": "contacts",
+   "label": "Read contacts",
+   "scopes": [
+    {
+     "name": "Contacts.Read",
+     "tier": "basic",
+     "label": "User consent"
+    }
+   ],
+   "alternative": "Contacts.ReadWrite needs admin consent since mid-2026."
+  }
+ ],
+ "defaultCapabilities": [
+  "read_mail",
+  "send_mail",
+  "calendar"
+ ],
+ "paths": [
+  {
+   "id": "single_tenant",
+   "label": "Own single-tenant app for your workspace",
+   "audiences": [
+    "team"
+   ],
+   "tiers": [
+    "basic",
+    "sensitive",
+    "restricted"
+   ],
+   "review": "none",
+   "drivenBy": "Needs an Azure account with an active subscription and at least the Application Developer role in your tenant. Name field and account type set at registration.",
+   "effort": "~30 min–1 hour",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "Unknown",
+   "costNote": "An active Azure subscription is required; no fee for registration is stated.",
+   "costEvidence": [
+    "S1"
+   ],
+   "customerAdmin": "none",
+   "next": "In the Entra admin center go to Entra ID > App registrations > New registration and add the Composio redirect URI.",
+   "untilApproved": [],
+   "lanes": {
+    "you": [
+     "Register app",
+     "Connect via Composio",
+     "",
+     ""
+    ],
+    "provider": [
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "multitenant-user",
+   "label": "Other organisations, user-consentable scopes",
+   "audiences": [
+    "customers",
+    "public"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "light",
+   "drivenBy": "Users in many tenants can't consent to unverified multi-tenant apps, so get publisher verified; send-mail and read-contacts scopes stay user-consentable.",
+   "effort": "1–3 days",
+   "waitOfficial": "3–5 business days to vet your partner account; verification then takes minutes",
+   "waitReported": "Weeks to months when partner vetting is rejected",
+   "waitEvidence": [
+    "V3",
+    "S2"
+   ],
+   "cost": "$0",
+   "costNote": "Microsoft charges no fee for publisher verification.",
+   "costEvidence": [
+    "S2"
+   ],
+   "customerAdmin": "sometimes",
+   "next": "Start AI Cloud Partner Program verification today; it gates publisher verification.",
+   "untilApproved": [
+    {
+     "text": "Unverified multi-tenant apps show 'Unverified', and users in tenants with step-up consent cannot consent (AADSTS90094).",
+     "evidence": [
+      "V7",
+      "S2"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "~1 hour",
+     "~1 day",
+     "",
+     "~30 min"
+    ],
+    "provider": [
+     "",
+     "",
+     "3–5 BD",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "multitenant-admin",
+   "label": "Other organisations, mail or calendar access",
+   "audiences": [
+    "customers",
+    "public"
+   ],
+   "tiers": [
+    "sensitive",
+    "restricted"
+   ],
+   "review": "light",
+   "drivenBy": "In tenants on Microsoft's default consent policy, users can't consent to mail or calendar scopes: each customer's admin must, even for a verified app.",
+   "effort": "1–3 days",
+   "waitOfficial": "3–5 business days to vet your partner account; verification then takes minutes",
+   "waitReported": "Weeks to months when partner vetting is rejected",
+   "waitEvidence": [
+    "V3",
+    "S2"
+   ],
+   "cost": "$0",
+   "costNote": "Microsoft charges no fee for publisher verification.",
+   "costEvidence": [
+    "S2"
+   ],
+   "customerAdmin": "always",
+   "next": "Start partner verification today and build an admin-consent step into every customer's onboarding.",
+   "untilApproved": [
+    {
+     "text": "Each customer's admin must grant consent to mail and calendar scopes, verified or not.",
+     "evidence": [
+      "V1",
+      "V2"
+     ]
+    },
+    {
+     "text": "Unverified multi-tenant apps show 'Unverified', and step-up consent blocks users entirely.",
+     "evidence": [
+      "V7",
+      "S2"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "~1 hour",
+     "~1 day",
+     "",
+     "~30 min"
+    ],
+    "provider": [
+     "",
+     "",
+     "3–5 BD",
+     ""
+    ]
+   }
+  }
+ ],
+ "prereqs": [
+  {
+   "text": "A verified AI Cloud Partner Program account",
+   "why": "Needed for publisher verification. Vetting checks government ID, domain and business registration; usually 3–5 business days.",
+   "owner": "you",
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "text": "A work or school Entra tenant",
+   "why": "Apps registered with a personal Microsoft account can never be publisher verified.",
+   "owner": "you",
+   "paths": [
+    "single_tenant",
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "text": "A custom domain verified in that tenant",
+   "why": "*.onmicrosoft.com is not accepted as a publisher domain.",
+   "owner": "you",
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  }
+ ],
+ "steps": [
+  {
+   "id": "s2",
+   "phase": "today",
+   "title": "Register the app",
+   "owner": "agent",
+   "time": "10 minutes",
+   "detail": "Sign in with az login (you), then the agent registers it. Choose 'Multiple Entra ID tenants' to serve other organisations. The app object can't move between tenants later.",
+   "values": [
+    {
+     "label": "Azure CLI",
+     "text": "az ad app create --display-name \"Your agent\" --sign-in-audience AzureADMultipleOrgs --web-redirect-uris https://backend.composio.dev/api/v1/auth-apps/add"
+    }
+   ],
+   "evidence": [
+    "S1",
+    "S2"
+   ],
+   "paths": [
+    "single_tenant",
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "id": "s3",
+   "phase": "today",
+   "title": "Add the Composio redirect URI to the app registration",
+   "owner": "you",
+   "time": "5 minutes",
+   "detail": "Paste the redirect URI from your Composio auth config. HTTPS only (http just for localhost), case-sensitive, at most 256 characters; a mismatch fails with AADSTS50011.",
+   "values": [
+    {
+     "label": "Redirect URI",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    }
+   ],
+   "evidence": [
+    "V4"
+   ],
+   "paths": [
+    "single_tenant",
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "id": "s4",
+   "phase": "today",
+   "title": "Create a client secret and add the Microsoft Graph permissions you need",
+   "owner": "you",
+   "time": "15 minutes",
+   "detail": "Certificates & secrets → New client secret (24 months at most; Microsoft recommends under 12 and certificates in production). API permissions → Microsoft Graph delegated permissions, including offline_access.",
+   "values": [
+    {
+     "label": "Delegated permissions",
+     "text": "offline_access Mail.Read Mail.Send Calendars.ReadWrite"
+    }
+   ],
+   "evidence": [
+    "V6",
+    "V5"
+   ],
+   "paths": [
+    "single_tenant",
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "id": "s5",
+   "phase": "today",
+   "title": "Create the Composio auth config with your client ID and secret",
+   "owner": "agent",
+   "time": "Minutes",
+   "detail": "Create a custom auth config for the outlook toolkit. Use the Entra application (client) ID, the client secret, and the same scopes you added in the registration.",
+   "values": [
+    {
+     "label": "Toolkit",
+     "text": "outlook"
+    },
+    {
+     "label": "Redirect URI",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    }
+   ],
+   "evidence": [],
+   "paths": [
+    "single_tenant",
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "id": "s6",
+   "phase": "week",
+   "title": "Set a custom publisher domain on the app",
+   "owner": "you",
+   "time": "Hours, including DNS verification",
+   "detail": "Verify a custom domain in the tenant by DNS. Set it as the app's publisher domain; *.onmicrosoft.com is not accepted. It must match the email domain on your Partner Program account.",
+   "values": [],
+   "evidence": [
+    "S2"
+   ],
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "id": "s7",
+   "phase": "week",
+   "title": "Add your PGA Partner One ID to request publisher verification",
+   "owner": "you",
+   "time": "Minutes once the prerequisites are met",
+   "detail": "Use the partner global account's Partner One ID (location IDs are rejected). Your partner email domain must match the publisher domain. You need Application Administrator or Cloud Application Administrator plus a Partner Center admin role, with MFA.",
+   "values": [],
+   "evidence": [
+    "S2",
+    "S16"
+   ],
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "id": "s8",
+   "phase": "wait",
+   "title": "Wait for Microsoft to process the verification",
+   "owner": "provider",
+   "time": "Minutes if all requirements are met",
+   "detail": "After verification succeeds, the consent screen shows a blue badge and your publisher name instead of 'Unverified'. Recent developer reports describe portal failures; see blockers.",
+   "values": [],
+   "evidence": [
+    "S2",
+    "S3",
+    "S16"
+   ],
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "id": "s11",
+   "phase": "launch",
+   "title": "Switch Composio connections to your own auth config",
+   "owner": "agent",
+   "time": "Minutes",
+   "detail": "Point new connection requests at the custom auth config. Existing users connected through the managed app must reconnect to grant consent to your app.",
+   "values": [],
+   "evidence": [],
+   "paths": [
+    "single_tenant",
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "id": "s12",
+   "phase": "launch",
+   "title": "Get admin consent in each customer tenant",
+   "owner": "customer_admin",
+   "time": "Depends on the customer",
+   "detail": "Send each customer's admin the admin-consent link. Required for mail and calendar scopes in tenants on the default policy, and for any tenant that blocks user consent.",
+   "values": [
+    {
+     "label": "Admin consent link (fill in your client ID)",
+     "text": "https://login.microsoftonline.com/organizations/v2.0/adminconsent?client_id=YOUR_CLIENT_ID&scope=https://graph.microsoft.com/.default&redirect_uri=https%3A%2F%2Fbackend.composio.dev%2Fapi%2Fv1%2Fauth-apps%2Fadd"
+    }
+   ],
+   "evidence": [
+    "V8",
+    "V1"
+   ],
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "id": "s13",
+   "phase": "launch",
+   "title": "Test consent from an account in a different tenant",
+   "owner": "you",
+   "time": "15 minutes",
+   "detail": "Confirm the consent screen shows your verified publisher name and that each capability works end to end.",
+   "values": [],
+   "evidence": [
+    "S2",
+    "S3"
+   ],
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "id": "certification",
+   "phase": "wait",
+   "title": "Optional: Microsoft 365 Certification",
+   "owner": "lab",
+   "time": "14 + 60 days",
+   "detail": "Not required to connect. A paid audit by Microsoft's assessor (Claranet): a 14-day document stage, then up to 60 days for evidence. Renewed every year. Some enterprise buyers ask for it.",
+   "values": [],
+   "evidence": [
+    "S5"
+   ],
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  }
+ ],
+ "gotchas": [
+  {
+   "text": "Microsoft's default consent policy now blocks user consent to mail, calendar, files and contacts-write permissions (rolled out July 2025 to July 2026). It applies to tenants on the Microsoft-managed policy; existing grants are unaffected.",
+   "evidence": [
+    "V1",
+    "V2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Publisher verification does not exempt your app from those admin-consent requirements.",
+   "evidence": [
+    "V1"
+   ],
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "text": "Access tokens last about an hour. Refresh tokens last 90 days and are replaced on each use; request offline_access to get one.",
+   "evidence": [
+    "V5"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Client secrets expire after at most 24 months. Rotate them before they lapse or every connection breaks.",
+   "evidence": [
+    "V6"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Outlook throttling is per app per mailbox: 10,000 requests per 10 minutes and 4 concurrent requests.",
+   "evidence": [
+    "S6"
+   ],
+   "paths": null
+  },
+  {
+   "text": "An app object cannot be moved between tenants. Register it in the tenant tied to your Partner Program account.",
+   "evidence": [
+    "S1",
+    "S2"
+   ],
+   "paths": [
+    "single_tenant",
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "text": "Publisher verification is not supported in national clouds or Azure AD B2C tenants.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "text": "The verified badge does not signal compliance or certification. Customers looking for that need Microsoft 365 Certification.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "text": "The API terms limit use of Outlook and Exchange mail APIs to syncing or backing up mail, calendar and contacts unless customers expressly grant other permissions. They also forbid creating copies of data beyond the intended usage and forbid using the data for advertising. Retained data must be deleted when a user leaves.",
+   "evidence": [
+    "V9"
+   ],
+   "paths": null
+  }
+ ],
+ "blockers": [
+  {
+   "see": "AADSTS50011: the redirect URI in the request does not match the redirect URIs configured for the application",
+   "cause": "The redirect URI sent in the request differs from those registered on the Entra app.",
+   "fix": "Register https://backend.composio.dev/api/v1/auth-apps/add exactly on the app and confirm the Composio auth config uses the same app.",
+   "paths": [
+    "single_tenant",
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "see": "Publisher verification fails with 'MPN ID has not completed the vetting process' although Partner Center shows the account as verified",
+   "cause": "Likely a partner location ID instead of the PGA ID, or a tenant not associated with the PGA.",
+   "fix": "Use the partner global account Partner One ID and confirm the tenant is associated with the PGA. No confirmed fix was published; if it persists, raise it with Microsoft support.",
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "see": "Portal shows a 'temporary problem' when adding a Partner ID for publisher verification, lasting hours",
+   "cause": "Microsoft-side portal issue reported on 2026-09-28.",
+   "fix": "Retry later. The setVerifiedPublisher API is an alternative route, though it returned the vetting error in another report.",
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "see": "User from an associated tenant cannot complete publisher verification with a verified PartnerGlobal ID",
+   "cause": "Verification requires the user to hold both the Entra role and the Partner Center role.",
+   "fix": "Have a user with Application Administrator or Cloud Application Administrator plus Partner Admin or Account Admin, signed in with MFA, run the verification.",
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  },
+  {
+   "see": "Cannot get publisher-verified status on an @onmicrosoft.com tenant",
+   "cause": "The publisher domain cannot be *.onmicrosoft.com.",
+   "fix": "Add and DNS-verify a custom domain matching your Partner Program email domain, then set it as the publisher domain.",
+   "paths": [
+    "multitenant-user",
+    "multitenant-admin"
+   ]
+  }
+ ],
+ "aiPolicy": {
+  "status": "restrictions",
+  "summary": "Microsoft APIs Terms of Use have no AI-specific clause. General limits apply: minimum data and permissions, no copies or databases beyond the intended scenario, no resale or sublicensing of data, no advertising use, privacy statement as protective as Microsoft's, delete data when users leave. Outlook/Exchange data may only be used for sync or backup unless customers expressly grant other use.",
+  "evidence": [
+   "S10"
+  ]
+ },
+ "customerAdminNote": "In tenants on Microsoft's default consent policy, users can't grant mail, calendar or files access. Send their admin the admin-consent link from the steps.",
+ "unknowns": [
+  "Whether Composio's managed Outlook app is publisher verified, and which scopes it requests.",
+  "The price of Microsoft 365 Certification, which is paid to the assessor and not published."
+ ],
+ "slug": "microsoft-365",
+ "kind": "verified",
+ "checkedAt": "2026-10-21",
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app",
+   "title": "How to Register an App in Microsoft Entra ID\" - Microsoft identity platform",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-19"
+  },
+  {
+   "id": "S2",
+   "url": "https://learn.microsoft.com/en-us/entra/identity-platform/publisher-verification-overview",
+   "title": "Publisher verification overview - Microsoft identity platform",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-19"
+  },
+  {
+   "id": "S3",
+   "url": "https://learn.microsoft.com/en-us/entra/identity-platform/application-consent-experience",
+   "title": "Consent experience for applications in Microsoft Entra ID - Microsoft identity platform",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S4",
+   "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/docs/attestation",
+   "title": "Publisher Attestation overview - Microsoft 365 App Certification",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S5",
+   "url": "https://learn.microsoft.com/en-us/microsoft-365-app-certification/docs/certification",
+   "title": "Microsoft 365 Certification framework overview - Microsoft 365 App Certification",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S6",
+   "url": "https://learn.microsoft.com/en-us/graph/throttling-limits",
+   "title": "Microsoft Graph service-specific throttling limits - Microsoft Graph",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S7",
+   "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/user-admin-consent-overview",
+   "title": "Overview of user and admin consent - Microsoft Entra ID",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S8",
+   "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-user-consent",
+   "title": "Configure How Users Consent to Applications - Microsoft Entra ID",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S9",
+   "url": "https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use?context=%2Fgraph%2Fcontext",
+   "title": "Terms of Use - Microsoft APIs",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-09-21"
+  },
+  {
+   "id": "S10",
+   "url": "https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use-changelog",
+   "title": "Change History for Microsoft APIs Terms of Use",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-08-31"
+  },
+  {
+   "id": "S11",
+   "url": "https://learn.microsoft.com/en-us/answers/questions/6037926/publisher-verification-fails-with-mpn-id-has-not-c",
+   "title": "Publisher verification fails with \"MPN ID has not completed the vetting process\" although Partner Center account is fully verified - Microso",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-18"
+  },
+  {
+   "id": "S12",
+   "url": "https://learn.microsoft.com/en-us/answers/questions/6018178/publisher-verification-is-broken-on-entra-apps-in",
+   "title": "Publisher verification is broken on Entra Apps in Azure - Microsoft Q&A",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S13",
+   "url": "https://learn.microsoft.com/en-us/answers/questions/5429227/need-help-to-make-publisher-as-verified-for-an-ent",
+   "title": "Need help to make Publisher as Verified for an entra app - Microsoft Q&A",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S14",
+   "url": "https://learn.microsoft.com/en-sg/answers/questions/5890378/user-from-associated-tenant-cannot-complete-micros",
+   "title": "User from associated tenant cannot complete Microsoft Entra App Publisher Verification with verified PartnerGlobal ID - Microsoft Q&A",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S15",
+   "url": "https://learn.microsoft.com/en-us/partner-center/marketplace-offers/add-in-submission-guide",
+   "title": "Microsoft Marketplace step-by-step submission guide - Marketplace publisher",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S16",
+   "url": "https://learn.microsoft.com/en-us/entra/identity-platform/mark-app-as-publisher-verified",
+   "title": "Mark an app as publisher verified - Microsoft identity platform",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S17",
+   "url": "https://learn.microsoft.com/en-us/answers/questions/1017552/aadsts50011-issue",
+   "title": "AADSTS50011 issue - Microsoft Q&A",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S18",
+   "url": "https://learn.microsoft.com/en-us/answers/questions/5643560/connect-microsoft-outlook-365-to-odoo-using-azure",
+   "title": "Connect Microsoft Outlook 365 to Odoo using Azure OAuth - Microsoft Q&A",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S19",
+   "url": "https://learn.microsoft.com/en-us/answers/questions/1811716/how-to-fix-error-aadsts50011-the-redirect-uri-does",
+   "title": "How to fix error AADSTS50011 the redirect URI does not match - Microsoft Q&A",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S20",
+   "url": "https://learn.microsoft.com/en-us/answers/questions/2225194/receiving-message-aadsts50011-when-trying-to-uploa",
+   "title": "Receiving Message AADSTS50011 when trying to upload a Sophos Outlook Add-in - Microsoft Q&A",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S21",
+   "url": "https://venturebeat.com/ai/microsoft-changes-services-agreement-to-add-restrictions-for-ai-offerings",
+   "title": "Microsoft changes Services Agreement to add restrictions for AI offerings",
+   "domain": "venturebeat.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "V1",
+   "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/manage-app-consent-policies",
+   "title": "Manage app consent policies",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V2",
+   "url": "https://mc.merill.net/message/MC1163922",
+   "title": "MC1163922: default consent policy blocks mail and calendar (Message Center mirror)",
+   "domain": "mc.merill.net",
+   "class": "third_party",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V3",
+   "url": "https://learn.microsoft.com/en-us/partner-center/enroll/understand-the-verification-process",
+   "title": "Partner Center verification process",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V4",
+   "url": "https://learn.microsoft.com/en-us/entra/identity-platform/reply-url",
+   "title": "Redirect URI restrictions",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V5",
+   "url": "https://learn.microsoft.com/en-us/entra/identity-platform/refresh-tokens",
+   "title": "Refresh tokens",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V6",
+   "url": "https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials",
+   "title": "Add credentials",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V7",
+   "url": "https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-risk-based-step-up-consent",
+   "title": "Risk-based step-up consent",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V8",
+   "url": "https://learn.microsoft.com/en-us/entra/identity-platform/v2-admin-consent",
+   "title": "Admin consent on the Microsoft identity platform",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V9",
+   "url": "https://learn.microsoft.com/en-us/legal/microsoft-apis/terms-of-use",
+   "title": "Microsoft APIs Terms of Use (Oct 2025)",
+   "domain": "learn.microsoft.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  }
+ ],
+ "probes": [],
+ "composio": {
+  "toolkits": [
+   {
+    "slug": "outlook",
+    "name": "Outlook",
+    "managed": true
+   },
+   {
+    "slug": "microsoft_teams",
+    "name": "Microsoft Teams",
+    "managed": true
+   },
+   {
+    "slug": "one_drive",
+    "name": "OneDrive",
+    "managed": true
+   },
+   {
+    "slug": "share_point",
+    "name": "SharePoint",
+    "managed": true
+   },
+   {
+    "slug": "excel",
+    "name": "Excel",
+    "managed": true
+   }
+  ],
+  "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add"
+ },
+ "run": null
+}

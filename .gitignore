@@ -1,0 +1,23 @@
+# secrets — never commit
+.env
+.env.*
+!.env.example
+
+# dependencies / build
+node_modules/
+.next/
+out/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# vercel
+.vercel/
+
+# local scratch
+.data/
+*.log
+.DS_Store
+Thumbs.db
+
+.vercel

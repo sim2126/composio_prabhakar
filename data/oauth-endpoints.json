@@ -1,0 +1,922 @@
+{
+ "meta": {
+  "generatedAt": "2026-10-20T19:31:06.847Z",
+  "sources": {
+   "composio": "https://raw.githubusercontent.com/ComposioHQ/composio/next/docs/public/data/toolkits.json",
+   "ampersand": "https://raw.githubusercontent.com/amp-labs/connectors/main/internal/generated/catalog.json"
+  },
+  "license": "MIT (both sources)"
+ },
+ "endpoints": {
+  "aWeber": {
+   "displayName": "AWeber",
+   "authURL": "https://auth.aweber.com/oauth2/authorize",
+   "tokenURL": "https://auth.aweber.com/oauth2/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "acuityScheduling": {
+   "displayName": "Acuity Scheduling",
+   "authURL": "https://acuityscheduling.com/oauth2/authorize",
+   "tokenURL": "https://acuityscheduling.com/oauth2/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "adobe": {
+   "displayName": "Adobe",
+   "authURL": null,
+   "tokenURL": "https://ims-na1.adobelogin.com/ims/token/v3",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "adyen": {
+   "displayName": "Adyen",
+   "authURL": "https://ca-live.adyen.com/ca/ca/oauth/connect.shtml",
+   "tokenURL": "https://oauth-live.adyen.com/v1/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "adyenTest": {
+   "displayName": "Adyen Test",
+   "authURL": "https://ca-test.adyen.com/ca/ca/oauth/connect.shtml",
+   "tokenURL": "https://oauth-test.adyen.com/v1/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "aha": {
+   "displayName": "Aha",
+   "authURL": "https://{{.workspace}}.aha.io/oauth/authorize",
+   "tokenURL": "https://{{.workspace}}.aha.io/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "airtable": {
+   "displayName": "Airtable",
+   "authURL": "https://airtable.com/oauth2/v1/authorize",
+   "tokenURL": "https://airtable.com/oauth2/v1/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "asana": {
+   "displayName": "Asana",
+   "authURL": "https://app.asana.com/-/oauth_authorize",
+   "tokenURL": "https://app.asana.com/-/oauth_token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "atlassian": {
+   "displayName": "Atlassian",
+   "authURL": "https://auth.atlassian.com/authorize",
+   "tokenURL": "https://auth.atlassian.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "attio": {
+   "displayName": "Attio",
+   "authURL": "https://app.attio.com/authorize",
+   "tokenURL": "https://app.attio.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "bambooHR": {
+   "displayName": "BambooHR",
+   "authURL": "https://{{.workspace}}.bamboohr.com/authorize.php?request=authorize",
+   "tokenURL": "https://{{.workspace}}.bamboohr.com/token.php?request=token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "basecamp": {
+   "displayName": "Basecamp",
+   "authURL": "https://launchpad.37signals.com/authorization/new",
+   "tokenURL": "https://launchpad.37signals.com/authorization/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "bentley": {
+   "displayName": "Bentley",
+   "authURL": "https://ims.bentley.com/connect/authorize",
+   "tokenURL": "https://ims.bentley.com/connect/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "bitbucket": {
+   "displayName": "Bitbucket",
+   "authURL": "https://bitbucket.org/site/oauth2/authorize",
+   "tokenURL": "https://bitbucket.org/site/oauth2/access_token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "blackbaud": {
+   "displayName": "Blackbaud",
+   "authURL": "https://app.blackbaud.com/oauth/authorize",
+   "tokenURL": "https://oauth2.sky.blackbaud.com/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "box": {
+   "displayName": "Box",
+   "authURL": "https://account.box.com/api/oauth2/authorize",
+   "tokenURL": "https://api.box.com/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "bynder": {
+   "displayName": "Bynder",
+   "authURL": "https://{{.workspace}}.bynder.com/v6/authentication/oauth2/auth",
+   "tokenURL": "https://{{.workspace}}.bynder.com/v6/authentication/oauth2/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "calendly": {
+   "displayName": "Calendly",
+   "authURL": "https://auth.calendly.com/oauth/authorize",
+   "tokenURL": "https://auth.calendly.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "campaignMonitor": {
+   "displayName": "Campaign Monitor",
+   "authURL": "https://api.createsend.com/oauth",
+   "tokenURL": "https://api.createsend.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "capsule": {
+   "displayName": "Capsule",
+   "authURL": "https://api.capsulecrm.com/oauth/authorise",
+   "tokenURL": "https://api.capsulecrm.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "clickup": {
+   "displayName": "ClickUp",
+   "authURL": "https://app.clickup.com/api",
+   "tokenURL": "https://api.clickup.com/api/v2/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "close": {
+   "displayName": "Close",
+   "authURL": "https://app.close.com/oauth2/authorize",
+   "tokenURL": "https://api.close.com/oauth2/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "constantContact": {
+   "displayName": "Constant Contact",
+   "authURL": "https://authz.constantcontact.com/oauth2/default/v1/authorize",
+   "tokenURL": "https://authz.constantcontact.com/oauth2/default/v1/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "coupa": {
+   "displayName": "Coupa",
+   "authURL": "https://{{.workspace}}/oauth2/authorizations/new?",
+   "tokenURL": "https://{{.workspace}}/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "deel": {
+   "displayName": "Deel",
+   "authURL": "https://app.deel.com/oauth2/authorize",
+   "tokenURL": "https://app.deel.com/oauth2/tokens",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "deelSandbox": {
+   "displayName": "Deel Sandbox",
+   "authURL": "https://app.demo.deel.com/oauth2/authorize",
+   "tokenURL": "https://app.demo.deel.com/oauth2/tokens",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "discord": {
+   "displayName": "Discord",
+   "authURL": "https://discord.com/oauth2/authorize",
+   "tokenURL": "https://discord.com/api/oauth2/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "docusign": {
+   "displayName": "Docusign",
+   "authURL": "https://account.docusign.com/oauth/auth",
+   "tokenURL": "https://account.docusign.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "docusignDeveloper": {
+   "displayName": "Docusign Developer",
+   "authURL": "https://account-d.docusign.com/oauth/auth",
+   "tokenURL": "https://account-d.docusign.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "domo": {
+   "displayName": "Domo",
+   "authURL": null,
+   "tokenURL": "https://api.domo.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "drift": {
+   "displayName": "Drift",
+   "authURL": "https://dev.drift.com/authorize",
+   "tokenURL": "https://driftapi.com/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "drip": {
+   "displayName": "Drip",
+   "authURL": "https://www.getdrip.com/oauth/authorize",
+   "tokenURL": "https://www.getdrip.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "dropbox": {
+   "displayName": "Dropbox",
+   "authURL": "https://www.dropbox.com/oauth2/authorize",
+   "tokenURL": "https://api.dropboxapi.com/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "dropboxSign": {
+   "displayName": "Dropbox Sign",
+   "authURL": "https://app.hellosign.com/oauth/authorize",
+   "tokenURL": "https://app.hellosign.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "dynamicsBusinessCentral": {
+   "displayName": "Microsoft Dynamics Business Central",
+   "authURL": "https://login.microsoftonline.com/{{.workspace}}/oauth2/v2.0/authorize",
+   "tokenURL": "https://login.microsoftonline.com/{{.workspace}}/oauth2/v2.0/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "dynamicsCRM": {
+   "displayName": "Microsoft Dynamics CRM",
+   "authURL": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+   "tokenURL": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "figma": {
+   "displayName": "Figma",
+   "authURL": "https://www.figma.com/oauth",
+   "tokenURL": "https://www.figma.com/api/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "formstack": {
+   "displayName": "Formstack",
+   "authURL": "https://www.formstack.com/api/v2/oauth2/authorize",
+   "tokenURL": "https://www.formstack.com/api/v2/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "fourFour": {
+   "displayName": "Four/Four",
+   "authURL": "https://fourfour.ai/oauth/authorize",
+   "tokenURL": "https://fourfour.ai/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "gainsight": {
+   "displayName": "Gainsight",
+   "authURL": "https://{{.workspace}}.gainsightcloud.com/v1/authorize",
+   "tokenURL": "https://{{.workspace}}.gainsightcloud.com/v1/users/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "getResponse": {
+   "displayName": "GetResponse",
+   "authURL": "https://app.getresponse.com/oauth2_authorize.html",
+   "tokenURL": "https://api.getresponse.com/v3/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "github": {
+   "displayName": "GitHub",
+   "authURL": "https://github.com/login/oauth/authorize",
+   "tokenURL": "https://github.com/login/oauth/access_token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "goTo": {
+   "displayName": "GoTo",
+   "authURL": "https://authentication.logmeininc.com/oauth/authorize",
+   "tokenURL": "https://authentication.logmeininc.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "gong": {
+   "displayName": "Gong",
+   "authURL": "https://app.gong.io/oauth2/authorize",
+   "tokenURL": "https://app.gong.io/oauth2/generate-customer-token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "google": {
+   "displayName": "Google",
+   "authURL": "https://accounts.google.com/o/oauth2/v2/auth",
+   "tokenURL": "https://oauth2.googleapis.com/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "gorgias": {
+   "displayName": "Gorgias",
+   "authURL": "https://{{.workspace}}.gorgias.com/oauth/authorize",
+   "tokenURL": "https://{{.workspace}}.gorgias.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "grain": {
+   "displayName": "Grain",
+   "authURL": "https://grain.com/_/public-api/oauth2/authorize",
+   "tokenURL": "https://api.grain.com/_/public-api/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "greenhouse": {
+   "displayName": "Greenhouse (Harvest)",
+   "authURL": "https://auth.greenhouse.io/authorize",
+   "tokenURL": "https://auth.greenhouse.io/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "groove": {
+   "displayName": "Groove",
+   "authURL": "https://api.groovehq.com/oauth/authorize",
+   "tokenURL": "https://api.groovehq.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "gusto": {
+   "displayName": "Gusto",
+   "authURL": "https://api.gusto.com/oauth/authorize",
+   "tokenURL": "https://api.gusto.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "gustoDemo": {
+   "displayName": "Gusto Demo",
+   "authURL": "https://api.gusto-demo.com/oauth/authorize",
+   "tokenURL": "https://api.gusto-demo.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "helpScoutMailbox": {
+   "displayName": "Help Scout Mailbox",
+   "authURL": null,
+   "tokenURL": "https://api.helpscout.net/v2/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "highLevelStandard": {
+   "displayName": "HighLevel Standard",
+   "authURL": "https://marketplace.gohighlevel.com/oauth/chooselocation",
+   "tokenURL": "https://services.leadconnectorhq.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "highLevelWhiteLabel": {
+   "displayName": "HighLevel White Label",
+   "authURL": "https://marketplace.leadconnectorhq.com/oauth/chooselocation",
+   "tokenURL": "https://services.leadconnectorhq.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "hubspot": {
+   "displayName": "HubSpot",
+   "authURL": "https://app.hubspot.com/oauth/authorize",
+   "tokenURL": "https://api.hubapi.com/oauth/v1/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "instagram": {
+   "displayName": "Instagram",
+   "authURL": "https://api.instagram.com/oauth/authorize",
+   "tokenURL": "https://api.instagram.com/oauth/access_token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "intercom": {
+   "displayName": "Intercom",
+   "authURL": "https://app.intercom.com/oauth",
+   "tokenURL": "https://api.intercom.io/auth/eagle/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "ironclad": {
+   "displayName": "Ironclad",
+   "authURL": "https://ironcladapp.com/oauth/authorize",
+   "tokenURL": "https://ironcladapp.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "ironcladDemo": {
+   "displayName": "Ironclad Demo",
+   "authURL": "https://demo.ironcladapp.com/oauth/authorize",
+   "tokenURL": "https://demo.ironcladapp.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "ironcladEU": {
+   "displayName": "Ironclad Europe",
+   "authURL": "https://eu1.ironcladapp.com/oauth/authorize",
+   "tokenURL": "https://eu1.ironcladapp.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "jobber": {
+   "displayName": "Jobber",
+   "authURL": "https://api.getjobber.com/api/oauth/authorize",
+   "tokenURL": "https://api.getjobber.com/api/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "joinMe": {
+   "displayName": "Join Me",
+   "authURL": "https://secure.join.me/api/public/v1/auth/oauth2",
+   "tokenURL": "https://secure.join.me/api/public/v1/auth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "keap": {
+   "displayName": "Keap",
+   "authURL": "https://accounts.infusionsoft.com/app/oauth/authorize",
+   "tokenURL": "https://api.infusionsoft.com/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "kit": {
+   "displayName": "Kit",
+   "authURL": "https://app.kit.com/oauth/authorize",
+   "tokenURL": "https://app.kit.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "klaviyo": {
+   "displayName": "Klaviyo",
+   "authURL": "https://www.klaviyo.com/oauth/authorize",
+   "tokenURL": "https://a.klaviyo.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "lever": {
+   "displayName": "Lever",
+   "authURL": "https://auth.lever.co/authorize",
+   "tokenURL": "https://auth.lever.co/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "leverSandbox": {
+   "displayName": "Lever Sandbox",
+   "authURL": "https://sandbox-lever.auth0.com/authorize",
+   "tokenURL": "https://sandbox-lever.auth0.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "linear": {
+   "displayName": "Linear",
+   "authURL": "https://linear.app/oauth/authorize",
+   "tokenURL": "https://api.linear.app/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "linkedIn": {
+   "displayName": "LinkedIn",
+   "authURL": "https://www.linkedin.com/oauth/v2/authorization",
+   "tokenURL": "https://www.linkedin.com/oauth/v2/accessToken",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "marketo": {
+   "displayName": "Marketo",
+   "authURL": null,
+   "tokenURL": "https://{{.workspace}}.mktorest.com/identity/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "meta": {
+   "displayName": "Meta",
+   "authURL": "https://www.facebook.com/v25.0/dialog/oauth",
+   "tokenURL": "https://graph.facebook.com/v25.0/oauth/access_token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "microsoft": {
+   "displayName": "Microsoft",
+   "authURL": "https://login.microsoftonline.com/common/oauth2/v2.0/authorize",
+   "tokenURL": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "miro": {
+   "displayName": "Miro",
+   "authURL": "https://miro.com/oauth/authorize",
+   "tokenURL": "https://api.miro.com/v1/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "mural": {
+   "displayName": "Mural",
+   "authURL": "https://app.mural.co/api/public/v1/authorization/oauth2/",
+   "tokenURL": "https://app.mural.co/api/public/v1/authorization/oauth2/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "netsuite": {
+   "displayName": "NetSuite",
+   "authURL": "https://{{.workspace}}.app.netsuite.com/app/login/oauth2/authorize.nl",
+   "tokenURL": "https://{{.workspace}}.suitetalk.api.netsuite.com/services/rest/auth/oauth2/v1/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "notion": {
+   "displayName": "Notion",
+   "authURL": "https://api.notion.com/v1/oauth/authorize",
+   "tokenURL": "https://api.notion.com/v1/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "okta": {
+   "displayName": "Okta",
+   "authURL": "https://{{.workspace}}.okta.com/oauth2/v1/authorize",
+   "tokenURL": "https://{{.workspace}}.okta.com/oauth2/v1/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "outreach": {
+   "displayName": "Outreach",
+   "authURL": "https://api.outreach.io/oauth/authorize",
+   "tokenURL": "https://api.outreach.io/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "payPal": {
+   "displayName": "PayPal",
+   "authURL": null,
+   "tokenURL": "https://api-m.paypal.com/v1/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "payPalSandBox": {
+   "displayName": "PayPal SandBox",
+   "authURL": null,
+   "tokenURL": "https://api-m.sandbox.paypal.com/v1/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "phoneBurner": {
+   "displayName": "PhoneBurner",
+   "authURL": "https://www.phoneburner.com/oauth/authorize",
+   "tokenURL": "https://www.phoneburner.com/oauth/accesstoken",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "pinterest": {
+   "displayName": "Pinterest",
+   "authURL": "https://www.pinterest.com/oauth",
+   "tokenURL": "https://api.pinterest.com/v5/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "pipedrive": {
+   "displayName": "Pipedrive",
+   "authURL": "https://oauth.pipedrive.com/oauth/authorize",
+   "tokenURL": "https://oauth.pipedrive.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "podium": {
+   "displayName": "Podium",
+   "authURL": "https://api.podium.com/oauth/authorize",
+   "tokenURL": "https://api.podium.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "procore": {
+   "displayName": "Procore",
+   "authURL": "https://login.procore.com/oauth/authorize",
+   "tokenURL": "https://login.procore.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "procoreSandbox": {
+   "displayName": "Procore Sandbox",
+   "authURL": "https://login-sandbox.procore.com/oauth/authorize",
+   "tokenURL": "https://login-sandbox.procore.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "productBoard": {
+   "displayName": "Productboard",
+   "authURL": "https://app.productboard.com/oauth2/authorize",
+   "tokenURL": "https://app.productboard.com/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "quickbooks": {
+   "displayName": "QuickBooks",
+   "authURL": "https://appcenter.intuit.com/connect/oauth2",
+   "tokenURL": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "quickbooksSandbox": {
+   "displayName": "QuickBooks SandBox",
+   "authURL": "https://appcenter.intuit.com/connect/oauth2",
+   "tokenURL": "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "ramp": {
+   "displayName": "Ramp",
+   "authURL": "https://api.ramp.com/v1/authorize",
+   "tokenURL": "https://api.ramp.com/developer/v1/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "rampDemo": {
+   "displayName": "Ramp Demo",
+   "authURL": "https://demo.ramp.com/v1/authorize",
+   "tokenURL": "https://demo-api.ramp.com/developer/v1/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "redditAds": {
+   "displayName": "Reddit Ads",
+   "authURL": "https://www.reddit.com/api/v1/authorize",
+   "tokenURL": "https://www.reddit.com/api/v1/access_token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "ringCentral": {
+   "displayName": "RingCentral",
+   "authURL": "https://platform.ringcentral.com/restapi/oauth/authorize",
+   "tokenURL": "https://platform.ringcentral.com/restapi/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "sageIntacct": {
+   "displayName": "Sage Intacct",
+   "authURL": "https://api.intacct.com/ia/api/v1/oauth2/authorize",
+   "tokenURL": "https://api.intacct.com/ia/api/v1/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "salesforce": {
+   "displayName": "Salesforce",
+   "authURL": "https://{{.workspace}}.my.salesforce.com/services/oauth2/authorize",
+   "tokenURL": "https://{{.workspace}}.my.salesforce.com/services/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "salesforceCustomClientCredentials": {
+   "displayName": "Salesforce (Custom Domain)",
+   "authURL": null,
+   "tokenURL": "https://{{.authURL}}/services/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "salesforceMarketing": {
+   "displayName": "Salesforce Marketing Cloud",
+   "authURL": null,
+   "tokenURL": "https://{{.workspace}}.auth.marketingcloudapis.com/v2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "salesloft": {
+   "displayName": "Salesloft",
+   "authURL": "https://accounts.salesloft.com/oauth/authorize",
+   "tokenURL": "https://accounts.salesloft.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "seismic": {
+   "displayName": "Seismic",
+   "authURL": "https://auth.seismic.com/tenants/{{.workspace}}/connect/authorize",
+   "tokenURL": "https://auth.seismic.com/tenants/{{.workspace}}/connect/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "sellsy": {
+   "displayName": "Sellsy",
+   "authURL": "https://login.sellsy.com/oauth2/authorization",
+   "tokenURL": "https://login.sellsy.com/oauth2/access-tokens",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "serviceNow": {
+   "displayName": "ServiceNow",
+   "authURL": "https://{{.workspace}}.service-now.com/oauth_auth.do",
+   "tokenURL": "https://{{.workspace}}.service-now.com/oauth_token.do",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "serviceNowPKCE": {
+   "displayName": "ServiceNow PKCE",
+   "authURL": "https://{{.workspace}}.service-now.com/oauth_auth.do",
+   "tokenURL": "https://{{.workspace}}.service-now.com/oauth_token.do",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "shopify": {
+   "displayName": "Shopify",
+   "authURL": "https://{{.workspace}}.myshopify.com/admin/oauth/authorize",
+   "tokenURL": "https://{{.workspace}}.myshopify.com/admin/oauth/access_token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "slack": {
+   "displayName": "Slack Bot Scope",
+   "authURL": "https://slack.com/oauth/v2/authorize",
+   "tokenURL": "https://slack.com/api/oauth.v2.access",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "slackUserScope": {
+   "displayName": "Slack User Scope",
+   "authURL": "https://slack.com/oauth/v2/authorize",
+   "tokenURL": "https://slack.com/api/oauth.v2.user.access",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "smartsheet": {
+   "displayName": "Smartsheet",
+   "authURL": "https://app.smartsheet.com/b/authorize",
+   "tokenURL": "https://api.smartsheet.com/2.0/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "snapchatAds": {
+   "displayName": "Snapchat Ads",
+   "authURL": "https://accounts.snapchat.com/login/oauth2/authorize",
+   "tokenURL": "https://accounts.snapchat.com/login/oauth2/access_token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "square": {
+   "displayName": "Square",
+   "authURL": "https://connect.squareup.com/oauth2/authorize",
+   "tokenURL": "https://connect.squareup.com/oauth2/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "squareSandbox": {
+   "displayName": "Square Sandbox",
+   "authURL": "https://connect.squareupsandbox.com/oauth2/authorize",
+   "tokenURL": "https://connect.squareupsandbox.com/oauth2/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "stackExchange": {
+   "displayName": "StackExchange",
+   "authURL": "https://stackoverflow.com/oauth",
+   "tokenURL": "https://stackoverflow.com/oauth/access_token/json",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "sugarCRM": {
+   "displayName": "SugarCRM",
+   "authURL": null,
+   "tokenURL": "{{.workspace}}/rest/v11_24/oauth2/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "surveyMonkey": {
+   "displayName": "SurveyMonkey",
+   "authURL": "https://api.surveymonkey.com/oauth/authorize",
+   "tokenURL": "https://api.surveymonkey.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "talkdesk": {
+   "displayName": "Talkdesk",
+   "authURL": "https://{{.workspace}}.{{.talkdesk_token_domain}}/oauth/authorize",
+   "tokenURL": "https://{{.workspace}}.{{.talkdesk_token_domain}}/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "teamleader": {
+   "displayName": "Teamleader",
+   "authURL": "https://focus.teamleader.eu/oauth2/authorize",
+   "tokenURL": "https://focus.teamleader.eu/oauth2/access_token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "teamwork": {
+   "displayName": "Teamwork",
+   "authURL": "https://www.teamwork.com/launchpad/login",
+   "tokenURL": "https://www.teamwork.com/launchpad/v1/token.json",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "timely": {
+   "displayName": "Timely",
+   "authURL": "https://api.timelyapp.com/1.1/oauth/authorize",
+   "tokenURL": "https://api.timelyapp.com/1.1/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "tipalti": {
+   "displayName": "Tipalti",
+   "authURL": "https://sso.tipalti.com/connect/authorize/callback",
+   "tokenURL": "https://sso.tipalti.com/connect/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "typeform": {
+   "displayName": "Typeform",
+   "authURL": "https://api.typeform.com/oauth/authorize",
+   "tokenURL": "https://api.typeform.com/oauth/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "webex": {
+   "displayName": "Webex",
+   "authURL": "https://webexapis.com/v1/authorize",
+   "tokenURL": "https://webexapis.com/v1/access_token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "webflow": {
+   "displayName": "Webflow",
+   "authURL": "https://webflow.com/oauth/authorize",
+   "tokenURL": "https://api.webflow.com/oauth/access_token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "wordPress": {
+   "displayName": "WordPress",
+   "authURL": "https://public-api.wordpress.com/oauth2/authorize",
+   "tokenURL": "https://public-api.wordpress.com/oauth2/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "workday": {
+   "displayName": "Workday",
+   "authURL": "https://{{.authHost}}/{{.tenantName}}/authorize",
+   "tokenURL": "https://{{.workspace}}/ccx/oauth2/{{.tenantName}}/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "wrike": {
+   "displayName": "Wrike",
+   "authURL": "https://www.wrike.com/oauth2/authorize",
+   "tokenURL": "https://www.wrike.com/oauth2/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "xero": {
+   "displayName": "Xero",
+   "authURL": "https://login.xero.com/identity/connect/authorize",
+   "tokenURL": "https://identity.xero.com/connect/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "zendeskChat": {
+   "displayName": "Zendesk Chat",
+   "authURL": "https://{{.workspace}}.zendesk.com/oauth2/chat/authorizations/new",
+   "tokenURL": "https://{{.workspace}}.zendesk.com/oauth2/chat/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "zendeskSupport": {
+   "displayName": "Zendesk Support",
+   "authURL": "https://{{.workspace}}.zendesk.com/oauth/authorizations/new",
+   "tokenURL": "https://{{.workspace}}.zendesk.com/oauth/tokens",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "zoho": {
+   "displayName": "Zoho",
+   "authURL": "https://accounts.zoho.com/oauth/v2/auth",
+   "tokenURL": "https://{{.zoho_token_domain}}/oauth/v2/token",
+   "explicitScopesRequired": true,
+   "docsURL": null
+  },
+  "zoom": {
+   "displayName": "Zoom",
+   "authURL": "https://zoom.us/oauth/authorize",
+   "tokenURL": "https://zoom.us/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "zoomInfo": {
+   "displayName": "ZoomInfo",
+   "authURL": "https://api.zoominfo.com/gtm/oauth/v1/authorize",
+   "tokenURL": "https://api.zoominfo.com/gtm/oauth/v1/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  },
+  "zuora": {
+   "displayName": "Zuora",
+   "authURL": null,
+   "tokenURL": "https://{{.workspace}}.zuora.com/oauth/token",
+   "explicitScopesRequired": false,
+   "docsURL": null
+  }
+ }
+}

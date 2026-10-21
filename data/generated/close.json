@@ -1,0 +1,703 @@
+{
+ "outcome": "oauth_app",
+ "outcomeNote": null,
+ "name": "Close",
+ "vendorDomain": "close.com",
+ "covers": [
+  "Close CRM"
+ ],
+ "summary": "Close lets any user create an OAuth app in the console with full access; apps stay Private to your organization until Close approves a Make Public request.",
+ "capabilities": [
+  {
+   "id": "read_crm",
+   "label": "Read leads, contacts and opportunities",
+   "scopes": [
+    {
+     "name": "all.full_access",
+     "tier": "basic",
+     "label": "Full access to Close data, same as an API key"
+    },
+    {
+     "name": "offline_access",
+     "tier": "basic",
+     "label": "Refresh token for ongoing access"
+    }
+   ],
+   "alternative": "Close grants only all.full_access; email support@close.com to request narrower scopes"
+  },
+  {
+   "id": "write_crm",
+   "label": "Create and update leads, contacts and opportunities",
+   "scopes": [
+    {
+     "name": "all.full_access",
+     "tier": "basic",
+     "label": "Full access to Close data, same as an API key"
+    },
+    {
+     "name": "offline_access",
+     "tier": "basic",
+     "label": "Refresh token for ongoing access"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "log_activities",
+   "label": "Log calls, notes, emails and tasks",
+   "scopes": [
+    {
+     "name": "all.full_access",
+     "tier": "basic",
+     "label": "Full access to Close data, same as an API key"
+    },
+    {
+     "name": "offline_access",
+     "tier": "basic",
+     "label": "Refresh token for ongoing access"
+    }
+   ],
+   "alternative": null
+  }
+ ],
+ "defaultCapabilities": [
+  "read_crm",
+  "write_crm",
+  "log_activities"
+ ],
+ "paths": [
+  {
+   "id": "private",
+   "label": "Private app for your own Close organization",
+   "audiences": [
+    "team"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "none",
+   "drivenBy": "Console-only setup with five form fields; ToS and privacy URLs optional for internal apps; https redirect URL required.",
+   "effort": "15–30 min",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "Close publishes no fee for creating an OAuth app.",
+   "costEvidence": [
+    "S2"
+   ],
+   "customerAdmin": "none",
+   "next": "Open app.close.com/settings/developer/oauth-apps, click Create App, enter the Composio https redirect URL, then copy the Client ID and Secret into a Composio auth config.",
+   "untilApproved": [
+    {
+     "text": "Only members of your own Close organization can authorize a Private app.",
+     "evidence": [
+      "S2"
+     ]
+    },
+    {
+     "text": "Use the token endpoint with its trailing slash (https://api.close.com/oauth2/token/); the path without it returns a 308 redirect.",
+     "evidence": [
+      "S1",
+      "P3"
+     ]
+    },
+    {
+     "text": "Store the new refresh token on every refresh; Close rotates it and revokes the old one.",
+     "evidence": [
+      "S1"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "~15 min",
+     "Test in org",
+     "",
+     "Team use"
+    ],
+    "provider": [
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "public",
+   "label": "Public app for other Close customers",
+   "audiences": [
+    "customers"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "formal",
+   "drivenBy": "Make Public request reviewed by Close; ToS and privacy policy URLs expected for non-internal apps; Close publishes no criteria or timeline.",
+   "effort": "1–4 hours",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [
+    "S3"
+   ],
+   "cost": "$0",
+   "costNote": "Close mentions no fee for making an app public.",
+   "costEvidence": [
+    "S3"
+   ],
+   "customerAdmin": "unknown",
+   "next": "Publish a terms of service and privacy policy, add them to the app, then select the app in OAuth Apps, click Make Public and submit for review.",
+   "untilApproved": [
+    {
+     "text": "Build and test with members of your own Close organization while the app is Private.",
+     "evidence": [
+      "S2"
+     ]
+    },
+    {
+     "text": "Close replies to the review by email; no review time is published.",
+     "evidence": [
+      "S3"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Create app",
+     "Add ToS, privacy",
+     "",
+     "Go live"
+    ],
+    "provider": [
+     "",
+     "Review",
+     "Email reply",
+     "Approved"
+    ]
+   }
+  },
+  {
+   "id": "listed",
+   "label": "Public app listed in the Close Integrations Directory",
+   "audiences": [
+    "public"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "formal",
+   "drivenBy": "Listing is optional and only open to apps already public; requires OAuth, public availability and clear value, applied for by email.",
+   "effort": "1–2 hours",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "Close mentions no fee for a directory listing.",
+   "costEvidence": [
+    "S3"
+   ],
+   "customerAdmin": "unknown",
+   "next": "After the app is public, email support@close.com with the integration name and description, product link, what it does with Close, and the Client ID.",
+   "untilApproved": [
+    {
+     "text": "The app can still be authorized by any Close user once public, without a listing.",
+     "evidence": [
+      "S3"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "",
+     "Email support",
+     "",
+     "Listed"
+    ],
+    "provider": [
+     "",
+     "",
+     "Listing review",
+     "Directory"
+    ]
+   }
+  }
+ ],
+ "prereqs": [
+  {
+   "text": "Have a Close organization where you can open Settings → Developer → OAuth Apps.",
+   "why": "Apps are created only in the Close console. Close doesn't publish which plan or account type is needed.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Host a Terms of Service page and a Privacy Policy page at public https URLs.",
+   "why": "Both are optional only for internal-only apps, so a public app is expected to have them.",
+   "owner": "you",
+   "paths": [
+    "public",
+    "listed"
+   ]
+  },
+  {
+   "text": "Have a public product page that explains what your integration does with Close.",
+   "why": "The directory listing request asks for a link to your product and a short explanation of the Close use case.",
+   "owner": "you",
+   "paths": [
+    "listed"
+   ]
+  },
+  {
+   "text": "Have a Composio project where you can create a custom auth config for the close toolkit.",
+   "why": "Composio has no managed OAuth app for Close, so you must supply your own Client ID and Secret.",
+   "owner": "you",
+   "paths": null
+  }
+ ],
+ "steps": [
+  {
+   "id": "s1",
+   "phase": "today",
+   "title": "Create the OAuth app in Close",
+   "owner": "you",
+   "time": "10 min",
+   "detail": "Open the OAuth Apps page, click Create App, fill in the form, then click Create. Copy the Client ID and Client Secret. Close has no API, CLI or manifest for creating apps.",
+   "values": [
+    {
+     "label": "Console",
+     "text": "https://app.close.com/settings/developer/oauth-apps"
+    },
+    {
+     "label": "Fields",
+     "text": "App Name (shown on the consent screen), App Description, Redirect URL, Terms of Service URL, Privacy Policy URL"
+    }
+   ],
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s2",
+   "phase": "today",
+   "title": "Set the Redirect URL to the Composio callback",
+   "owner": "you",
+   "time": "2 min",
+   "detail": "Paste the redirect URI shown in your Composio auth config setup into the single Redirect URL field. It must use https. Plain http is rejected.",
+   "values": [
+    {
+     "label": "Redirect URL",
+     "text": "Copy the redirect URI shown in the Composio auth config for close"
+    }
+   ],
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s3",
+   "phase": "today",
+   "title": "Create the Composio auth config",
+   "owner": "agent",
+   "time": "5 min",
+   "detail": "Create a custom OAuth2 auth config for the close toolkit using your Client ID and Client Secret. Request the only scopes Close grants.",
+   "values": [
+    {
+     "label": "Scopes",
+     "text": "all.full_access offline_access"
+    },
+    {
+     "label": "Authorize URL",
+     "text": "https://app.close.com/oauth2/authorize/"
+    },
+    {
+     "label": "Token URL",
+     "text": "https://api.close.com/oauth2/token/"
+    },
+    {
+     "label": "Revoke URL",
+     "text": "https://api.close.com/oauth2/revoke/"
+    }
+   ],
+   "evidence": [
+    "S1",
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s4",
+   "phase": "today",
+   "title": "Connect a test account from your own organization",
+   "owner": "you",
+   "time": "10 min",
+   "detail": "Start a connection through Composio and sign in as a member of your Close organization. Pick the organization on the consent screen and grant access. Then run a read call and a write call to confirm the connection works.",
+   "values": [],
+   "evidence": [
+    "S1",
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s5",
+   "phase": "week",
+   "title": "Draft the public-facing app text",
+   "owner": "agent_drafts",
+   "time": "30 min",
+   "detail": "Draft the App Description and check that the Terms of Service and Privacy Policy pages explain what your agent does with Close data. Add both URLs to the app.",
+   "values": [],
+   "evidence": [
+    "S2"
+   ],
+   "paths": [
+    "public",
+    "listed"
+   ]
+  },
+  {
+   "id": "s6",
+   "phase": "week",
+   "title": "Submit the app to be made public",
+   "owner": "you",
+   "time": "5 min",
+   "detail": "In OAuth Apps, select the app, click Make Public and submit it for review.",
+   "values": [
+    {
+     "label": "Console",
+     "text": "https://app.close.com/settings/developer/oauth-apps"
+    }
+   ],
+   "evidence": [
+    "S3"
+   ],
+   "paths": [
+    "public",
+    "listed"
+   ]
+  },
+  {
+   "id": "s7",
+   "phase": "wait",
+   "title": "Wait for Close's email decision",
+   "owner": "provider",
+   "time": "",
+   "detail": "Close reviews the app and replies by email. Close doesn't publish a review time or its review criteria. Once approved, any Close user can authorize the app.",
+   "values": [],
+   "evidence": [
+    "S3"
+   ],
+   "paths": [
+    "public",
+    "listed"
+   ]
+  },
+  {
+   "id": "s8",
+   "phase": "launch",
+   "title": "Draft the directory listing request",
+   "owner": "agent_drafts",
+   "time": "20 min",
+   "detail": "Draft an email with the integration name and description, a link to your product, a short explanation of what it does with Close, and the app's Client ID.",
+   "values": [
+    {
+     "label": "To",
+     "text": "support@close.com"
+    }
+   ],
+   "evidence": [
+    "S3"
+   ],
+   "paths": [
+    "listed"
+   ]
+  },
+  {
+   "id": "s9",
+   "phase": "launch",
+   "title": "Apply for the Integrations Directory listing",
+   "owner": "you",
+   "time": "5 min",
+   "detail": "Send the email only after the app is public. The integration must be publicly available, must use OAuth 2.0 and should give clear value to Close users.",
+   "values": [
+    {
+     "label": "To",
+     "text": "support@close.com"
+    }
+   ],
+   "evidence": [
+    "S3"
+   ],
+   "paths": [
+    "listed"
+   ]
+  },
+  {
+   "id": "s10",
+   "phase": "launch",
+   "title": "Switch production connections to the new auth config",
+   "owner": "agent",
+   "time": "10 min",
+   "detail": "Point your agent's Close connections at the new auth config. Store each new refresh token that Close returns, because the previous one is revoked on every refresh.",
+   "values": [
+    {
+     "label": "Access token lifetime",
+     "text": "3600 seconds"
+    }
+   ],
+   "evidence": [
+    "S1"
+   ],
+   "paths": null
+  }
+ ],
+ "gotchas": [
+  {
+   "text": "A private app can only be authorized by members of your own Close organization. Users in other organizations can't connect until Close approves the app as public.",
+   "evidence": [
+    "S2",
+    "S3"
+   ],
+   "paths": [
+    "private",
+    "public",
+    "listed"
+   ]
+  },
+  {
+   "text": "Every app gets all.full_access offline_access, the same access as an API key. You can't request narrower scopes yourself. Email support@close.com if you need different scopes.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Refresh tokens rotate on every refresh. The old token is revoked as soon as the new one is issued, so parallel refreshes or a lost response can break a connection.",
+   "evidence": [
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Access tokens expire after 3600 seconds. Close doesn't publish a refresh token lifetime or the rules for when a user must re-authorize.",
+   "evidence": [
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The form has only one Redirect URL field, and it must use https. Close doesn't publish rules on localhost, wildcards or multiple URIs.",
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The official docs don't mention PKCE. The two discovery documents disagree: app.close.com lists S256 and a trailing-slash token URL, while close.com lists no PKCE and a token URL without the slash. Follow the docs and send client_secret in the form body.",
+   "evidence": [
+    "S1",
+    "P1",
+    "P2"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Close's Terms of Service ban making the Service available to third parties or reselling it, and say nothing about AI agents, model vendors or intermediaries. Confirm your use case with Close before launch.",
+   "evidence": [
+    "S4"
+   ],
+   "paths": [
+    "public",
+    "listed"
+   ]
+  },
+  {
+   "text": "On the consent screen the user picks one Close organization. Each connection only covers the organization chosen.",
+   "evidence": [
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "text": "You can apply for a directory listing only after the app is public. Close doesn't publish a fee, a review time or install caps for public or listed apps.",
+   "evidence": [
+    "S3"
+   ],
+   "paths": [
+    "public",
+    "listed"
+   ]
+  }
+ ],
+ "blockers": [
+  {
+   "see": "A 308 redirect with an HTML body when exchanging the code",
+   "cause": "The token request was sent to https://api.close.com/oauth2/token without the trailing slash.",
+   "fix": "Use https://api.close.com/oauth2/token/ with the trailing slash.",
+   "paths": null
+  },
+  {
+   "see": "error=access_denied on the redirect back to Composio",
+   "cause": "The user declined access on the Close consent screen.",
+   "fix": "Have the user restart the connection and grant access to the right organization.",
+   "paths": null
+  },
+  {
+   "see": "The Redirect URL is rejected in the app form",
+   "cause": "The URL uses plain http.",
+   "fix": "Enter the https Composio redirect URI.",
+   "paths": null
+  },
+  {
+   "see": "Users outside your organization can't authorize the app",
+   "cause": "The app is still Private.",
+   "fix": "Click Make Public, submit the app for review and wait for Close's email approval.",
+   "paths": [
+    "public",
+    "listed"
+   ]
+  }
+ ],
+ "aiPolicy": {
+  "status": "unknown",
+  "summary": "Close's Terms of Service (updated October 31, 2025) cover the API but say nothing about third-party AI agents, model training on API data, or caching limits for developers. They ban reselling, sublicensing or making the Service available to third parties. Close itself may use customer content as inputs to AI features. Account data stays retrievable 30 days after termination.",
+  "evidence": [
+   "S4"
+  ]
+ },
+ "customerAdminNote": "Close doesn't say whether a customer's admin must approve a public app; the consent screen lets the authorizing user pick an organization. Users can revoke access under Settings > Accounts & Apps > Authorized Apps.",
+ "unknowns": [
+  "Close doesn't publish a review time or criteria for making an app public.",
+  "Close doesn't publish a refresh token lifetime or re-consent rules.",
+  "Close doesn't document PKCE or dynamic client registration, though its app.close.com discovery document advertises PKCE S256 and registration.",
+  "Close doesn't publish rules on localhost, wildcard or multiple redirect URLs.",
+  "Close doesn't say whether customer admins must approve public apps.",
+  "Close doesn't offer an API, CLI or manifest for creating OAuth apps.",
+  "Close doesn't publish rate limits specific to OAuth apps.",
+  "Close doesn't publish a developer or API policy covering AI agents, intermediaries, model training or data caching.",
+  "Close doesn't say which plan is required to create an OAuth app."
+ ],
+ "slug": "close",
+ "kind": "generated",
+ "checkedAt": "2026-10-20",
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://developer.close.com/api/overview/oauth-authentication",
+   "title": "Authentication with OAuth",
+   "domain": "developer.close.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S2",
+   "url": "https://developer.close.com/integrations/create-an-oauth-app",
+   "title": "Creating an OAuth App",
+   "domain": "developer.close.com",
+   "class": "official",
+   "retrievedAt": "2026-10-18"
+  },
+  {
+   "id": "S3",
+   "url": "https://developer.close.com/integrations/publish",
+   "title": "Publish | Close | Developer API Documentation",
+   "domain": "developer.close.com",
+   "class": "official",
+   "retrievedAt": "2026-10-19"
+  },
+  {
+   "id": "S4",
+   "url": "https://close.com/tos",
+   "title": "Terms of Service from Close CRM",
+   "domain": "close.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S5",
+   "url": "https://developer.close.com/",
+   "title": "Close Developer Platform",
+   "domain": "developer.close.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S6",
+   "url": "https://help.close.com/docs/api-keys-oauth",
+   "title": "API keys & OAuth - Close Help",
+   "domain": "help.close.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S7",
+   "url": "https://community.make.com/t/invalid-redirect-uri-with-zoho-crm-module/6039",
+   "title": "Invalid Redirect URI with Zoho CRM module - Questions - Make Community",
+   "domain": "community.make.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P1",
+   "url": "https://app.close.com/.well-known/oauth-authorization-server",
+   "title": "GET discovery document: 200: token endpoint https://api.close.com/oauth2/token/, PKCE S256, dynamic client registration offered",
+   "domain": "app.close.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P2",
+   "url": "https://close.com/.well-known/openid-configuration",
+   "title": "GET discovery document: 200: token endpoint https://api.close.com/oauth2/token, PKCE not listed",
+   "domain": "close.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P3",
+   "url": "https://api.close.com/oauth2/token",
+   "title": "POST token request with an unknown client: 308: <!doctype html> <html lang=en> <title>Redirecting...</title>",
+   "domain": "api.close.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  }
+ ],
+ "probes": [
+  {
+   "target": "app.close.com/.well-known/oauth-authorization-server",
+   "request": "GET discovery document",
+   "result": "200: token endpoint https://api.close.com/oauth2/token/, PKCE S256, dynamic client registration offered",
+   "at": "2026-10-20T20:54:04.130Z"
+  },
+  {
+   "target": "close.com/.well-known/openid-configuration",
+   "request": "GET discovery document",
+   "result": "200: token endpoint https://api.close.com/oauth2/token, PKCE not listed",
+   "at": "2026-10-20T20:54:04.130Z"
+  },
+  {
+   "target": "api.close.com/oauth2/token",
+   "request": "POST token request with an unknown client",
+   "result": "308: <!doctype html> <html lang=en> <title>Redirecting...</title>",
+   "at": "2026-10-20T20:54:04.130Z"
+  }
+ ],
+ "composio": {
+  "toolkits": [
+   {
+    "slug": "close",
+    "name": "Close",
+    "managed": false
+   }
+  ],
+  "defaultRedirect": null
+ },
+ "run": {
+  "model": "claude-sonnet-5-5 + claude-opus-5-5",
+  "seconds": 192,
+  "searches": 9,
+  "fetches": 8,
+  "costUsd": 1.26
+ }
+}

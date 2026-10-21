@@ -1,0 +1,960 @@
+{
+ "outcome": "oauth_app",
+ "outcomeNote": null,
+ "name": "Strava",
+ "vendorDomain": "strava.com",
+ "covers": [
+  "Strava API v3"
+ ],
+ "summary": "Strava's June 2026 API Policy bans using its data with AI applications and bans intermediaries that re-expose its API, which likely rules out an agent integration through Composio.",
+ "capabilities": [
+  {
+   "id": "read_profile",
+   "label": "Read athlete public profile",
+   "scopes": [
+    {
+     "name": "read",
+     "tier": "basic",
+     "label": "Read public profile and segments"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "read_activities",
+   "label": "Read athlete activities",
+   "scopes": [
+    {
+     "name": "activity:read",
+     "tier": "basic",
+     "label": "Read activities visible to followers or everyone"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "read_private_activities",
+   "label": "Read all activities, including private ones",
+   "scopes": [
+    {
+     "name": "activity:read_all",
+     "tier": "basic",
+     "label": "Read all activities including private"
+    }
+   ],
+   "alternative": "Use activity:read if private activities are not needed"
+  },
+  {
+   "id": "write_activities",
+   "label": "Create or update activities",
+   "scopes": [
+    {
+     "name": "activity:write",
+     "tier": "basic",
+     "label": "Create and edit activities"
+    }
+   ],
+   "alternative": null
+  }
+ ],
+ "defaultCapabilities": [
+  "read_profile",
+  "read_activities"
+ ],
+ "paths": [
+  {
+   "id": "single_player",
+   "label": "Own account or up to 10 athletes, no review",
+   "audiences": [
+    "team"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "none",
+   "drivenBy": "Console-only app creation; self-upgrade from 1 to 10 athletes in the API Settings Dashboard. Strava subscription required to create an app. Official pages disagree on default limits (200/15 min per rate-limits page vs 400/15 min after upgrade).",
+   "effort": "~30 min–1 hour",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "Strava subscription",
+   "costNote": "A Strava subscription is required to create and keep an app; there is no separate API fee.",
+   "costEvidence": [
+    "S4",
+    "S6"
+   ],
+   "customerAdmin": "none",
+   "next": "Create the app in the Strava API settings page (strava.com/settings/api per third-party source) and set the Authorization Callback Domain.",
+   "untilApproved": [
+    {
+     "text": "New apps allow only your own account (athlete capacity 1).",
+     "evidence": [
+      "S2",
+      "S3"
+     ]
+    },
+    {
+     "text": "Self-upgrade to 10 athletes; extra athletes get a 403 limit-exceeded error.",
+     "evidence": [
+      "S2",
+      "S11"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Create app",
+     "Upgrade to 10",
+     "",
+     ""
+    ],
+    "provider": [
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "standard_review",
+   "label": "Standard Tier review, up to 9,999 athletes",
+   "audiences": [
+    "customers",
+    "public"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "formal",
+   "drivenBy": "Developer Program Review once past 10 athletes. Must complement Strava, meet quality bar, use webhooks for deauthorization, and follow API Agreement and Policy privacy rules (no sharing athlete data with other users). Templated rejections are common.",
+   "effort": "1–5 days",
+   "waitOfficial": "No committed timeline (policy 3.6)",
+   "waitReported": "7–10 business days (staff reply, May 2025)",
+   "waitEvidence": [
+    "S7"
+   ],
+   "cost": "Strava subscription",
+   "costNote": "A Strava subscription is required to create and keep an app; there is no separate API fee.",
+   "costEvidence": [
+    "S4",
+    "S6"
+   ],
+   "customerAdmin": "none",
+   "next": "Implement deauthorization webhooks, a privacy policy and data deletion, then submit the capacity review from the dashboard.",
+   "untilApproved": [
+    {
+     "text": "Serve at most 10 athletes; others see a 403 athlete limit error.",
+     "evidence": [
+      "S2",
+      "S20"
+     ]
+    },
+    {
+     "text": "Email developers@strava.com if the review stalls; no progress check exists.",
+     "evidence": [
+      "S23",
+      "S12"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Create app",
+     "Webhooks, privacy",
+     "Email if stalled",
+     "Raise capacity"
+    ],
+    "provider": [
+     "",
+     "",
+     "7–10 BD",
+     "Raise limits"
+    ]
+   }
+  },
+  {
+   "id": "extended_access",
+   "label": "Extended Access Tier, 10,000+ athletes",
+   "audiences": [
+    "public"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "formal",
+   "drivenBy": "Approval needed for 10,000 or more athletes; larger commercial apps; brings higher limits and Partner API eligibility.",
+   "effort": "1–2 weeks",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "Strava subscription",
+   "costNote": "A Strava subscription is required to create and keep an app; there is no separate API fee.",
+   "costEvidence": [
+    "S4",
+    "S6"
+   ],
+   "customerAdmin": "none",
+   "next": "Pass Standard Tier first, then apply for Extended Access.",
+   "untilApproved": [
+    {
+     "text": "Stay within Standard Tier capacity (up to 9,999 athletes).",
+     "evidence": [
+      "S4"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "",
+     "Apply",
+     "",
+     ""
+    ],
+    "provider": [
+     "",
+     "",
+     "Unknown",
+     "Grant access"
+    ]
+   }
+  }
+ ],
+ "prereqs": [
+  {
+   "text": "Have counsel read Strava API Policy section 5.3 before building. It bans ingesting Strava data into an AI application's context window, RAG, embeddings, grounding and training. The exception covers only the Strava MCP, and only for personal use of one's own data.",
+   "why": "An agent that passes Strava data to an LLM appears to be prohibited for third-party apps. This could stop the project outright.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Buy a Strava subscription on the developer's Strava account.",
+   "why": "Official pages say creating an app requires a subscription, and Standard Tier subscribers pay no extra API fee. Extended Access developers do not need one. The price varies by country.",
+   "owner": "you",
+   "paths": [
+    "single_player",
+    "standard_review"
+   ]
+  },
+  {
+   "text": "Prepare a live domain to use as the Authorization Callback Domain. It must match the Composio redirect host.",
+   "why": "The callback domain can be localhost while building but should be a real domain at go-live. A mismatch causes redirect_uri invalid.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Host a public HTTPS endpoint that can receive Strava webhook events.",
+   "why": "The API terms require webhooks for deauthorization. Staff say capacity increases may be refused without them.",
+   "owner": "you",
+   "paths": [
+    "standard_review",
+    "extended_access"
+   ]
+  },
+  {
+   "text": "Publish a privacy policy that covers retention, deletion on disconnect, and no sharing of athlete data with other users.",
+   "why": "Privacy and security is a listed rejection reason. Developers who were rejected added privacy policies and short retention before resubmitting.",
+   "owner": "agent_drafts",
+   "paths": [
+    "standard_review",
+    "extended_access"
+   ]
+  }
+ ],
+ "steps": [
+  {
+   "id": "s1",
+   "phase": "today",
+   "title": "Check the API Policy before you build",
+   "owner": "you",
+   "time": "1-2 h",
+   "detail": "Strava's policy bans AI applications (5.3) and intermediaries that re-expose its API (5.16). Routing Strava data through an integration platform such as Composio is no longer supported, so most agent use cases stop here.",
+   "values": [
+    {
+     "label": "Policy",
+     "text": "https://www.strava.com/legal/api_policy (section 5.3)"
+    }
+   ],
+   "evidence": [
+    "S7",
+    "S6"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s2",
+   "phase": "today",
+   "title": "Create the Strava API app",
+   "owner": "you",
+   "time": "15 min",
+   "detail": "Sign in to the subscribed account and open the API settings page. Register the app. Set Authorization Callback Domain to the bare host of the Composio redirect URI, with no scheme or path. No API, CLI or manifest for app creation was found, so this is console-only.",
+   "values": [
+    {
+     "label": "Console",
+     "text": "https://www.strava.com/settings/api"
+    },
+    {
+     "label": "Authorization Callback Domain",
+     "text": "backend.composio.dev"
+    }
+   ],
+   "evidence": [
+    "S29",
+    "S2",
+    "S16"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s3",
+   "phase": "today",
+   "title": "Copy Client ID and Client Secret",
+   "owner": "you",
+   "time": "2 min",
+   "detail": "The dashboard shows Client ID, Client Secret, a personal access token, a refresh token and rate limits. Keep the secret confidential. Do not use the dashboard token for other athletes.",
+   "values": [],
+   "evidence": [
+    "S2",
+    "S25"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s4",
+   "phase": "today",
+   "title": "Create a custom Composio auth config for Strava",
+   "owner": "agent",
+   "time": "15 min",
+   "detail": "Composio has no Strava toolkit, so define a custom OAuth2 integration with your own Client ID and Secret. Request only the scopes the capabilities need. Use read for profile, activity:read for activities, activity:read_all for private activities and activity:write for writes. Write scopes comma-separated with no spaces.",
+   "values": [
+    {
+     "label": "Authorize URL",
+     "text": "https://www.strava.com/oauth/authorize"
+    },
+    {
+     "label": "Token URL",
+     "text": "https://www.strava.com/oauth/token"
+    },
+    {
+     "label": "Scopes (read only)",
+     "text": "read,activity:read"
+    },
+    {
+     "label": "Scopes (private activities)",
+     "text": "read,activity:read_all"
+    },
+    {
+     "label": "Scopes (write)",
+     "text": "read,activity:read_all,activity:write"
+    },
+    {
+     "label": "Composio redirect URI",
+     "text": ""
+    }
+   ],
+   "evidence": [
+    "S1",
+    "S28",
+    "S24"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s5",
+   "phase": "today",
+   "title": "Test the connection with your own Strava account",
+   "owner": "you",
+   "time": "15 min",
+   "detail": "New apps are in Single Player Mode with athlete capacity 1. Connect through Composio, then check that the returned scope includes the scopes you requested. Confirm that a refresh rotates the refresh token.",
+   "values": [],
+   "evidence": [
+    "S2",
+    "S3",
+    "S1"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s6",
+   "phase": "week",
+   "title": "Self-upgrade to 10 athletes",
+   "owner": "you",
+   "time": "5 min",
+   "detail": "Use the API Settings Dashboard to raise capacity to 10 athletes. No review is needed. Limits after the upgrade are 400 requests per 15 min and 4,000 per day.",
+   "values": [
+    {
+     "label": "Console",
+     "text": "https://www.strava.com/settings/api"
+    }
+   ],
+   "evidence": [
+    "S2",
+    "S4"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s7",
+   "phase": "week",
+   "title": "Implement deauthorization webhooks and data deletion",
+   "owner": "agent_drafts",
+   "time": "1-2 days",
+   "detail": "Subscribe to Strava webhooks and delete an athlete's data when they deauthorize. Add disconnect in the UI using the deauthorization endpoint. Rejected developers reported adding a short cache (7 days), deletion on disconnect, and deletion within 48 h via webhooks.",
+   "values": [],
+   "evidence": [
+    "S2",
+    "S11",
+    "S9",
+    "S21",
+    "S25"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s8",
+   "phase": "week",
+   "title": "Remove cross-user display of Strava data",
+   "owner": "agent_drafts",
+   "time": "varies",
+   "detail": "Show each athlete only their own data. Leaderboards, leagues or rankings built from other users' activities drew privacy rejections.",
+   "values": [],
+   "evidence": [
+    "S19",
+    "S13",
+    "S21"
+   ],
+   "paths": [
+    "standard_review",
+    "extended_access"
+   ]
+  },
+  {
+   "id": "s9",
+   "phase": "week",
+   "title": "Submit the athlete capacity review",
+   "owner": "you",
+   "time": "1 h",
+   "detail": "Submit once you need more than 10 athletes. Describe in detail how the app complements Strava, how it limits API usage (webhooks, not polling) and how it handles privacy. Approval at 10,000 or more athletes places the app in Extended Access.",
+   "values": [
+    {
+     "label": "Console",
+     "text": "https://www.strava.com/settings/api"
+    }
+   ],
+   "evidence": [
+    "S4",
+    "S20",
+    "S23"
+   ],
+   "paths": [
+    "standard_review",
+    "extended_access"
+   ]
+  },
+  {
+   "id": "s10",
+   "phase": "wait",
+   "title": "Wait for Strava review",
+   "owner": "provider",
+   "time": "7-10 business days typical; reports range from days to months",
+   "detail": "No progress check exists. If the review stalls well past 10 business days, email developers@strava.com. One developer was approved about 24 h after emailing.",
+   "values": [
+    {
+     "label": "Support email",
+     "text": "developers@strava.com"
+    }
+   ],
+   "evidence": [
+    "S11",
+    "S9",
+    "S12",
+    "S13",
+    "S23",
+    "S8"
+   ],
+   "paths": [
+    "standard_review",
+    "extended_access"
+   ]
+  },
+  {
+   "id": "s11",
+   "phase": "launch",
+   "title": "Confirm new capacity and rate limits on the dashboard",
+   "owner": "you",
+   "time": "5 min",
+   "detail": "Check athlete capacity and limits after approval. One approved app's dashboard still showed 1 athlete until Strava updated it.",
+   "values": [],
+   "evidence": [
+    "S5"
+   ],
+   "paths": [
+    "standard_review",
+    "extended_access"
+   ]
+  },
+  {
+   "id": "s12",
+   "phase": "launch",
+   "title": "Switch production to the Composio auth config with the live callback domain",
+   "owner": "agent",
+   "time": "15 min",
+   "detail": "Point production connections at the custom auth config. Make sure the Strava Authorization Callback Domain matches the production redirect host.",
+   "values": [],
+   "evidence": [
+    "S2",
+    "S14"
+   ],
+   "paths": null
+  },
+  {
+   "id": "s13",
+   "phase": "launch",
+   "title": "Check granted scopes on every connection",
+   "owner": "agent",
+   "time": "ongoing",
+   "detail": "Athletes can untick scopes on the consent screen. Read the accepted scope from the redirect and degrade or re-prompt as needed.",
+   "values": [],
+   "evidence": [
+    "S1",
+    "S2"
+   ],
+   "paths": null
+  }
+ ],
+ "gotchas": [
+  {
+   "text": "Apps that route Strava data through third-party intermediary platforms are no longer supported.",
+   "evidence": [
+    "S6",
+    "S7"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Apps that expose athlete data to third-party AI tools will not be approved.",
+   "evidence": [
+    "S4"
+   ],
+   "paths": null
+  },
+  {
+   "text": "New apps start with 1 athlete; you can self-upgrade to 10, which replaced the old review queue. Above 10 needs review.",
+   "evidence": [
+    "S3",
+    "S6"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Existing developers needed a subscription from 30 Jun 2026; active developers without one got three months free.",
+   "evidence": [
+    "S6"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Default limits: 200 requests per 15 minutes and 2,000 a day. The self-upgrade raises the overall limit to 400 and 4,000, but reads stay at 200 and 2,000.",
+   "evidence": [
+    "S3"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Cache Strava data for at most 7 days, honour deletions within 48 hours, and delete data within 30 days when access ends.",
+   "evidence": [
+    "S7"
+   ],
+   "paths": null
+  },
+  {
+   "text": "From 1 Jun 2027 the API moves to https://www.api-v3.strava.com, tokens must be sent in headers, and oauth/deauthorize is replaced by oauth/revoke.",
+   "evidence": [
+    "S6"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Each refresh returns a new refresh token and invalidates the old one.",
+   "evidence": [
+    "S1",
+    "S2"
+   ],
+   "paths": null
+  }
+ ],
+ "blockers": [
+  {
+   "see": "403 Limit of connected athletes exceeded / Maximum number of athletes exceeded",
+   "cause": "The app is at capacity: 1 in Single Player Mode or 10 after self-upgrade.",
+   "fix": "Self-upgrade to 10 in the dashboard. Beyond that, submit the capacity review with webhooks and a privacy policy in place.",
+   "paths": null
+  },
+  {
+   "see": "{\"message\":\"Bad Request\",\"errors\":[{\"resource\":\"Application\",\"field\":\"redirect_uri\",\"code\":\"invalid\"}]}",
+   "cause": "The redirect URI host does not match the Authorization Callback Domain.",
+   "fix": "Set Authorization Callback Domain to the exact bare host of the Composio redirect URI, with no scheme or path, and retry.",
+   "paths": null
+  },
+  {
+   "see": "401 Authorization Error, field activity:read_permission, code missing",
+   "cause": "The token was granted without the needed activity scope. Other causes: the user unticked it, a malformed scope string such as 'activity: read_all' with a space, or use of the dashboard token or another athlete's token.",
+   "fix": "Request activity:read or activity:read_all with no spaces, re-authorize to get a new token, and use the token from the latest refresh.",
+   "paths": null
+  },
+  {
+   "see": "Rejection citing data privacy: do not share a Strava user's data with other users or third parties",
+   "cause": "The app displays athletes' data to other users, for example rankings or leagues.",
+   "fix": "Show each athlete only their own data, add short retention and deletion on disconnect, then resubmit.",
+   "paths": [
+    "standard_review",
+    "extended_access"
+   ]
+  },
+  {
+   "see": "Templated rejection listing complementary experience, optimised API usage, privacy and security",
+   "cause": "The app failed one or more criteria. Strava does not say which.",
+   "fix": "Add webhooks, cache and deletion rules, and a privacy policy. Remove cross-user data and write a detailed resubmission.",
+   "paths": [
+    "standard_review",
+    "extended_access"
+   ]
+  },
+  {
+   "see": "Dashboard still shows the old athlete capacity after an approval email",
+   "cause": "Strava had not updated the limits yet.",
+   "fix": "Wait or contact developers@strava.com. In one report the limits were later updated.",
+   "paths": [
+    "standard_review",
+    "extended_access"
+   ]
+  }
+ ],
+ "aiPolicy": {
+  "status": "prohibited",
+  "summary": "Policy 5.3 bans use with any AI application; 5.5 bans vector or search indexes; 5.10 bans transfers to AI or model providers even with user consent; 5.16 bans integration platforms, aggregators and agent interfaces that re-expose the API. The Strava MCP is the only authorised agent interface.",
+  "evidence": [
+   "S7",
+   "S4"
+  ]
+ },
+ "customerAdminNote": null,
+ "unknowns": [
+  "Policy 6.1 and 2.3 appear to conflict on showing one athlete's data to other users; ask Strava before doing it.",
+  "Subscription price varies by country.",
+  "Composio's open toolkit catalog has no Strava entry, while composio.dev still lists a Strava toolkit."
+ ],
+ "slug": "strava",
+ "kind": "verified",
+ "checkedAt": "2026-10-21",
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://developers.strava.com/docs/authentication/",
+   "title": "Strava Developers",
+   "domain": "developers.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S2",
+   "url": "https://developers.strava.com/docs/getting-started/",
+   "title": "Getting Started with the Strava API",
+   "domain": "developers.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-19"
+  },
+  {
+   "id": "S3",
+   "url": "https://developers.strava.com/docs/rate-limits/",
+   "title": "Rate limits",
+   "domain": "developers.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S4",
+   "url": "https://communityhub.strava.com/developers-knowledge-base-14/strava-api-faq-12906",
+   "title": "Strava API FAQ",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S5",
+   "url": "https://communityhub.strava.com/developers-api-7/api-connection-12900",
+   "title": "API Connection.",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S6",
+   "url": "https://communityhub.strava.com/insider-journal-9/an-update-to-our-developer-program-13428",
+   "title": "An Update To Our Developer Program",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S7",
+   "url": "https://www.strava.com/legal/api_policy",
+   "title": "API Policy (2026)",
+   "domain": "strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S8",
+   "url": "https://communityhub.strava.com/developers-api-7/pending-athlete-capacity-increase-review-13371",
+   "title": "Pending Athlete Capacity Increase Review",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S9",
+   "url": "https://communityhub.strava.com/developers-api-7/after-completing-a-form-of-increasing-number-of-athletes-7876",
+   "title": "After completing a form of increasing number of athletes",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S10",
+   "url": "https://communityhub.strava.com/developers-api-7/index19.html",
+   "title": "Strava Community Hub",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S11",
+   "url": "https://communityhub.strava.com/developers-api-7/increase-athele-capacity-9744",
+   "title": "Increase athele capacity",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S12",
+   "url": "https://communityhub.strava.com/developers-api-7/help-how-to-check-the-progress-of-the-application-to-incarease-athlete-capacity-13143",
+   "title": "Help, how to check the progress of the application to incarease athlete capacity?",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S13",
+   "url": "https://communityhub.strava.com/developers-api-7/number-of-athletes-allowed-to-connect-1-11078",
+   "title": "Number of athletes allowed to connect 1",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S14",
+   "url": "https://communityhub.strava.com/devices-and-connections-6/trava-oauth-redirect-uri-still-invalid-after-updating-to-live-domain-10129",
+   "title": "trava OAuth Redirect URI Still Invalid After Updating to Live Domain",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S15",
+   "url": "https://communityhub.strava.com/developers-api-7/requesting-access-via-strava-app-brings-invalid-redirect-uri-1834",
+   "title": "Requesting access via Strava app brings invalid redirect_uri",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S16",
+   "url": "https://communityhub.strava.com/developers-api-7/mobile-oauth2-authorization-redirect-url-10213",
+   "title": "Mobile OAuth2 authorization redirect url",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S17",
+   "url": "https://communityhub.strava.com/discussions-1/index8.html",
+   "title": "Discussions",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S18",
+   "url": "https://communityhub.strava.com/developers-api-7/strava-api-community-feedback-before-resubmitting-streak-accountability-app-12163",
+   "title": "Strava API Community Feedback Before Resubmitting - Streak Accountability App",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S19",
+   "url": "https://communityhub.strava.com/developers-api-7/need-help-why-was-my-app-rejected-due-to-data-privacy-12901",
+   "title": "Need help: Why was my app rejected due to data privacy?",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S20",
+   "url": "https://communityhub.strava.com/developers-api-7/urgent-manual-review-requested-for-internal-club-app-client-id-263175-13722",
+   "title": "Urgent: Manual Review Requested for Internal Club App - Client ID 263175",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S21",
+   "url": "https://communityhub.strava.com/developers-api-7/index5.html",
+   "title": "Strava Community Hub",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S22",
+   "url": "https://communityhub.strava.com/developers-api-7/requesting-more-capacity-on-a-pre-restructure-allocated-standard-tier-does-this-go-through-extended-access-review-now-13801",
+   "title": "Requesting more capacity on a pre-restructure allocated Standard Tier — does this go through Extended Access review now?",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S23",
+   "url": "https://communityhub.strava.com/developers-api-7/so-the-api-approval-team-does-exist-13247",
+   "title": "So The API Approval Team DOES Exist!",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S24",
+   "url": "https://communityhub.strava.com/developers-api-7/error-code-missing-1683",
+   "title": "ERROR - code: 'missing'",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S25",
+   "url": "https://communityhub.strava.com/developers-api-7/api-problem-returns-activity-read-permission-12166",
+   "title": "API problem; returns activity:read_permission",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S26",
+   "url": "https://communityhub.strava.com/developers-api-7/can-t-change-authentication-scope-10445",
+   "title": "Can't change authentication scope",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S27",
+   "url": "https://communityhub.strava.com/developers-api-7/field-activity-read-permission-3091",
+   "title": "\"field\": \"activity:read_permission\"",
+   "domain": "communityhub.strava.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S28",
+   "url": "https://appsforstrava.com/developers/authentication",
+   "title": "Strava OAuth 2.0 Authentication Guide",
+   "domain": "appsforstrava.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S29",
+   "url": "https://appsforstrava.com/developers",
+   "title": "Strava API Developer Guide",
+   "domain": "appsforstrava.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S30",
+   "url": "https://sahha.ai/blog/strava-api-changes-2026/",
+   "title": "Strava API Changes in 2026: Paid Access, 10 Athletes Without Review, No Intermediaries",
+   "domain": "sahha.ai",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S31",
+   "url": "https://appsforstrava.com/blog/strava-developer-program-changes-2026",
+   "title": "Strava API Pricing in 2026: The Subscription Requirement and Other Changes",
+   "domain": "appsforstrava.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S32",
+   "url": "https://sahha.ai/blog/health-api-ai-restrictions/",
+   "title": "Can You Feed Wearable Data to an AI? Strava Says No, Garmin Says Yes, WHOOP Says Nothing",
+   "domain": "sahha.ai",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S33",
+   "url": "https://www.dcrainmaker.com/2024/11/stravas-changes-to-kill-off-apps.html",
+   "title": "Strava's Big Changes Aim To Kill Off Apps",
+   "domain": "dcrainmaker.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S34",
+   "url": "https://www.getvertical.ai/blog/chatgpt-strava-integration/",
+   "title": "How to Connect ChatGPT to Strava in 2026 (and What Just Changed)",
+   "domain": "getvertical.ai",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S35",
+   "url": "https://docs.tryterra.co/help-center/help-topics/connecting/setting-up-provider-credentials-bring-your-own-keys/strava-redirect-uri-invalid",
+   "title": "Why does Strava return redirect_uri invalid?",
+   "domain": "docs.tryterra.co",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S36",
+   "url": "https://huggingface.co/spaces/burtenshaw/strava-mcp/commit/2e832d9f1fe542405720c8549f44dbb6b90e53de",
+   "title": "huggingface.co",
+   "domain": "huggingface.co",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "V1",
+   "url": "https://composio.dev/toolkits/strava",
+   "title": "Composio Strava toolkit page",
+   "domain": "composio.dev",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  }
+ ],
+ "probes": [],
+ "composio": {
+  "toolkits": [
+   {
+    "slug": "strava",
+    "name": "Strava",
+    "managed": false
+   }
+  ],
+  "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add"
+ },
+ "run": null
+}

@@ -1,0 +1,37 @@
+{
+ "app": "A0CB0QSU77W",
+ "authConfig": "ac_aG5GH7tUbwTH",
+ "scopes": [
+  "channels:read",
+  "channels:history",
+  "chat:write",
+  "team:read",
+  "users:read"
+ ],
+ "steps": [
+  {
+   "name": "slack apps.manifest.create",
+   "ms": 626,
+   "result": "ok: app A0CB0QSU77W, client ID issued",
+   "at": "2026-10-21T08:07:08.659Z"
+  },
+  {
+   "name": "composio create auth config",
+   "ms": 1096,
+   "result": "ok: ac_aG5GH7tUbwTH",
+   "at": "2026-10-21T08:07:09.757Z"
+  },
+  {
+   "name": "composio create connect link",
+   "ms": 600,
+   "result": "ok: account ca_V7ZgTqnGMh3F, expires 2026-10-21T08:17:18.479Z",
+   "at": "2026-10-21T08:07:10.357Z"
+  },
+  {
+   "name": "composio connected account",
+   "ms": 608122,
+   "result": "EXPIRED: Connection expired before authorization was started (link not opened within its window)",
+   "at": "2026-10-21T08:17:55.052Z"
+  }
+ ]
+}

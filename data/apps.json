@@ -1,0 +1,2708 @@
+{
+ "meta": {
+  "generatedAt": "2026-10-20T19:31:06.847Z",
+  "sources": {
+   "composio": "https://raw.githubusercontent.com/ComposioHQ/composio/next/docs/public/data/toolkits.json",
+   "ampersand": "https://raw.githubusercontent.com/amp-labs/connectors/main/internal/generated/catalog.json"
+  },
+  "license": "MIT (both sources)"
+ },
+ "apps": [
+  {
+   "rank": 1,
+   "slug": "gmail",
+   "unit": "google-workspace",
+   "name": "Gmail",
+   "category": "email",
+   "logo": "https://logos.composio.dev/api/gmail",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 63,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "https://www.googleapis.com/auth/userinfo.profile",
+    "https://www.googleapis.com/auth/userinfo.email",
+    "https://www.googleapis.com/auth/contacts.readonly",
+    "https://www.googleapis.com/auth/contacts.other.readonly",
+    "https://www.googleapis.com/auth/profile.language.read",
+    "https://www.googleapis.com/auth/user.addresses.read",
+    "https://www.googleapis.com/auth/user.birthday.read",
+    "https://www.googleapis.com/auth/user.emails.read",
+    "https://www.googleapis.com/auth/user.phonenumbers.read",
+    "https://www.googleapis.com/auth/profile.emails.read",
+    "https://mail.google.com/"
+   ]
+  },
+  {
+   "rank": 2,
+   "slug": "googlecalendar",
+   "unit": "google-workspace",
+   "name": "Google Calendar",
+   "category": "scheduling & booking",
+   "logo": "https://logos.composio.dev/api/googlecalendar",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 50,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "https://www.googleapis.com/auth/calendar",
+    "https://www.googleapis.com/auth/calendar.events"
+   ]
+  },
+  {
+   "rank": 3,
+   "slug": "googledrive",
+   "unit": "google-workspace",
+   "name": "Google Drive",
+   "category": "file management & storage",
+   "logo": "https://logos.composio.dev/api/googledrive",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 105,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  {
+   "rank": 4,
+   "slug": "googledocs",
+   "unit": "google-workspace",
+   "name": "Google Docs",
+   "category": "documents",
+   "logo": "https://logos.composio.dev/api/googledocs",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 48,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/documents",
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  {
+   "rank": 5,
+   "slug": "googlesheets",
+   "unit": "google-workspace",
+   "name": "Google Sheets",
+   "category": "spreadsheets",
+   "logo": "https://logos.composio.dev/api/googlesheets",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 58,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  {
+   "rank": 6,
+   "slug": "googleslides",
+   "unit": "google-workspace",
+   "name": "Google Slides",
+   "category": "documents",
+   "logo": "https://logos.composio.dev/api/googleslides",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 8,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/presentations",
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  {
+   "rank": 7,
+   "slug": "googlemeet",
+   "unit": "google-workspace",
+   "name": "Google Meet",
+   "category": "video conferencing",
+   "logo": "https://logos.composio.dev/api/googlemeet",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 15,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "https://www.googleapis.com/auth/meetings.space.created",
+    "https://www.googleapis.com/auth/meetings.space.settings"
+   ]
+  },
+  {
+   "rank": 8,
+   "slug": "googletasks",
+   "unit": "google-workspace",
+   "name": "Google Tasks",
+   "category": "task management",
+   "logo": "https://logos.composio.dev/api/googletasks",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 18,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "https://www.googleapis.com/auth/tasks"
+   ]
+  },
+  {
+   "rank": 9,
+   "slug": "outlook",
+   "unit": "microsoft-365",
+   "name": "Outlook",
+   "category": "email",
+   "logo": "https://logos.composio.dev/api/outlook",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "S2S_OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 327,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "Calendars.Read",
+    "Calendars.ReadWrite",
+    "Calendars.ReadWrite.Shared",
+    "Contacts.ReadWrite",
+    "Chat.ReadWrite",
+    "Mail.Read",
+    "Mail.ReadWrite",
+    "Mail.Send",
+    "MailboxSettings.Read",
+    "MailboxSettings.ReadWrite",
+    "offline_access",
+    "User.Read"
+   ]
+  },
+  {
+   "rank": 10,
+   "slug": "microsoft_teams",
+   "unit": "microsoft-365",
+   "name": "Microsoft Teams",
+   "category": "team chat",
+   "logo": "https://logos.composio.dev/api/microsoft_teams",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "S2S_OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 194,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "Channel.Create",
+    "Channel.ReadBasic.All",
+    "ChannelMessage.Read.All",
+    "ChannelMessage.ReadWrite",
+    "ChannelMessage.Send",
+    "ChannelSettings.ReadWrite.All",
+    "Chat.Create",
+    "Chat.Read",
+    "Chat.ReadBasic",
+    "Chat.ReadWrite",
+    "Chat.ReadWrite.All",
+    "ChatMessage.Read",
+    "ChatMessage.Send",
+    "Directory.ReadWrite.All",
+    "Group.ReadWrite.All",
+    "offline_access",
+    "People.Read.All",
+    "Presence.ReadWrite",
+    "Team.Create",
+    "Team.ReadBasic.All",
+    "TeamMember.ReadWrite.All",
+    "TeamsActivity.Read",
+    "TeamsActivity.Send",
+    "User.Read",
+    "OnlineMeetings.ReadWrite"
+   ]
+  },
+  {
+   "rank": 11,
+   "slug": "one_drive",
+   "unit": "microsoft-365",
+   "name": "OneDrive",
+   "category": "file management & storage",
+   "logo": "https://logos.composio.dev/api/one_drive",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "S2S_OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 95,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "Files.ReadWrite.All",
+    "Sites.ReadWrite.All",
+    "offline_access"
+   ]
+  },
+  {
+   "rank": 12,
+   "slug": "share_point",
+   "unit": "microsoft-365",
+   "name": "SharePoint",
+   "category": "documents",
+   "logo": "https://logos.composio.dev/api/share_point",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "S2S_OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 127,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "https://{{subdomain}}.sharepoint.com/.default",
+    "offline_access"
+   ]
+  },
+  {
+   "rank": 13,
+   "slug": "excel",
+   "unit": "microsoft-365",
+   "name": "Excel",
+   "category": "spreadsheets",
+   "logo": "https://logos.composio.dev/api/excel",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "S2S_OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 60,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "Files.ReadWrite",
+    "Sites.ReadWrite.All",
+    "offline_access",
+    "User.Read"
+   ]
+  },
+  {
+   "rank": 14,
+   "slug": "slack",
+   "unit": "slack",
+   "name": "Slack",
+   "category": "team chat",
+   "logo": "https://logos.composio.dev/api/slack",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 171,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "calls:read",
+    "calls:write",
+    "channels:history",
+    "channels:read",
+    "channels:write",
+    "chat:write",
+    "dnd:read",
+    "dnd:write",
+    "emoji:read",
+    "files:read",
+    "files:write",
+    "groups:history",
+    "groups:read",
+    "groups:write",
+    "im:history",
+    "im:read",
+    "im:write",
+    "links:read",
+    "links:write",
+    "lists:read",
+    "lists:write",
+    "mpim:history",
+    "mpim:read",
+    "mpim:write",
+    "pins:read",
+    "pins:write",
+    "reactions:read",
+    "reactions:write",
+    "reminders:read",
+    "reminders:write",
+    "remote_files:read",
+    "remote_files:share",
+    "search:read",
+    "search:read.files",
+    "search:read.im",
+    "search:read.mpim",
+    "search:read.private",
+    "search:read.public",
+    "search:read.users",
+    "team:read",
+    "usergroups:read",
+    "usergroups:write",
+    "users.profile:read",
+    "users.profile:write",
+    "users:read",
+    "users:read.email",
+    "users:write"
+   ]
+  },
+  {
+   "rank": 15,
+   "slug": "salesforce",
+   "unit": "salesforce",
+   "name": "Salesforce",
+   "category": "crm",
+   "logo": "https://logos.composio.dev/api/salesforce",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "S2S_OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 240,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "full",
+    "refresh_token",
+    "openid"
+   ]
+  },
+  {
+   "rank": 16,
+   "slug": "hubspot",
+   "unit": "hubspot",
+   "name": "HubSpot",
+   "category": "crm",
+   "logo": "https://logos.composio.dev/api/hubspot",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 294,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "account-info.security.read",
+    "accounting",
+    "cms.domains.read",
+    "cms.domains.write",
+    "crm.export",
+    "crm.import",
+    "crm.lists.read",
+    "crm.lists.write",
+    "crm.objects.companies.read",
+    "crm.objects.companies.write",
+    "crm.objects.contacts.read",
+    "crm.objects.contacts.write",
+    "crm.objects.deals.read",
+    "crm.objects.deals.write",
+    "crm.objects.marketing_events.read",
+    "crm.objects.marketing_events.write",
+    "crm.objects.owners.read",
+    "crm.objects.quotes.read",
+    "crm.objects.quotes.write",
+    "crm.schemas.companies.read",
+    "crm.schemas.companies.write",
+    "crm.schemas.contacts.read",
+    "crm.schemas.contacts.write",
+    "oauth",
+    "settings.users.read",
+    "settings.users.write",
+    "tickets",
+    "timeline",
+    "e-commerce",
+    "crm.objects.custom.read",
+    "crm.schemas.custom.read",
+    "content",
+    "sales-email-read"
+   ]
+  },
+  {
+   "rank": 17,
+   "slug": "notion",
+   "unit": "notion",
+   "name": "Notion",
+   "category": "notes",
+   "logo": "https://logos.composio.dev/api/notion",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 60,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 18,
+   "slug": "strava",
+   "unit": "strava",
+   "name": "strava",
+   "category": null,
+   "logo": null,
+   "inComposio": false,
+   "authSchemes": [],
+   "managed": false,
+   "toolCount": 0,
+   "defaultRedirect": null,
+   "defaultScopes": []
+  },
+  {
+   "rank": 19,
+   "slug": "jira",
+   "unit": "atlassian",
+   "name": "Jira",
+   "category": "project management",
+   "logo": "https://logos.composio.dev/api/jira",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "S2S_OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 103,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "read:jira-work",
+    "write:jira-work",
+    "manage:jira-project",
+    "manage:jira-configuration",
+    "read:jira-user",
+    "manage:jira-webhook",
+    "manage:jira-data-provider",
+    "read:servicedesk-request",
+    "manage:servicedesk-customer",
+    "write:servicedesk-request",
+    "read:servicemanagement-insight-objects",
+    "offline_access",
+    "read:sprint:jira-software",
+    "write:sprint:jira-software",
+    "read:board-scope:jira-software",
+    "write:board-scope:jira-software",
+    "read:project:jira",
+    "read:issue-type-scheme:jira"
+   ]
+  },
+  {
+   "rank": 20,
+   "slug": "confluence",
+   "unit": "atlassian",
+   "name": "Confluence",
+   "category": "team collaboration",
+   "logo": "https://logos.composio.dev/api/confluence",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "S2S_OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 70,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "write:content:confluence",
+    "delete:content:confluence",
+    "read:space-details:confluence",
+    "read:audit-log:confluence",
+    "read:page:confluence",
+    "write:page:confluence",
+    "delete:page:confluence",
+    "read:blogpost:confluence",
+    "delete:blogpost:confluence",
+    "read:whiteboard:confluence",
+    "write:whiteboard:confluence",
+    "read:comment:confluence",
+    "write:comment:confluence",
+    "read:content.restriction:confluence",
+    "write:content.restriction:confluence",
+    "read:content.metadata:confluence",
+    "read:inlinetask:confluence",
+    "write:inlinetask:confluence",
+    "read:task:confluence",
+    "write:task:confluence",
+    "offline_access"
+   ]
+  },
+  {
+   "rank": 21,
+   "slug": "linear",
+   "unit": "linear",
+   "name": "Linear",
+   "category": "project management",
+   "logo": "https://logos.composio.dev/api/linear",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 48,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "read",
+    "write",
+    "issues:create",
+    "comments:create"
+   ]
+  },
+  {
+   "rank": 22,
+   "slug": "github",
+   "unit": "github",
+   "name": "GitHub",
+   "category": "developer tools",
+   "logo": "https://logos.composio.dev/api/github",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 899,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "repo",
+    "user",
+    "gist",
+    "notifications",
+    "project",
+    "workflow",
+    "codespace"
+   ]
+  },
+  {
+   "rank": 23,
+   "slug": "gitlab",
+   "unit": "gitlab",
+   "name": "GitLab",
+   "category": "developer tools",
+   "logo": "https://logos.composio.dev/api/gitlab",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 123,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "api",
+    "read_api",
+    "read_user",
+    "read_repository",
+    "write_repository",
+    "profile",
+    "email"
+   ]
+  },
+  {
+   "rank": 24,
+   "slug": "bitbucket",
+   "unit": "bitbucket",
+   "name": "Bitbucket",
+   "category": "developer tools",
+   "logo": "https://logos.composio.dev/api/bitbucket",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 118,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "webhook",
+    "pullrequest:write",
+    "project:admin",
+    "runner:write",
+    "project:write",
+    "snippet:write",
+    "team:write",
+    "pipeline:variable",
+    "repository:delete",
+    "repository:admin",
+    "account:write",
+    "wiki",
+    "issue:write"
+   ]
+  },
+  {
+   "rank": 25,
+   "slug": "asana",
+   "unit": "asana",
+   "name": "Asana",
+   "category": "project management",
+   "logo": "https://logos.composio.dev/api/asana",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 157,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 26,
+   "slug": "trello",
+   "unit": "trello",
+   "name": "Trello",
+   "category": "project management",
+   "logo": "https://logos.composio.dev/api/trello",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH1"
+   ],
+   "managed": false,
+   "toolCount": 331,
+   "defaultRedirect": null,
+   "defaultScopes": []
+  },
+  {
+   "rank": 27,
+   "slug": "clickup",
+   "unit": "clickup",
+   "name": "ClickUp",
+   "category": "productivity",
+   "logo": "https://logos.composio.dev/api/clickup",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 165,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 28,
+   "slug": "monday",
+   "unit": "monday",
+   "name": "Monday",
+   "category": "project management",
+   "logo": "https://logos.composio.dev/api/monday",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 126,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 29,
+   "slug": "airtable",
+   "unit": "airtable",
+   "name": "Airtable",
+   "category": "productivity",
+   "logo": "https://logos.composio.dev/api/airtable",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 28,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "data.records:read",
+    "data.records:write",
+    "data.recordComments:read",
+    "data.recordComments:write",
+    "schema.bases:read",
+    "schema.bases:write",
+    "user.email:read"
+   ]
+  },
+  {
+   "rank": 30,
+   "slug": "zoom",
+   "unit": "zoom",
+   "name": "Zoom",
+   "category": "video conferencing",
+   "logo": "https://logos.composio.dev/api/zoom",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 105,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "contact:read:list_contacts",
+    "meeting:read:summary",
+    "meeting:read:list_registrants",
+    "meeting:read:list_past_participants",
+    "meeting:read:list_meetings",
+    "meeting:write:meeting",
+    "meeting:update:meeting",
+    "meeting:write:registrant",
+    "meeting:read:meeting",
+    "webinar:read:webinar",
+    "webinar:read:list_registrants",
+    "webinar:read:list_webinars",
+    "webinar:read:list_past_participants",
+    "webinar:read:participant",
+    "webinar:write:registrant",
+    "archiving:read:archived_files",
+    "archiving:read:list_archived_files",
+    "cloud_recording:delete:meeting_transcript",
+    "cloud_recording:read:meeting_transcript",
+    "cloud_recording:read:list_user_recordings",
+    "cloud_recording:read:list_recording_registrants",
+    "cloud_recording:read:list_recording_files",
+    "user:read:list_collaboration_devices",
+    "user:read:collaboration_device",
+    "user:read:settings",
+    "user:read:user"
+   ]
+  },
+  {
+   "rank": 31,
+   "slug": "calendly",
+   "unit": "calendly",
+   "name": "Calendly",
+   "category": "scheduling & booking",
+   "logo": "https://logos.composio.dev/api/calendly",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 57,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 32,
+   "slug": "cal",
+   "unit": "cal",
+   "name": "Cal",
+   "category": "scheduling & booking",
+   "logo": "https://logos.composio.dev/api/cal",
+   "inComposio": true,
+   "authSchemes": [
+    "API_KEY",
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 175,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 33,
+   "slug": "dropbox",
+   "unit": "dropbox",
+   "name": "Dropbox",
+   "category": "file management & storage",
+   "logo": "https://logos.composio.dev/api/dropbox",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 178,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "email",
+    "profile",
+    "account_info.write",
+    "account_info.read",
+    "files.metadata.write",
+    "files.metadata.read",
+    "files.content.write",
+    "files.content.read",
+    "openid",
+    "file_requests.write",
+    "file_requests.read",
+    "sharing.write",
+    "sharing.read",
+    "contacts.write",
+    "contacts.read"
+   ]
+  },
+  {
+   "rank": 34,
+   "slug": "box",
+   "unit": "box",
+   "name": "Box",
+   "category": "file management & storage",
+   "logo": "https://logos.composio.dev/api/box",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 286,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 35,
+   "slug": "figma",
+   "unit": "figma",
+   "name": "Figma",
+   "category": "images & design",
+   "logo": "https://logos.composio.dev/api/figma",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 53,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "file_comments:write",
+    "webhooks:write",
+    "current_user:read",
+    "file_content:read",
+    "file_comments:read",
+    "projects:read",
+    "library_assets:read",
+    "library_content:read",
+    "team_library_content:read",
+    "file_metadata:read",
+    "file_versions:read",
+    "webhooks:read"
+   ]
+  },
+  {
+   "rank": 36,
+   "slug": "canva",
+   "unit": "canva",
+   "name": "Canva",
+   "category": "images & design",
+   "logo": "https://logos.composio.dev/api/canva",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 52,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "asset:read",
+    "asset:write",
+    "brandtemplate:content:read",
+    "brandtemplate:meta:read",
+    "comment:read",
+    "comment:write",
+    "design:content:read",
+    "design:content:write",
+    "design:meta:read",
+    "folder:read",
+    "folder:write",
+    "folder:permission:write",
+    "profile:read"
+   ]
+  },
+  {
+   "rank": 37,
+   "slug": "miro",
+   "unit": "miro",
+   "name": "Miro",
+   "category": "team collaboration",
+   "logo": "https://logos.composio.dev/api/miro",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 84,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "boards:export",
+    "boards:read",
+    "boards:write"
+   ]
+  },
+  {
+   "rank": 38,
+   "slug": "discord",
+   "unit": "discord",
+   "name": "Discord",
+   "category": "team chat",
+   "logo": "https://logos.composio.dev/api/discord",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 28,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "identify",
+    "email",
+    "connections",
+    "guilds",
+    "guilds.join",
+    "guilds.members.read",
+    "messages.read",
+    "openid"
+   ]
+  },
+  {
+   "rank": 39,
+   "slug": "twitter",
+   "unit": "twitter",
+   "name": "Twitter",
+   "category": "social media accounts",
+   "logo": "https://logos.composio.dev/api/twitter",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 83,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "dm.write",
+    "dm.read",
+    "mute.read",
+    "mute.write",
+    "space.read",
+    "tweet.write",
+    "tweet.read",
+    "tweet.moderate.write",
+    "users.read",
+    "follows.read",
+    "follows.write",
+    "like.read",
+    "like.write",
+    "list.read",
+    "list.write",
+    "block.read",
+    "block.write",
+    "bookmark.read",
+    "bookmark.write",
+    "media.write",
+    "offline.access"
+   ]
+  },
+  {
+   "rank": 40,
+   "slug": "linkedin",
+   "unit": "linkedin",
+   "name": "LinkedIn",
+   "category": "social media accounts",
+   "logo": "https://logos.composio.dev/api/linkedin",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 25,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "openid",
+    "profile",
+    "w_member_social",
+    "email"
+   ]
+  },
+  {
+   "rank": 41,
+   "slug": "reddit",
+   "unit": "reddit",
+   "name": "Reddit",
+   "category": "social media accounts",
+   "logo": "https://logos.composio.dev/api/reddit",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 35,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "identity",
+    "read",
+    "vote",
+    "submit",
+    "flair",
+    "edit"
+   ]
+  },
+  {
+   "rank": 42,
+   "slug": "instagram",
+   "unit": "meta",
+   "name": "Instagram",
+   "category": "social media accounts",
+   "logo": "https://logos.composio.dev/api/instagram",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 40,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "instagram_business_basic",
+    "instagram_business_manage_messages",
+    "instagram_business_manage_comments",
+    "instagram_business_content_publish",
+    "instagram_business_manage_insights"
+   ]
+  },
+  {
+   "rank": 43,
+   "slug": "facebook",
+   "unit": "meta",
+   "name": "Facebook",
+   "category": "social media accounts",
+   "logo": "https://logos.composio.dev/api/facebook",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 56,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "public_profile",
+    "email",
+    "business_management",
+    "pages_show_list",
+    "pages_read_engagement",
+    "pages_manage_posts",
+    "pages_manage_engagement",
+    "pages_read_user_content",
+    "pages_manage_metadata",
+    "pages_messaging",
+    "read_insights"
+   ]
+  },
+  {
+   "rank": 44,
+   "slug": "youtube",
+   "unit": "youtube",
+   "name": "YouTube",
+   "category": "video & audio",
+   "logo": "https://logos.composio.dev/api/youtube",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 61,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "https://www.googleapis.com/auth/youtube",
+    "https://www.googleapis.com/auth/youtube.channel-memberships.creator",
+    "https://www.googleapis.com/auth/youtube.force-ssl",
+    "https://www.googleapis.com/auth/youtube.readonly",
+    "https://www.googleapis.com/auth/youtube.upload",
+    "https://www.googleapis.com/auth/youtubepartner",
+    "https://www.googleapis.com/auth/youtubepartner-channel-audit"
+   ]
+  },
+  {
+   "rank": 45,
+   "slug": "spotify",
+   "unit": "spotify",
+   "name": "Spotify",
+   "category": "news & lifestyle",
+   "logo": "https://logos.composio.dev/api/spotify",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 88,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "user-read-private",
+    "user-read-email",
+    "app-remote-control",
+    "streaming",
+    "user-modify-playback-state",
+    "user-read-playback-state",
+    "user-read-currently-playing"
+   ]
+  },
+  {
+   "rank": 46,
+   "slug": "tiktok",
+   "unit": "tiktok",
+   "name": "Tiktok",
+   "category": "social media accounts",
+   "logo": "https://logos.composio.dev/api/tiktok",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 9,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "user.info.basic",
+    "user.info.profile",
+    "user.info.stats",
+    "video.list",
+    "video.upload",
+    "video.publish"
+   ]
+  },
+  {
+   "rank": 47,
+   "slug": "pinterest",
+   "unit": "pinterest",
+   "name": "Pinterest",
+   "category": "social media accounts",
+   "logo": "https://logos.composio.dev/api/pinterest",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 27,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "boards:read",
+    "boards:read_secret",
+    "boards:write",
+    "boards:write_secret",
+    "pins:read",
+    "pins:read_secret",
+    "pins:write",
+    "pins:write_secret",
+    "user_accounts:read",
+    "user_accounts:write"
+   ]
+  },
+  {
+   "rank": 48,
+   "slug": "twitch",
+   "unit": "twitch",
+   "name": "Twitch",
+   "category": "video & audio",
+   "logo": "https://logos.composio.dev/api/twitch",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 131,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 49,
+   "slug": "shopify",
+   "unit": "shopify",
+   "name": "Shopify",
+   "category": "ecommerce",
+   "logo": "https://logos.composio.dev/api/shopify",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "S2S_OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 407,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "read_products",
+    "write_products",
+    "read_orders",
+    "write_orders",
+    "read_customers",
+    "write_customers",
+    "read_inventory",
+    "write_inventory",
+    "read_fulfillments",
+    "write_fulfillments",
+    "read_assigned_fulfillment_orders",
+    "write_assigned_fulfillment_orders",
+    "read_content",
+    "write_content",
+    "read_themes",
+    "write_themes",
+    "read_locations",
+    "read_shipping",
+    "write_shipping",
+    "read_gift_cards",
+    "write_gift_cards",
+    "read_script_tags",
+    "write_script_tags",
+    "read_marketing_events",
+    "write_marketing_events",
+    "read_price_rules",
+    "write_price_rules",
+    "read_discounts",
+    "write_discounts",
+    "read_draft_orders",
+    "write_draft_orders",
+    "read_metaobjects",
+    "write_metaobjects",
+    "read_webhooks",
+    "write_webhooks",
+    "read_publications"
+   ]
+  },
+  {
+   "rank": 50,
+   "slug": "stripe",
+   "unit": "stripe",
+   "name": "Stripe",
+   "category": "payment processing",
+   "logo": "https://logos.composio.dev/api/stripe",
+   "inComposio": true,
+   "authSchemes": [
+    "API_KEY",
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 435,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "read_write"
+   ]
+  },
+  {
+   "rank": 51,
+   "slug": "square",
+   "unit": "square",
+   "name": "Square",
+   "category": "payment processing",
+   "logo": "https://logos.composio.dev/api/square",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 122,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "CUSTOMERS_READ",
+    "CUSTOMERS_WRITE",
+    "MERCHANT_PROFILE_READ",
+    "MERCHANT_PROFILE_WRITE"
+   ]
+  },
+  {
+   "rank": 52,
+   "slug": "paypal",
+   "unit": "paypal",
+   "name": "Paypal",
+   "category": "payment processing",
+   "logo": "https://logos.composio.dev/api/paypal",
+   "inComposio": true,
+   "authSchemes": [
+    "S2S_OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 78,
+   "defaultRedirect": null,
+   "defaultScopes": []
+  },
+  {
+   "rank": 53,
+   "slug": "quickbooks",
+   "unit": "quickbooks",
+   "name": "QuickBooks",
+   "category": "accounting",
+   "logo": "https://logos.composio.dev/api/quickbooks",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 114,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "com.intuit.quickbooks.accounting",
+    "openid",
+    "profile",
+    "email",
+    "phone",
+    "address"
+   ]
+  },
+  {
+   "rank": 54,
+   "slug": "xero",
+   "unit": "xero",
+   "name": "Xero",
+   "category": "accounting",
+   "logo": "https://logos.composio.dev/api/xero",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 68,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "offline_access",
+    "email",
+    "profile",
+    "openid",
+    "files",
+    "files.read",
+    "projects",
+    "projects.read",
+    "accounting.manualjournals.read",
+    "accounting.manualjournals",
+    "accounting.banktransactions.read",
+    "accounting.banktransactions",
+    "accounting.payments.read",
+    "accounting.payments",
+    "accounting.invoices.read",
+    "accounting.invoices",
+    "accounting.reports.tenninetynine.read",
+    "accounting.budgets.read",
+    "accounting.attachments.read",
+    "accounting.attachments",
+    "accounting.contacts.read",
+    "accounting.contacts",
+    "accounting.settings.read",
+    "accounting.settings",
+    "accounting.reports.taxreports.read",
+    "accounting.reports.trialbalance.read",
+    "accounting.reports.profitandloss.read",
+    "accounting.reports.executivesummary.read",
+    "accounting.reports.budgetsummary.read",
+    "accounting.reports.banksummary.read",
+    "accounting.reports.aged.read"
+   ]
+  },
+  {
+   "rank": 55,
+   "slug": "freshbooks",
+   "unit": "freshbooks",
+   "name": "FreshBooks",
+   "category": "accounting",
+   "logo": "https://logos.composio.dev/api/freshbooks",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 10,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "user:profile:read",
+    "user:projects:read",
+    "user:clients:read"
+   ]
+  },
+  {
+   "rank": 56,
+   "slug": "docusign",
+   "unit": "docusign",
+   "name": "DocuSign",
+   "category": "signatures",
+   "logo": "https://logos.composio.dev/api/docusign",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 338,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "signature",
+    "impersonation"
+   ]
+  },
+  {
+   "rank": 57,
+   "slug": "dropbox_sign",
+   "unit": "dropbox-sign",
+   "name": "Dropbox Sign",
+   "category": "signatures",
+   "logo": "https://logos.composio.dev/api/dropbox_sign",
+   "inComposio": true,
+   "authSchemes": [
+    "API_KEY",
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 56,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "basic_account_info",
+    "request_signature"
+   ]
+  },
+  {
+   "rank": 58,
+   "slug": "zendesk",
+   "unit": "zendesk",
+   "name": "Zendesk",
+   "category": "crm",
+   "logo": "https://logos.composio.dev/api/zendesk",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 457,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "read",
+    "write",
+    "organizations:read",
+    "organizations:write",
+    "tickets:read",
+    "tickets:write",
+    "users:read",
+    "users:write",
+    "webhooks:read",
+    "webhooks:write"
+   ]
+  },
+  {
+   "rank": 59,
+   "slug": "intercom",
+   "unit": "intercom",
+   "name": "Intercom",
+   "category": "customer support",
+   "logo": "https://logos.composio.dev/api/intercom",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 133,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "read_user",
+    "write_user",
+    "read_company",
+    "write_company",
+    "read_conversation",
+    "write_conversation",
+    "read_admin",
+    "write_admin",
+    "read_tag",
+    "write_tag",
+    "read_event",
+    "write_event",
+    "read_segment",
+    "write_segment",
+    "read_count",
+    "write_count",
+    "read_data_attribute",
+    "write_data_attribute",
+    "read_ticket",
+    "write_ticket",
+    "read_team",
+    "write_team",
+    "read_note",
+    "write_note",
+    "read_news",
+    "write_news",
+    "read_article",
+    "write_article",
+    "read_webhook",
+    "write_webhook",
+    "offline_access"
+   ]
+  },
+  {
+   "rank": 60,
+   "slug": "gorgias",
+   "unit": "gorgias",
+   "name": "Gorgias",
+   "category": "crm",
+   "logo": "https://logos.composio.dev/api/gorgias",
+   "inComposio": true,
+   "authSchemes": [
+    "API_KEY",
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 44,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "openid",
+    "email",
+    "profile",
+    "offline",
+    "account:read",
+    "account:write",
+    "users:read",
+    "users:write",
+    "customers:read",
+    "customers:write",
+    "tickets:read",
+    "tickets:write",
+    "custom_fields:read",
+    "custom_fields:write",
+    "events:read",
+    "events:write",
+    "integrations:read",
+    "integrations:write",
+    "jobs:read",
+    "jobs:write",
+    "macros:read",
+    "macros:write",
+    "rules:read",
+    "rules:write",
+    "satisfaction_survey:read",
+    "satisfaction_survey:write",
+    "statistics:read",
+    "tags:read",
+    "tags:write",
+    "apps:read",
+    "apps:write"
+   ]
+  },
+  {
+   "rank": 61,
+   "slug": "help_scout",
+   "unit": "help-scout",
+   "name": "Help Scout",
+   "category": "customer support",
+   "logo": "https://logos.composio.dev/api/help_scout",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 129,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 62,
+   "slug": "pipedrive",
+   "unit": "pipedrive",
+   "name": "Pipedrive",
+   "category": "crm",
+   "logo": "https://logos.composio.dev/api/pipedrive",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": false,
+   "toolCount": 406,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "contacts:full",
+    "leads:full",
+    "mail:full",
+    "activities:full",
+    "products:full",
+    "projects:full"
+   ]
+  },
+  {
+   "rank": 63,
+   "slug": "zoho",
+   "unit": "zoho",
+   "name": "Zoho",
+   "category": "crm",
+   "logo": "https://logos.composio.dev/api/zoho",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 95,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "ZohoCRM.modules.ALL",
+    "ZohoCRM.settings.ALL",
+    "ZohoCRM.notifications.ALL",
+    "ZohoCRM.users.ALL"
+   ]
+  },
+  {
+   "rank": 64,
+   "slug": "attio",
+   "unit": "attio",
+   "name": "Attio",
+   "category": "crm",
+   "logo": "https://logos.composio.dev/api/attio",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 114,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "task:read-write",
+    "object_configuration:read",
+    "record_permission:read",
+    "user_management:read",
+    "list_configuration:read",
+    "list_entry:read",
+    "comment:read-write"
+   ]
+  },
+  {
+   "rank": 65,
+   "slug": "gong",
+   "unit": "gong",
+   "name": "Gong",
+   "category": "analytics",
+   "logo": "https://logos.composio.dev/api/gong",
+   "inComposio": true,
+   "authSchemes": [
+    "BASIC",
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 58,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "api:calls:read:transcript",
+    "api:provisioning:read",
+    "api:workspaces:read",
+    "api:meetings:user:delete",
+    "api:crm:get-objects",
+    "api:data-privacy:delete",
+    "api:crm:schema",
+    "api:flows:write",
+    "api:crm:upload",
+    "api:meetings:integration:status",
+    "api:calls:read:extensive",
+    "api:meetings:user:update",
+    "api:integration-settings:write",
+    "api:settings:scorecards:read",
+    "api:stats:scorecards",
+    "api:stats:interaction",
+    "api:stats:user-actions",
+    "api:crm:integration:delete",
+    "api:calls:read:basic",
+    "api:calls:read:media-url",
+    "api:tasks:read",
+    "api:digital-interactions:write",
+    "api:crm:integrations:read",
+    "api:library:read",
+    "api:data-privacy:read",
+    "api:users:read",
+    "api:tasks:write",
+    "api:logs:read",
+    "api:calls:create",
+    "api:meetings:user:create",
+    "api:stats:user-actions:detailed",
+    "api:settings:trackers:read",
+    "api:crm:integration:register",
+    "api:provisioning:read-write",
+    "api:engagement-data:write",
+    "api:permission-profile:read",
+    "api:permission-profile:write",
+    "api:flows:read",
+    "api:crm-calls:manual-association:read",
+    "api:call-outcomes:read"
+   ]
+  },
+  {
+   "rank": 66,
+   "slug": "fathom",
+   "unit": "fathom",
+   "name": "Fathom",
+   "category": "ai meeting assistants",
+   "logo": "https://logos.composio.dev/api/fathom",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 9,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "public_api"
+   ]
+  },
+  {
+   "rank": 67,
+   "slug": "webex",
+   "unit": "webex",
+   "name": "Webex",
+   "category": "video conferencing",
+   "logo": "https://logos.composio.dev/api/webex",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 26,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "spark:all"
+   ]
+  },
+  {
+   "rank": 68,
+   "slug": "dialpad",
+   "unit": "dialpad",
+   "name": "Dialpad",
+   "category": "communication",
+   "logo": "https://logos.composio.dev/api/dialpad",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 192,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "recordings_export",
+    "message_content_export",
+    "screen_pop",
+    "calls:list",
+    "fax_message",
+    "change_log",
+    "offline_access"
+   ]
+  },
+  {
+   "rank": 69,
+   "slug": "aircall",
+   "unit": "aircall",
+   "name": "Aircall",
+   "category": "communication",
+   "logo": "https://logos.composio.dev/api/aircall",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "BASIC"
+   ],
+   "managed": true,
+   "toolCount": 48,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "public_api"
+   ]
+  },
+  {
+   "rank": 70,
+   "slug": "typeform",
+   "unit": "typeform",
+   "name": "Typeform",
+   "category": "forms & surveys",
+   "logo": "https://logos.composio.dev/api/typeform",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 35,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "accounts:read",
+    "forms:read",
+    "forms:write",
+    "images:read",
+    "images:write",
+    "themes:read",
+    "themes:write",
+    "responses:read",
+    "responses:write",
+    "webhooks:read",
+    "webhooks:write",
+    "workspaces:read",
+    "workspaces:write",
+    "offline"
+   ]
+  },
+  {
+   "rank": 71,
+   "slug": "survey_monkey",
+   "unit": "surveymonkey",
+   "name": "SurveyMonkey",
+   "category": "forms & surveys",
+   "logo": "https://logos.composio.dev/api/survey_monkey",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": false,
+   "toolCount": 22,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "surveys_read",
+    "surveys_write"
+   ]
+  },
+  {
+   "rank": 72,
+   "slug": "mailchimp",
+   "unit": "mailchimp",
+   "name": "Mailchimp",
+   "category": "email newsletters",
+   "logo": "https://logos.composio.dev/api/mailchimp",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 277,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 73,
+   "slug": "klaviyo",
+   "unit": "klaviyo",
+   "name": "Klaviyo",
+   "category": "marketing automation",
+   "logo": "https://logos.composio.dev/api/klaviyo",
+   "inComposio": true,
+   "authSchemes": [
+    "API_KEY",
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 231,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "accounts:read",
+    "campaigns:read",
+    "campaigns:write",
+    "conversations:read",
+    "conversations:write",
+    "catalogs:read",
+    "catalogs:write",
+    "coupons:read",
+    "coupons:write",
+    "coupon-codes:read",
+    "coupon-codes:write",
+    "data-privacy:read",
+    "data-privacy:write",
+    "events:read",
+    "events:write",
+    "flows:read",
+    "flows:write",
+    "images:read",
+    "images:write",
+    "lists:read",
+    "lists:write",
+    "metrics:read",
+    "metrics:write",
+    "profiles:read",
+    "profiles:write",
+    "push-tokens:read",
+    "push-tokens:write",
+    "segments:read",
+    "segments:write",
+    "subscriptions:read",
+    "subscriptions:write",
+    "tags:read",
+    "tags:write",
+    "templates:read",
+    "templates:write"
+   ]
+  },
+  {
+   "rank": 74,
+   "slug": "todoist",
+   "unit": "todoist",
+   "name": "Todoist",
+   "category": "task management",
+   "logo": "https://logos.composio.dev/api/todoist",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 84,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "data:read_write"
+   ]
+  },
+  {
+   "rank": 75,
+   "slug": "ticktick",
+   "unit": "ticktick",
+   "name": "Ticktick",
+   "category": "productivity",
+   "logo": "https://logos.composio.dev/api/ticktick",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 21,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "tasks:read",
+    "tasks:write"
+   ]
+  },
+  {
+   "rank": 76,
+   "slug": "basecamp",
+   "unit": "basecamp",
+   "name": "Basecamp",
+   "category": "project management",
+   "logo": "https://logos.composio.dev/api/basecamp",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 142,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 77,
+   "slug": "wrike",
+   "unit": "wrike",
+   "name": "Wrike",
+   "category": "project management",
+   "logo": "https://logos.composio.dev/api/wrike",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 144,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "Default",
+    "wsReadOnly",
+    "wsReadWrite",
+    "amReadOnlyWorkflow",
+    "amReadWriteWorkflow",
+    "amReadOnlyInvitation",
+    "amReadWriteInvitation",
+    "amReadOnlyGroup",
+    "amReadWriteGroup",
+    "amReadOnlyUser",
+    "amReadWriteUser"
+   ]
+  },
+  {
+   "rank": 78,
+   "slug": "harvest",
+   "unit": "harvest",
+   "name": "Harvest",
+   "category": "time tracking software",
+   "logo": "https://logos.composio.dev/api/harvest",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 57,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "harvest:read",
+    "harvest:write"
+   ]
+  },
+  {
+   "rank": 79,
+   "slug": "pagerduty",
+   "unit": "pagerduty",
+   "name": "PagerDuty",
+   "category": "server monitoring",
+   "logo": "https://logos.composio.dev/api/pagerduty",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 368,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "read",
+    "write"
+   ]
+  },
+  {
+   "rank": 80,
+   "slug": "sentry",
+   "unit": "sentry",
+   "name": "Sentry",
+   "category": "developer tools",
+   "logo": "https://logos.composio.dev/api/sentry",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 211,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "org:read",
+    "org:write",
+    "project:read",
+    "project:write",
+    "project:releases",
+    "team:read",
+    "team:write",
+    "member:read",
+    "member:write",
+    "event:read",
+    "event:write"
+   ]
+  },
+  {
+   "rank": 81,
+   "slug": "supabase",
+   "unit": "supabase",
+   "name": "Supabase",
+   "category": "developer tools",
+   "logo": "https://logos.composio.dev/api/supabase",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 131,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "all"
+   ]
+  },
+  {
+   "rank": 82,
+   "slug": "vercel",
+   "unit": "vercel",
+   "name": "Vercel",
+   "category": "developer tools",
+   "logo": "https://logos.composio.dev/api/vercel",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": false,
+   "toolCount": 152,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 83,
+   "slug": "webflow",
+   "unit": "webflow",
+   "name": "Webflow",
+   "category": "website builders",
+   "logo": "https://logos.composio.dev/api/webflow",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": false,
+   "toolCount": 60,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "assets:read",
+    "assets:write",
+    "authorized_user:read",
+    "cms:read",
+    "cms:write",
+    "custom_code:read",
+    "custom_code:write",
+    "forms:read",
+    "forms:write",
+    "pages:read",
+    "pages:write",
+    "sites:read",
+    "sites:write"
+   ]
+  },
+  {
+   "rank": 84,
+   "slug": "wix",
+   "unit": "wix",
+   "name": "Wix",
+   "category": "website builders",
+   "logo": "https://logos.composio.dev/api/wix",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": false,
+   "toolCount": 145,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": []
+  },
+  {
+   "rank": 85,
+   "slug": "contentful",
+   "unit": "contentful",
+   "name": "Contentful",
+   "category": "developer tools",
+   "logo": "https://logos.composio.dev/api/contentful",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": true,
+   "toolCount": 124,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "content_management_manage"
+   ]
+  },
+  {
+   "rank": 86,
+   "slug": "eventbrite",
+   "unit": "eventbrite",
+   "name": "Eventbrite",
+   "category": "event management",
+   "logo": "https://logos.composio.dev/api/eventbrite",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 95,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "event:read",
+    "event:write",
+    "order:read",
+    "order:write",
+    "attendee:read",
+    "attendee:write",
+    "user:read",
+    "user:write",
+    "organizer:read",
+    "organizer:write",
+    "venue:read",
+    "venue:write"
+   ]
+  },
+  {
+   "rank": 87,
+   "slug": "productboard",
+   "unit": "productboard",
+   "name": "Productboard",
+   "category": "product management",
+   "logo": "https://logos.composio.dev/api/productboard",
+   "inComposio": true,
+   "authSchemes": [
+    "API_KEY",
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 99,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "product_hierarchy_data:read",
+    "product_hierarchy_data:create",
+    "product_hierarchy_data:manage",
+    "custom_fields:read",
+    "releases:read",
+    "releases:create",
+    "releases:manage",
+    "notes:read",
+    "notes:create",
+    "users:read",
+    "users:manage",
+    "users_pii:read",
+    "members_pii:read",
+    "plugin_integrations:manage",
+    "objectives:read",
+    "objectives:create",
+    "objectives:manage",
+    "key_results:read",
+    "key_results:create",
+    "key_results:manage",
+    "initiatives:read",
+    "initiatives:create",
+    "initiatives:manage",
+    "feedback_form_configurations:read",
+    "feedback_forms:create"
+   ]
+  },
+  {
+   "rank": 88,
+   "slug": "greenhouse",
+   "unit": "greenhouse",
+   "name": "Greenhouse",
+   "category": "hr talent & recruitment",
+   "logo": "https://logos.composio.dev/api/greenhouse",
+   "inComposio": true,
+   "authSchemes": [
+    "S2S_OAUTH2",
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 134,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "harvest:application_stages:list",
+    "harvest:applications:create",
+    "harvest:applications:list",
+    "harvest:applications:update",
+    "harvest:attachments:create",
+    "harvest:attachments:list",
+    "harvest:candidates:create",
+    "harvest:candidates:list",
+    "harvest:candidates:update",
+    "harvest:demographic_answers:list",
+    "harvest:departments:list",
+    "harvest:eeoc:list",
+    "harvest:interview_kits:list",
+    "harvest:interviews:create",
+    "harvest:interviews:list",
+    "harvest:interviews:update",
+    "harvest:job_posts:create",
+    "harvest:job_posts:list",
+    "harvest:job_posts:update",
+    "harvest:jobs:create",
+    "harvest:jobs:list",
+    "harvest:jobs:update",
+    "harvest:offers:create",
+    "harvest:offers:list",
+    "harvest:offers:update",
+    "harvest:offices:list",
+    "harvest:prospect_pools:list",
+    "harvest:scorecards:list",
+    "harvest:sources:list",
+    "harvest:users:list"
+   ]
+  },
+  {
+   "rank": 89,
+   "slug": "lever",
+   "unit": "lever",
+   "name": "Lever",
+   "category": "hr talent & recruitment",
+   "logo": "https://logos.composio.dev/api/lever",
+   "inComposio": true,
+   "authSchemes": [
+    "API_KEY",
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 64,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "files:write:admin",
+    "form_templates:write:admin",
+    "forms:write:admin",
+    "interviews:write:admin",
+    "notes:write:admin",
+    "offers:read:admin",
+    "opportunities:write:admin",
+    "panels:write:admin",
+    "postings:write:admin",
+    "referrals:read:admin",
+    "requisition_fields:write:admin",
+    "requisitions:write:admin",
+    "resumes:read:admin",
+    "sources:read:admin",
+    "stages:read:admin",
+    "tags:read:admin",
+    "tasks:read:admin",
+    "uploads:write:admin",
+    "users:write:admin"
+   ]
+  },
+  {
+   "rank": 90,
+   "slug": "workable",
+   "unit": "workable",
+   "name": "Workable",
+   "category": "human resources",
+   "logo": "https://logos.composio.dev/api/workable",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": false,
+   "toolCount": 37,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "r_account",
+    "r_jobs",
+    "r_candidates",
+    "w_candidates",
+    "r_employees"
+   ]
+  },
+  {
+   "rank": 91,
+   "slug": "bamboohr",
+   "unit": "bamboohr",
+   "name": "BambooHR",
+   "category": "human resources",
+   "logo": "https://logos.composio.dev/api/bamboohr",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": false,
+   "toolCount": 42,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "application",
+    "application.write",
+    "job_opening",
+    "job_opening.write",
+    "benefit",
+    "benefit.write",
+    "email",
+    "openid",
+    "company:administration",
+    "company:administration.write",
+    "company:info",
+    "company_file",
+    "company_file.write",
+    "data_cleaner",
+    "error_management",
+    "employee",
+    "employee.write",
+    "employee:assets",
+    "employee:assets.write",
+    "employee:compensation",
+    "employee:compensation.write",
+    "employee:contact",
+    "employee:contact.write",
+    "employee:custom_fields",
+    "employee:custom_fields.write",
+    "employee:custom_fields_encrypted",
+    "employee:custom_fields_encrypted.write",
+    "employee:demographic",
+    "employee:demographic.write",
+    "employee:dependent",
+    "employee:dependent.write",
+    "employee:dependent:ssn",
+    "employee:dependent:ssn.write",
+    "employee:education",
+    "employee:education.write",
+    "employee:emergency_contacts",
+    "employee:emergency_contacts.write",
+    "employee:file",
+    "employee:file.write",
+    "employee:identification",
+    "employee:identification.write",
+    "employee:job",
+    "employee:job.write",
+    "employee:management",
+    "employee:management.write",
+    "employee:name",
+    "employee:name.write",
+    "employee:payroll",
+    "employee:payroll.write",
+    "employee:photo",
+    "employee:photo.write",
+    "employee:providers",
+    "employee:providers.write",
+    "employee:providers:payroll",
+    "employee:providers:payroll.write",
+    "employee:vaccination",
+    "employee:vaccination.write",
+    "goal",
+    "goal.write",
+    "sensitive_employee:address",
+    "sensitive_employee:address.write",
+    "sensitive_employee:creditcards",
+    "sensitive_employee:creditcards.write",
+    "sensitive_employee:protected_info",
+    "sensitive_employee:protected_info.write",
+    "tasks",
+    "tasks.write",
+    "access_level",
+    "benchmarking:compensation",
+    "field",
+    "field.write",
+    "gridlets",
+    "offline_access",
+    "public.user",
+    "training",
+    "training.write",
+    "user",
+    "user:management",
+    "user:management.write",
+    "webhooks",
+    "webhooks.write",
+    "payroll",
+    "payroll.write",
+    "report",
+    "time_off",
+    "time_off.write",
+    "time_tracking",
+    "time_tracking.write"
+   ]
+  },
+  {
+   "rank": 92,
+   "slug": "gusto",
+   "unit": "gusto",
+   "name": "Gusto",
+   "category": "human resources",
+   "logo": "https://logos.composio.dev/api/gusto",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 192,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "companies:read",
+    "employees:read",
+    "payrolls:read"
+   ]
+  },
+  {
+   "rank": 93,
+   "slug": "ramp",
+   "unit": "ramp",
+   "name": "Ramp",
+   "category": "accounting",
+   "logo": "https://logos.composio.dev/api/ramp",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 111,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "accounting:read",
+    "accounting:write",
+    "bank_accounts:read",
+    "bills:read",
+    "bills:write",
+    "business:read",
+    "cards:read",
+    "cards:read_vault",
+    "cards:write",
+    "cashbacks:read",
+    "custom_records:read",
+    "custom_records:write",
+    "departments:read",
+    "departments:write",
+    "entities:read",
+    "item_receipts:read",
+    "leads:read",
+    "leads:write",
+    "limits:read",
+    "limits:write",
+    "locations:read",
+    "locations:write",
+    "memos:read",
+    "memos:write",
+    "merchants:read",
+    "purchase_orders:read",
+    "purchase_orders:write",
+    "receipt_integrations:read",
+    "receipt_integrations:write",
+    "receipts:read",
+    "receipts:write",
+    "reimbursements:read",
+    "spend_programs:read",
+    "spend_programs:write",
+    "statements:read",
+    "transactions:read",
+    "transfers:read",
+    "users:read",
+    "users:write",
+    "vendors:read",
+    "vendors:write"
+   ]
+  },
+  {
+   "rank": 94,
+   "slug": "brex",
+   "unit": "brex",
+   "name": "Brex",
+   "category": "accounting",
+   "logo": "https://logos.composio.dev/api/brex",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": false,
+   "toolCount": 84,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "accounts.card.readonly",
+    "accounts.cash.readonly",
+    "budgets",
+    "budgets.readonly",
+    "cards",
+    "cards.pan",
+    "cards.readonly",
+    "cash.accounts.readonly",
+    "companies.readonly",
+    "departments",
+    "departments.readonly",
+    "expenses.card",
+    "expenses.card.readonly",
+    "incoming_transfers",
+    "linked_accounts.readonly",
+    "locations",
+    "locations.readonly",
+    "offline_access",
+    "openid",
+    "statements.card.readonly",
+    "statements.cash.readonly",
+    "titles",
+    "titles.readonly",
+    "transactions.card.readonly",
+    "transactions.cash.readonly",
+    "transfers",
+    "transfers.readonly",
+    "users",
+    "users.readonly",
+    "vendors",
+    "vendors.readonly"
+   ]
+  },
+  {
+   "rank": 95,
+   "slug": "servicenow",
+   "unit": "servicenow",
+   "name": "ServiceNow",
+   "category": "it operations",
+   "logo": "https://logos.composio.dev/api/servicenow",
+   "inComposio": true,
+   "authSchemes": [
+    "BASIC",
+    "OAUTH2",
+    "S2S_OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 171,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "useraccount"
+   ]
+  },
+  {
+   "rank": 96,
+   "slug": "workday",
+   "unit": "workday",
+   "name": "Workday",
+   "category": "human resources",
+   "logo": "https://logos.composio.dev/api/workday",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 588,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "System"
+   ]
+  },
+  {
+   "rank": 97,
+   "slug": "netsuite",
+   "unit": "netsuite",
+   "name": "Netsuite",
+   "category": "accounting",
+   "logo": "https://logos.composio.dev/api/netsuite",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 86,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "rest_webservices",
+    "restlets"
+   ]
+  },
+  {
+   "rank": 98,
+   "slug": "snowflake",
+   "unit": "snowflake",
+   "name": "Snowflake",
+   "category": "databases",
+   "logo": "https://logos.composio.dev/api/snowflake",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": false,
+   "toolCount": 17,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "refresh_token"
+   ]
+  },
+  {
+   "rank": 99,
+   "slug": "databricks",
+   "unit": "databricks",
+   "name": "Databricks",
+   "category": "developer tools",
+   "logo": "https://logos.composio.dev/api/databricks",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2",
+    "API_KEY"
+   ],
+   "managed": false,
+   "toolCount": 427,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "all-apis",
+    "openid",
+    "email",
+    "profile",
+    "offline_access"
+   ]
+  },
+  {
+   "rank": 100,
+   "slug": "googleads",
+   "unit": "google-ads",
+   "name": "Google Ads",
+   "category": "ads & conversion",
+   "logo": "https://logos.composio.dev/api/googleads",
+   "inComposio": true,
+   "authSchemes": [
+    "OAUTH2"
+   ],
+   "managed": true,
+   "toolCount": 39,
+   "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add",
+   "defaultScopes": [
+    "https://www.googleapis.com/auth/adwords"
+   ]
+  }
+ ]
+}

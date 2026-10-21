@@ -1,0 +1,769 @@
+{
+ "outcome": "oauth_app",
+ "outcomeNote": null,
+ "name": "HubSpot",
+ "vendorDomain": "hubspot.com",
+ "covers": [
+  "hubspot"
+ ],
+ "summary": "Apps are built with the HubSpot CLI; unlisted apps reach up to 25 installs, and listing an AI connector requires user-level permissions.",
+ "capabilities": [
+  {
+   "id": "read_contacts",
+   "label": "Read CRM contacts",
+   "scopes": [
+    {
+     "name": "oauth",
+     "tier": "basic",
+     "label": "Base OAuth scope"
+    },
+    {
+     "name": "crm.objects.contacts.read",
+     "tier": "basic",
+     "label": "Read contacts"
+    }
+   ],
+   "alternative": null
+  },
+  {
+   "id": "write_contacts",
+   "label": "Create and update CRM contacts",
+   "scopes": [
+    {
+     "name": "oauth",
+     "tier": "basic",
+     "label": "Base OAuth scope"
+    },
+    {
+     "name": "crm.objects.contacts.write",
+     "tier": "basic",
+     "label": "Write contacts"
+    }
+   ],
+   "alternative": "Request only crm.objects.contacts.read if the agent never edits records"
+  },
+  {
+   "id": "other_crm_objects",
+   "label": "Work with deals, companies and tickets",
+   "scopes": [],
+   "alternative": null
+  }
+ ],
+ "defaultCapabilities": [
+  "read_contacts",
+  "write_contacts"
+ ],
+ "paths": [
+  {
+   "id": "team",
+   "label": "Own account or test account",
+   "audiences": [
+    "team"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "none",
+   "drivenBy": "Create the app, register the Composio redirect URI, add scopes, install as Super Admin in your own or a test account.",
+   "effort": "~1–2 hours",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "HubSpot's docs list no fee for building or listing an app.",
+   "costEvidence": [],
+   "customerAdmin": "none",
+   "next": "Create the HubSpot app and set the redirect URI to https://backend.composio.dev/api/v1/auth-apps/add",
+   "untilApproved": [
+    {
+     "text": "Composio's managed HubSpot app can be used instead of your own app while testing.",
+     "evidence": []
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Create app",
+     "Test install",
+     "",
+     ""
+    ],
+    "provider": [
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "customers_unlisted",
+   "label": "Unlisted distribution to customers",
+   "audiences": [
+    "customers"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "light",
+   "drivenBy": "Marketplace-distribution apps on Developer Platform 2025.2 work for up to 25 installs before listing; partners can instead distribute privately via OAuth to 10 (app partners) or 100 (Solution Partners) customers. Each installer must be a Super Admin.",
+   "effort": "~2–4 hours",
+   "waitOfficial": null,
+   "waitReported": null,
+   "waitEvidence": [],
+   "cost": "$0",
+   "costNote": "HubSpot's docs list no fee for building or listing an app.",
+   "costEvidence": [],
+   "customerAdmin": "always",
+   "next": "Choose marketplace distribution and track installs against the 25-install cap",
+   "untilApproved": [
+    {
+     "text": "Marketplace-distribution apps stop at 25 installs until listed.",
+     "evidence": [
+      "S4"
+     ]
+    },
+    {
+     "text": "Private OAuth distribution: up to 10 customers for app partners, 100 for Solutions Partners.",
+     "evidence": [
+      "S4"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Set distribution",
+     "Onboard customers",
+     "Watch install cap",
+     "Up to 25 installs"
+    ],
+    "provider": [
+     "",
+     "",
+     "",
+     ""
+    ]
+   }
+  },
+  {
+   "id": "public_marketplace",
+   "label": "HubSpot Marketplace listing",
+   "audiences": [
+    "public"
+   ],
+   "tiers": [
+    "basic"
+   ],
+   "review": "formal",
+   "drivenBy": "Need 3 active installs from unaffiliated production accounts with successful activity in the past 30 days, a listing, minimal scopes, and agreement to the Technology Partner Program Agreement; manual review by the Ecosystem Quality team.",
+   "effort": "1–3 weeks",
+   "waitOfficial": "Initial review within 10 business days; up to 60 days after feedback",
+   "waitReported": null,
+   "waitEvidence": [
+    "S5"
+   ],
+   "cost": "$0",
+   "costNote": "HubSpot's docs list no fee for building or listing an app.",
+   "costEvidence": [],
+   "customerAdmin": "always",
+   "next": "Get 3 active customer installs, then submit the listing",
+   "untilApproved": [
+    {
+     "text": "Run on marketplace distribution with up to 25 installs.",
+     "evidence": [
+      "S4"
+     ]
+    },
+    {
+     "text": "Test, developer, sandbox and self-owned accounts do not count as active installs.",
+     "evidence": [
+      "S5",
+      "S7"
+     ]
+    }
+   ],
+   "lanes": {
+    "you": [
+     "Draft listing",
+     "Get 3 installs",
+     "Answer review",
+     "Publish"
+    ],
+    "provider": [
+     "",
+     "",
+     "Up to 10 BD",
+     "Listed"
+    ]
+   }
+  }
+ ],
+ "prereqs": [
+  {
+   "text": "Have Super Admin rights on a HubSpot account to install and test the app, either an existing account or a test account.",
+   "why": "HubSpot requires a Super Admin to install an app in an account.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Prepare a server-side store for the client secret.",
+   "why": "The token exchange and refresh send client_secret in the request body.",
+   "owner": "you",
+   "paths": null
+  },
+  {
+   "text": "Confirm your HubSpot partner status, app partner or Solution Partner, before choosing private distribution.",
+   "why": "Private OAuth distribution is limited to 10 customers for app partners and 100 for Solution Partners.",
+   "owner": "you",
+   "paths": [
+    "customers_unlisted"
+   ]
+  },
+  {
+   "text": "Line up at least 3 real customer HubSpot production accounts, not affiliated with your organization, that will install and use the app.",
+   "why": "A first Marketplace submission needs 3 active installs with successful activity in the past 30 days.",
+   "owner": "you",
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "text": "Read and be ready to agree to the HubSpot Technology Partner Program Agreement.",
+   "why": "It is a Marketplace listing requirement.",
+   "owner": "you",
+   "paths": [
+    "public_marketplace"
+   ]
+  }
+ ],
+ "steps": [
+  {
+   "id": "create-app",
+   "phase": "today",
+   "title": "Create the app with the HubSpot CLI",
+   "owner": "agent_drafts",
+   "time": "",
+   "detail": "Run hs project create; set distribution, auth, scopes and redirectUrls (with the Composio redirect URI) in src/app/app-hsmeta.json, then hs project upload. You create the personal access key; an agent can run the rest. Legacy public apps can no longer be created.",
+   "values": [
+    {
+     "label": "Redirect URI to list in redirectUrls",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    }
+   ],
+   "evidence": [
+    "V8",
+    "V4"
+   ],
+   "paths": null
+  },
+  {
+   "id": "choose-scopes",
+   "phase": "today",
+   "title": "Select only the scopes the agent needs",
+   "owner": "you",
+   "time": "",
+   "detail": "Use the oauth scope plus the contact scopes for the capabilities you need. Separate scopes with URL-encoded spaces (%20). Look up scope names for deals, companies and tickets in HubSpot's scope list. Marketplace reviewers reject apps that request more scopes than they need.",
+   "values": [
+    {
+     "label": "Read contacts",
+     "text": "oauth crm.objects.contacts.read"
+    },
+    {
+     "label": "Read and write contacts",
+     "text": "oauth crm.objects.contacts.read crm.objects.contacts.write"
+    },
+    {
+     "label": "Deals, companies, tickets",
+     "text": ""
+    }
+   ],
+   "evidence": [
+    "S2",
+    "S5"
+   ],
+   "paths": null
+  },
+  {
+   "id": "composio-auth-config",
+   "phase": "today",
+   "title": "Create the Composio auth config with your HubSpot credentials",
+   "owner": "agent",
+   "time": "",
+   "detail": "Create an auth config for the hubspot toolkit using your own OAuth app. Enter the client ID, the client secret and the chosen scopes. Composio exchanges codes at HubSpot's token endpoint with the client secret.",
+   "values": [
+    {
+     "label": "Toolkit",
+     "text": "hubspot"
+    },
+    {
+     "label": "Redirect URI",
+     "text": "https://backend.composio.dev/api/v1/auth-apps/add"
+    },
+    {
+     "label": "Token endpoint (discovery)",
+     "text": "https://api.hubapi.com/oauth/v1/token"
+    }
+   ],
+   "evidence": [
+    "S2",
+    "P1"
+   ],
+   "paths": null
+  },
+  {
+   "id": "test-connect",
+   "phase": "today",
+   "title": "Connect your own or a test HubSpot account",
+   "owner": "you",
+   "time": "",
+   "detail": "Start a connection through the new auth config and approve the scopes as a Super Admin. Then confirm the agent can read contacts. Access tokens last 30 minutes (expires_in 1800), so also check that the refresh works.",
+   "values": [],
+   "evidence": [
+    "S2"
+   ],
+   "paths": null
+  },
+  {
+   "id": "switch-config",
+   "phase": "today",
+   "title": "Switch the agent to the new auth config",
+   "owner": "agent",
+   "time": "",
+   "detail": "Point new user connections to your auth config instead of the Composio managed app. Existing connections made through the managed app will need to be reconnected.",
+   "values": [],
+   "evidence": [],
+   "paths": null
+  },
+  {
+   "id": "set-distribution",
+   "phase": "week",
+   "title": "Choose private or marketplace distribution",
+   "owner": "you",
+   "time": "",
+   "detail": "Private OAuth distribution allows 10 customers for app partners or 100 for Solution Partners. Marketplace distribution on Developer Platform 2025.2 is capped at 25 installs until the app is listed. An unofficial copy of the announcement says you can switch from private to marketplace distribution later without interrupting existing installs.",
+   "values": [],
+   "evidence": [
+    "S4"
+   ],
+   "paths": [
+    "customers_unlisted",
+    "public_marketplace"
+   ]
+  },
+  {
+   "id": "customer-install",
+   "phase": "week",
+   "title": "Have customers install the app",
+   "owner": "customer_admin",
+   "time": "",
+   "detail": "Account-level apps must be installed by a Super Admin in each customer account. User-level apps (isUserLevel) can be installed by each user who has the scopes.",
+   "values": [],
+   "evidence": [
+    "V1"
+   ],
+   "paths": [
+    "customers_unlisted",
+    "public_marketplace"
+   ]
+  },
+  {
+   "id": "active-installs",
+   "phase": "week",
+   "title": "Reach 3 active customer installs",
+   "owner": "customer_admin",
+   "time": "30 days of activity",
+   "detail": "Each install must be a real customer production account unaffiliated with you and show successful (2xx) API calls, webhooks or extension renders in the past 30 days. Test, developer, sandbox and self-owned accounts do not count.",
+   "values": [],
+   "evidence": [
+    "S5",
+    "S6",
+    "S7"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "id": "draft-listing",
+   "phase": "week",
+   "title": "Draft the Marketplace listing",
+   "owner": "agent_drafts",
+   "time": "",
+   "detail": "Draft the listing text and a justification for each scope. State the industries you serve, because apps that exclusively serve HubSpot's restricted industries are rejected.",
+   "values": [],
+   "evidence": [
+    "S5"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "id": "submit-listing",
+   "phase": "week",
+   "title": "Agree to the partner agreement and submit the listing",
+   "owner": "you",
+   "time": "",
+   "detail": "Accept the Technology Partner Program Agreement, then submit. The submit option is blocked if you have fewer than 3 active installs.",
+   "values": [],
+   "evidence": [
+    "S5",
+    "S6"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "id": "review-wait",
+   "phase": "wait",
+   "title": "Wait for the Ecosystem Quality review",
+   "owner": "provider",
+   "time": "Initial review within 10 business days",
+   "detail": "HubSpot reviews listing submissions manually and rejects those that miss the criteria.",
+   "values": [],
+   "evidence": [
+    "S5"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "id": "install-experience",
+   "phase": "launch",
+   "title": "Pick an install experience when editing the listing",
+   "owner": "you",
+   "time": "",
+   "detail": "Listed apps that change their listing after October 26, 2026 must choose one of these: OAuth with or without partner sign-in, login via a partner site, or no install button. Install button URLs come from the redirect URLs in the app settings. Conditional scopes need a separate secondary install flow.",
+   "values": [
+    {
+     "label": "Deadline",
+     "text": "2026-10-26"
+    }
+   ],
+   "evidence": [
+    "S3"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  }
+ ],
+ "gotchas": [
+  {
+   "text": "Listing an AI agent that picks CRM actions needs a user-level app; account-level apps cannot be migrated to user-level, so plan this before you build.",
+   "evidence": [
+    "V3",
+    "V1"
+   ],
+   "paths": null
+  },
+  {
+   "text": "The v1 OAuth endpoints are deprecated and work until 16 Feb 2027. Use POST /oauth/2026-03/token; new listings must already use it.",
+   "evidence": [
+    "V2",
+    "V5"
+   ],
+   "paths": null
+  },
+  {
+   "text": "From 2 Nov 2026, new listings must be on developer platform 2025.2 or 2026.03.",
+   "evidence": [
+    "V5"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "text": "Access tokens last 30 minutes. Refresh tokens do not expire for now, and a refresh can return a new one: always store the latest.",
+   "evidence": [
+    "V7"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Test, developer, sandbox and team-created accounts do not count toward the 3 active installs needed to list.",
+   "evidence": [
+    "S5"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "text": "Rate limit: 110 requests per 10 seconds for each account that installs your app.",
+   "evidence": [
+    "V6"
+   ],
+   "paths": null
+  },
+  {
+   "text": "HubSpot's MCP server accepts pre-registered clients only, so it offers no dynamic client registration. Use a registered OAuth app.",
+   "evidence": [
+    "P3"
+   ],
+   "paths": null
+  },
+  {
+   "text": "Conditional scopes are not included in the seamless Marketplace install URL and need a secondary install flow.",
+   "evidence": [
+    "S3"
+   ],
+   "paths": [
+    "public_marketplace"
+   ]
+  }
+ ],
+ "blockers": [
+  {
+   "see": "400 invalid_request: missing or unknown auth code from the token endpoint",
+   "cause": "The code exchange was sent without a valid authorization code, or with a code or client the server does not recognise.",
+   "fix": "Run the authorize step again and exchange the new code right away. Check that client_id, client_secret and redirect_uri match the app settings and the Composio auth config.",
+   "paths": null
+  },
+  {
+   "see": "User cannot install the app in their HubSpot account",
+   "cause": "Only Super Admins can install apps.",
+   "fix": "Have a Super Admin of that account complete the connection.",
+   "paths": null
+  },
+  {
+   "see": "Marketplace submit button disabled",
+   "cause": "Fewer than 3 active installs from unaffiliated production accounts with successful activity in the past 30 days.",
+   "fix": "Get real customer accounts installed and making successful calls, then resubmit.",
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "see": "New installs fail after 25 accounts",
+   "cause": "Install cap for unlisted marketplace-distribution apps.",
+   "fix": "Get the app listed on the Marketplace, or use private distribution within your partner limit.",
+   "paths": [
+    "customers_unlisted",
+    "public_marketplace"
+   ]
+  },
+  {
+   "see": "Listing rejected for scopes",
+   "cause": "The app requests scopes it does not need.",
+   "fix": "Remove unused scopes and resubmit.",
+   "paths": [
+    "public_marketplace"
+   ]
+  },
+  {
+   "see": "Listing rejected for industry",
+   "cause": "The app exclusively serves customers in HubSpot's restricted industries.",
+   "fix": "Not fixable within the listing rules. Distribute privately instead.",
+   "paths": [
+    "public_marketplace"
+   ]
+  }
+ ],
+ "aiPolicy": {
+  "status": "restrictions",
+  "summary": "To list an app where AI chooses CRM actions, HubSpot requires user-level permissions: standard OAuth tokens are not sufficient. Build it as a user-level app or with HubSpot's MCP auth app; unlisted distribution stays within the install caps.",
+  "evidence": [
+   "V3",
+   "V1"
+  ]
+ },
+ "customerAdminNote": "The person installing the app in each HubSpot account must be a Super Admin.",
+ "unknowns": [
+  "Developer console URL and account type or plan needed to create an app",
+  "Redirect URI rules (https, localhost, wildcards, maximum count)",
+  "PKCE support in docs; live probe P1 advertises S256 but docs do not mention it",
+  "Token endpoint version: docs show refresh at /oauth/v3/token while discovery (P1) lists /oauth/v1/token",
+  "Client secret rotation",
+  "Full scope list and any sensitive or restricted classification; tiers above are assumed basic",
+  "Whether app creation can be automated via CLI, manifest or API",
+  "Listing requirements such as privacy policy, demo video, test account, business or domain verification",
+  "Developer-reported review times and rejection reasons",
+  "Rate limits for unlisted apps",
+  "Fees or paid plans",
+  "HubSpot API terms on AI and data retention",
+  "Undated community claim that static-auth private apps are limited to one portal and private apps can switch to marketplace distribution without interruption"
+ ],
+ "slug": "hubspot",
+ "kind": "verified",
+ "checkedAt": "2026-10-21",
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://developers.hubspot.com/docs/apps/legacy-apps/authentication/oauth-quickstart-guide",
+   "title": "Working with OAuth",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S2",
+   "url": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/authentication/oauth/oauth-quickstart-guide",
+   "title": "OAuth Quickstart Guide - HubSpot docs",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-18"
+  },
+  {
+   "id": "S3",
+   "url": "https://developers.hubspot.com/docs/apps/developer-platform/list-apps/understand-app-install-flow",
+   "title": "Understand app installation flow with the option for partner sign in - HubSpot docs",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-19"
+  },
+  {
+   "id": "S4",
+   "url": "https://developers.hubspot.com/changelog/new-marketplace-distribution-app-install-limits",
+   "title": "New Marketplace Distribution App Install Limits",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S5",
+   "url": "https://developers.hubspot.com/docs/apps/developer-platform/list-apps/listing-your-app/app-marketplace-listing-requirements",
+   "title": "App listing requirements in the HubSpot Marketplace - HubSpot docs",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S6",
+   "url": "https://community.hubspot.com/t/changes-to-marketplace-submission-flow-how-active-installs-are-determined/156427",
+   "title": "Changes to Marketplace submission flow: how active installs are determined - Developer Announcements - HubSpot Community",
+   "domain": "community.hubspot.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "S7",
+   "url": "https://community.hubspot.com/t/understand-active-install-criteria-for-marketplace-listing/154032",
+   "title": "Why is the app submit button disabled with 3 installs in HubSpot? - Third-Party Apps - HubSpot Community",
+   "domain": "community.hubspot.com",
+   "class": "third_party",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P1",
+   "url": "https://app.hubspot.com/.well-known/oauth-authorization-server",
+   "title": "GET discovery document: 200: token endpoint https://api.hubapi.com/oauth/v1/token, PKCE S256",
+   "domain": "app.hubspot.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P2",
+   "url": "https://api.hubapi.com/oauth/v1/token",
+   "title": "POST token request with an unknown client: 400: invalid_request: missing or unknown auth code",
+   "domain": "api.hubapi.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "P3",
+   "url": "https://mcp.hubspot.com/.well-known/oauth-authorization-server",
+   "title": "GET MCP server auth metadata: 200: pre-registered clients only",
+   "domain": "mcp.hubspot.com",
+   "class": "probed",
+   "retrievedAt": "2026-10-20"
+  },
+  {
+   "id": "V1",
+   "url": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/authentication/user-level-apps",
+   "title": "User-level apps",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V2",
+   "url": "https://developers.hubspot.com/changelog/v1-oauth-api-deprecation",
+   "title": "v1 OAuth API deprecation (changelog)",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V3",
+   "url": "https://developers.hubspot.com/docs/apps/developer-platform/list-apps/listing-your-app/marketplace-restrictions",
+   "title": "Marketplace restrictions",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V4",
+   "url": "https://developers.hubspot.com/changelog/legacy-public-app-creation-sunset",
+   "title": "Legacy public app creation sunset (changelog)",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V5",
+   "url": "https://developers.hubspot.com/changelog/app-listing-and-app-certification-requirement-updates-for-may-2026",
+   "title": "Listing and certification updates, May 2026",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V6",
+   "url": "https://developers.hubspot.com/docs/developer-tooling/platform/usage-guidelines",
+   "title": "API usage guidelines",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V7",
+   "url": "https://developers.hubspot.com/blog/oauth-token-management-hubspot-integrations",
+   "title": "OAuth token management (HubSpot blog)",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  },
+  {
+   "id": "V8",
+   "url": "https://developers.hubspot.com/docs/apps/developer-platform/build-apps/create-an-app",
+   "title": "Create an app",
+   "domain": "developers.hubspot.com",
+   "class": "official",
+   "retrievedAt": "2026-10-21"
+  }
+ ],
+ "probes": [
+  {
+   "target": "app.hubspot.com/.well-known/oauth-authorization-server",
+   "request": "GET discovery document",
+   "result": "200: token endpoint https://api.hubapi.com/oauth/v1/token, PKCE S256",
+   "at": "2026-10-20T19:53:25.015Z"
+  },
+  {
+   "target": "api.hubapi.com/oauth/v1/token",
+   "request": "POST token request with an unknown client",
+   "result": "400: invalid_request: missing or unknown auth code",
+   "at": "2026-10-20T19:53:25.015Z"
+  },
+  {
+   "target": "mcp.hubspot.com/.well-known/oauth-authorization-server",
+   "request": "GET MCP server auth metadata",
+   "result": "200: pre-registered clients only",
+   "at": "2026-10-20T19:53:25.015Z"
+  }
+ ],
+ "composio": {
+  "toolkits": [
+   {
+    "slug": "hubspot",
+    "name": "HubSpot",
+    "managed": true
+   }
+  ],
+  "defaultRedirect": "https://backend.composio.dev/api/v1/auth-apps/add"
+ },
+ "run": null
+}
